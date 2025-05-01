@@ -9,6 +9,6 @@ class ArtikelController extends Controller
 {
     public function artikel()
     {
-        return view('artikel.main-artikel');
+        return view('puskesmas.artikel.main-artikel');
     }
 }

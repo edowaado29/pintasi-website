@@ -22,7 +22,7 @@
 
 <body class="g-sidenav-show   bg-gray-100">
 
-    @include('layouts.sidebar')
+    @include('puskesmas.layouts.sidebar')
 
     @yield('content')
   <!--   Core JS Files   -->

@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class KaderController extends Controller
+class IbuController extends Controller
 {
-    public function kader()
+    public function ibu()
     {
-        return view('puskesmas.kader.main-kader');
+        return view('puskesmas.ibu.main-ibu');
     }
 }

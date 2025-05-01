@@ -9,6 +9,6 @@ class JadwalController extends Controller
 {
     public function jadwal()
     {
-        return view('jadwal.main-jadwal');
+        return view('puskesmas.jadwal.main-jadwal');
     }
 }

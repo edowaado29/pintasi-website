@@ -9,6 +9,6 @@ class BayiController extends Controller
 {
     public function bayi()
     {
-        return view('bayi.main-bayi');
+        return view('puskesmas.bayi.main-bayi');
     }
 }
