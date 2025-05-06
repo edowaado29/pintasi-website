@@ -45,7 +45,7 @@ class PemeriksaanController extends Controller
         $karbo = $get_nutrisi['karbo'];
         $serat = $get_nutrisi['serat'];
         
-        Pemeriksaan::create([
+        $pemeriksaan = Pemeriksaan::create([
             'id_bayi' => $id_bayi,
             'bb' => $bb,
             'tb' => $tb,
@@ -60,7 +60,7 @@ class PemeriksaanController extends Controller
             'serat' => $serat
         ]);
 
-        return redirect()->route('pemeriksaan')->with(['message' => 'Pemeriksaan berhasil ditambahkan']);
+        return redirect()->route('detail_pemeriksaan', $pemeriksaan->id)->with(['message' => 'Pemeriksaan berhasil ditambahkan']);
     }
 
     public function detail_pemeriksaan($id): View
@@ -108,7 +108,7 @@ class PemeriksaanController extends Controller
             'serat' => $serat
         ]);
 
-        return redirect()->route('pemeriksaan')->with(['message' => 'Pemeriksaan berhasil diedit']);
+        return redirect()->route('detail_pemeriksaan', $id)->with(['message' => 'Pemeriksaan berhasil diedit']);
     }
     
     public function delete_pemeriksaan($id): RedirectResponse

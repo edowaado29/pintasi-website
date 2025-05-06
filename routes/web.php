@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IbuController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\KaderController;
+use App\Http\Controllers\MotorikController;
 use App\Http\Controllers\PemeriksaanController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,8 @@ Route::get('/ibu', [IbuController::class, 'ibu']);
 Route::get('/kader', [KaderController::class, 'kader']);
 
 Route::get('/bayi', [BayiController::class, 'bayi']);
+
+Route::get('/motorik', [MotorikController::class, 'motorik']);
 
 Route::get('/pemeriksaan', [PemeriksaanController::class, 'pemeriksaan'])->name('pemeriksaan');
 Route::get('/tambah_pemeriksaan/{id_bayi}', [PemeriksaanController::class, 'tambah_pemeriksaan'])->name('tambah_pemeriksaan');
