@@ -15,6 +15,68 @@
       </div>
     </nav>
     <!-- End Navbar -->
+    <div class="container-fluid py-4 px-5">
+      <div class="card">
+        <div class="card-header pb-0">
+          <h6>TABEL DATA ARTIKEL</h6>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 px-4">
+              <a href="" class="btn btn-sm bg-gradient-primary">Tambah Data</a>
+            </div>
+            <!-- <div class="col-lg-6 col-md-6 col-sm-12 px-4">
+            </div> -->
+          </div>
+          <div class="card-body px-0 pt-0 pb-2 mt-3">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-success text-xxs font-weight-bolder opacity-7">No</th>
+                    <th class="text-uppercase text-success text-xxs font-weight-bolder opacity-7 ps-2">Nama</th>
+                    <th class="text-uppercase text-success text-xxs font-weight-bolder opacity-7 text-center">Jenis Kelamin</th>
+                    <th class="text-uppercase text-success text-xxs font-weight-bolder opacity-7 text-center">Tanggal Lahir</th>
+                    <th class="text-uppercase text-success text-xxs font-weight-bolder opacity-7">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @forelse ($bayis as $bayi)
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <p class="text-x font-weight-bold mb-0">{{ $bayi->nama }}</p>
+                    </td>
+                    <td>
+                      <p class="text-x font-weight-bold mb-0 text-center">{{ $bayi->jk }}</p>
+                    </td>
+                    <td>
+                      <p class="text-x font-weight-bold mb-0 text-center">{{ $bayi->tgl_lahir }}</p>
+                    </td>
+                    <td class="align-middle text-sm">
+                      <a href="" class="btn btn-sm bg-gradient-primary">Detail</a>
+                      <a href="" class="btn btn-sm bg-gradient-success">Edit</a>
+                      <a href="" class="btn btn-sm bg-gradient-danger">Hapus</a>
+                    </td>
+                  </tr>
+                  @empty
+                  <tr>
+                    <td colspan="3" class="text-center">Data bayi belum Tersedia.</td>
+                  </tr>
+                  @endforelse
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
 @endsection

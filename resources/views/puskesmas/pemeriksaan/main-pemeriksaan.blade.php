@@ -42,32 +42,42 @@
                   </tr>
                 </thead>
                 <tbody>
+                  @forelse($pemeriksaans as $pemeriksaan)
                   <tr>
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">1</h6>
+                          <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
                         </div>
                       </div>
                     </td>
                     <td>
-                      <p class="text-x font-weight-bold mb-0">Bobi</p>
+                      <p class="text-x font-weight-bold mb-0">{{ $pemeriksaan->bayi->nama }}</p>
                     </td>
                     <td>
-                      <p class="text-x font-weight-bold mb-0 text-center">12</p>
+                      <p class="text-x font-weight-bold mb-0 text-center">{{ $pemeriksaan->bb }}</p>
                     </td>
                     <td>
-                      <p class="text-x font-weight-bold mb-0 text-center">95</p>
+                      <p class="text-x font-weight-bold mb-0 text-center">{{ $pemeriksaan->tb }}</p>
                     </td>
                     <td>
-                      <p class="text-x font-weight-bold mb-0 text-center">01-05-2025</p>
+                      <p class="text-x font-weight-bold mb-0 text-center">{{ $pemeriksaan->tgl_periksa }}</p>
                     </td>
                     <td class="align-middle text-sm">
-                      <a href="/detail_pemeriksaan" class="btn btn-sm bg-gradient-primary">Detail</a>
-                      <a href="/edit_pemeriksaan" class="btn btn-sm bg-gradient-success">Edit</a>
-                      <a href="" class="btn btn-sm bg-gradient-danger">Hapus</a>
+                      <form action="{{ route('delete_pemeriksaan', $pemeriksaan->id) }}" method="post">
+                        <a href="{{ route('detail_pemeriksaan', $pemeriksaan->id) }}" class="btn btn-sm bg-gradient-primary">Detail</a>
+                        <a href="{{ route('edit_pemeriksaan', $pemeriksaan->id) }}" class="btn btn-sm bg-gradient-success">Edit</a>
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm bg-gradient-danger">Hapus</button>
+                      </form>
                     </td>
                   </tr>
+                  @empty
+                  <tr>
+                    <td colspan="3" class="text-center">Data pemeriksaan belum Tersedia.</td>
+                  </tr>
+                  @endforelse
                 </tbody>
               </table>
             </div>
@@ -77,7 +87,7 @@
     </div>
 
     <!-- Modal -->
-    <form action="/tambah_pemeriksaan">
+    <form action="" id="formPilihBayi">
       <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -87,7 +97,12 @@
             </div>
             <div class="modal-body">
               <div class="my-1">
-                <input type="text" class="form-control" id="nama">
+                <select class="form-control" id="id_bayi" name="id_bayi">
+                  <option value="">-- Pilih Bayi --</option>
+                  @foreach($bayis as $bayi)
+                    <option value="{{ $bayi->id }}">{{ $bayi->nama }}</option>
+                  @endforeach
+                </select>
               </div>
             </div>
             <div class="modal-footer">
@@ -99,5 +114,18 @@
       </div>
     </form>
   </main>
+
+  <script>
+    document.getElementById('formPilihBayi').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let idBayi = document.getElementById('id_bayi').value;
+
+      if (idBayi) {
+          window.location.href = "{{ url('/tambah_pemeriksaan') }}/" + idBayi;
+      } else {
+          alert('Silakan pilih bayi terlebih dahulu.');
+      }
+    });
+  </script>
 
 @endsection

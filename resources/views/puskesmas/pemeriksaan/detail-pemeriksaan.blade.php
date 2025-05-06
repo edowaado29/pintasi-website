@@ -33,22 +33,32 @@
                                 <div class="row">
                                     <div class="col-4">Nama</div>
                                     <div class="col-1">:</div>
-                                    <div class="col-7">Bobi</div>
+                                    <div class="col-7">{{ $pemeriksaan->bayi->nama }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">Jenis Kelamin</div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-7">{{ $pemeriksaan->bayi->jk == 'L' ? 'Laki-laki' : 'Perempuan' }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">Usia</div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-7">{{ number_format($usia_bulan, 0) }} Bulan</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-4">Berat Badan</div>
                                     <div class="col-1">:</div>
-                                    <div class="col-7">12kg</div>
+                                    <div class="col-7">{{ $pemeriksaan->bb }}kg</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-4">Tinggi Badan</div>
                                     <div class="col-1">:</div>
-                                    <div class="col-7">85cm</div>
+                                    <div class="col-7">{{ $pemeriksaan->tb }}cm</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-4">Tanggal Periksa</div>
                                     <div class="col-1">:</div>
-                                    <div class="col-7">01-05-2025</div>
+                                    <div class="col-7">{{ $pemeriksaan->tgl_periksa }}</div>
                                 </div>
                             </div>
                         </div>
@@ -62,32 +72,32 @@
                                 <div class="row">
                                     <div class="col-5">Status Gizi</div>
                                     <div class="col-1">:</div>
-                                    <div class="col-6">Gizi Baik</div>
+                                    <div class="col-6">{{ $pemeriksaan->status_gizi }}</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-5">Kalori Harian</div>
                                     <div class="col-1">:</div>
-                                    <div class="col-6">1350kal</div>
+                                    <div class="col-6">{{ $pemeriksaan->kalori }}kal</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-5">Protein Harian</div>
                                     <div class="col-1">:</div>
-                                    <div class="col-6">20g</div>
+                                    <div class="col-6">{{ $pemeriksaan->protein }}g</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-5">Lemak Harian</div>
                                     <div class="col-1">:</div>
-                                    <div class="col-6">45g</div>
+                                    <div class="col-6">{{ $pemeriksaan->lemak }}g</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-5">Karbohidrat Harian</div>
                                     <div class="col-1">:</div>
-                                    <div class="col-6">215g</div>
+                                    <div class="col-6">{{ $pemeriksaan->karbo }}g</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-5">Serat Harian</div>
                                     <div class="col-1">:</div>
-                                    <div class="col-6">19g</div>
+                                    <div class="col-6">{{ $pemeriksaan->serat }}g</div>
                                 </div>
                             </div>
                         </div>

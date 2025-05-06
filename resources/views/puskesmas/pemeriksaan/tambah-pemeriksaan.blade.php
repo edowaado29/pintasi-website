@@ -23,22 +23,30 @@
         <div class="container">
           <div class="card-body px-0 pt-0 pb-2 mt-3">
             <div class="container">
-                <form action="">
+                <form action="{{ route('store_pemeriksaan') }}" method="post">
+                    @csrf
+                    <input type="hidden" name="id_bayi" value="{{ $bayi->id }}">
+                    <input type="hidden" name='jk' value="{{ $bayi->jk }}">
+                    <input type="hidden" name='usia_bulan' value="{{ number_format($usia_bulan, 0) }}">
                     <div class="mb-3">
                       <label for="nama" class="form-label text-secondary fs-6">Nama <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="nama">
+                      <input type="text" class="form-control" id="nama" value="{{ $bayi->nama }}" disabled>
                     </div>
                     <div class="mb-3">
                       <label for="bb" class="form-label text-secondary fs-6">Berat Badan(kg) <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="bb">
+                      <input type="text" class="form-control" id="bb" name="bb">
                     </div>
                     <div class="mb-3">
                       <label for="tb" class="form-label text-secondary fs-6">Tinggi Badan(cm) <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="tb">
+                      <input type="text" class="form-control" id="tb" name="tb">
+                    </div>
+                    <div class="mb-3">
+                      <label for="lk" class="form-label text-secondary fs-6">Lingkar Kepala(cm)</label>
+                      <input type="text" class="form-control" id="lk" name="lk">
                     </div>
                     <div class="row mt-4">
                       <div class="col-6">
-                        <a href="/pemeriksaan" class="btn btn-sm bg-gradient-danger w-100">Kembali</a>
+                        <a href="{{ route('pemeriksaan') }}" class="btn btn-sm bg-gradient-danger w-100">Kembali</a>
                       </div>
                       <div class="col-6">
                         <button type="submit" class="btn btn-sm bg-gradient-primary w-100">Tambah</button>
