@@ -1,20 +1,139 @@
 @extends('puskesmas.layouts.template')
 
 @section('content')
-<main class="main-content position-relative border-radius-lg ">
-    <!-- Navbar -->
-    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
-      <div class="container-fluid py-1 px-3">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
-            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Artikel</li>
-          </ol>
-          <h6 class="font-weight-bolder text-white mb-0">Artikel</h6>
+    <main class="main-content position-relative border-radius-lg ">
+        <!-- Navbar -->
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur"
+            data-scroll="false">
+            <div class="container-fluid py-1 px-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
+                        <li class="breadcrumb-item text-sm text-white active" aria-current="page">Artikel</li>
+                    </ol>
+                    <h6 class="font-weight-bolder text-white mb-0">Artikel</h6>
+                </nav>
+            </div>
         </nav>
-      </div>
-    </nav>
-    <!-- End Navbar -->
-  </main>
+        <!-- End Navbar -->
+        <div class="container-fluid py-4 px-5">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mb-4">
+                        <div class="card-header pb-0">
+                            <h6>DATA ARTIKEL</h6>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12 px-4">
+                                    <a href="/tambah_artikel" class="btn btn-sm bg-gradient-primary">Tambah Artikel</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body px-0 pt-0 pb-2 mt-3">
+                            <div class="table-responsive p-0">
+                                <table class="table align-items-center mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th
+                                                class="text-uppercase text-success text-xxs font-weight-bolder opacity-7 text-center">
+                                                No</th>
+                                            <th
+                                                class="text-uppercase text-success text-xxs font-weight-bolder opacity-7 ps-2 text-center">
+                                                Judul</th>
+                                            <th
+                                                class="text-uppercase text-success text-xxs font-weight-bolder opacity-7 ps-2 text-center">
+                                                Tanggal Upload</th>
+                                            <th
+                                                class="text-uppercase text-success text-xxs font-weight-bolder opacity-7 text-center">
+                                                Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($artikels as $artkl)
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex px-2 py-1">
+                                                        <div class="d-flex flex-column justify-content-center">
+                                                            <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    {{ $artkl->judul }}
+                                                </td>
+                                                <td>
+                                                    {{ $artkl->updated_at->translatedFormat('d F Y') }}
+                                                </td>
+                                                <td class="align-middle text-sm">
+                                                    <form action="/hapus_artikel" method="POST" id="delete-form">
+                                                        <a href="{{ route('detail_artikel', $artkl->id) }}"
+                                                            class="btn btn-sm bg-gradient-primary">Detail</a>
+                                                        <a href="{{ route('edit_artikel', $artkl->id) }}"
+                                                            class="btn btn-sm bg-gradient-success">Edit</a>
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="button" class="btn btn-sm btn-danger"
+                                                            onclick="confirmDelete('{{ $artkl->id }}')">HAPUS</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="4" class="text-center">Artikel belum Tersedia.</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('assets/js/search.js') }}"></script>
+    <script>
+        const baseUrl = "{{ url('/hapus_artikel') }}";
 
+        function confirmDelete(id) {
+            Swal.fire({
+                title: "Apakah Anda Yakin?",
+                text: "Ingin Menghapus Data Ini",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya",
+                cancelButtonText: "Tidak"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const deleteForm = document.getElementById("delete-form");
+                    deleteForm.action = `${baseUrl}/${id}`;
+                    deleteForm.submit();
+                }
+            });
+        }
+    </script>
+
+    @if (session('message'))
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-right',
+                iconColor: 'green',
+                customClass: {
+                    popup: 'colored-toast',
+                },
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+            })
+            Toast.fire({
+                icon: 'success',
+                title: "{{ session('message') }}"
+            });
+        </script>
+    @endif
 @endsection

@@ -28254,4 +28254,9 @@ pre[class*=language-] {
   }
 }
 
+.table td, .table th {
+  vertical-align: middle !important;
+  text-align: center !important;
+}
+
 /*# sourceMappingURL=dashboard-free.css.map */
