@@ -57,7 +57,7 @@
                         <div style="margin-top: 5vh;">
                             <h2 style="font-size: 1.25rem; font-weight: 400; color: grey;">{{ $bayis->nik_bayi }}</h2>
                             <h3 style="font-size: 2.25rem;">{{ $bayis->nama_bayi }}</h3>
-                            <h4 style="color: #73A578; font-weight: 400;">{{ $bayis->nama_ibu }}</h4>
+                            <h4 style="color: #73A578; font-weight: 400;">{{ $bayis->ibu->nama_ibu }}</h4>
                         </div>
                     </div>
                 </div>
@@ -71,6 +71,8 @@
                         <h5 style="font-weight: 500; font-size: 1.15rem;">Nama Ayah</h5>
                     </div>
                     <div class="col-1">
+                        <h5 style="font-weight: 500; font-size: 1.15rem;">:</h5>
+                        <h5 style="font-weight: 500; font-size: 1.15rem;">:</h5>
                         <h5 style="font-weight: 500; font-size: 1.15rem;">:</h5>
                         <h5 style="font-weight: 500; font-size: 1.15rem;">:</h5>
                         <h5 style="font-weight: 500; font-size: 1.15rem;">:</h5>

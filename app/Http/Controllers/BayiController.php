@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bayi;
-use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -16,17 +15,17 @@ class BayiController extends Controller
 {
     public function bayi(): View
     {
-        $bayis = Bayi::with('ibu')->latest()->paginate(10);
+        $bayis = Bayi::latest()->paginate(10);
         return view('puskesmas.bayi.main-bayi', compact('bayis'));
     }
 
-    public function show(string $id): View
+    public function detail_bayi(string $id): View
     {
         $bayis = Bayi::findOrFail($id);
-        return view('bayis.show', compact('bayi'));
+        return view('puskesmas.bayi.detail-bayi', compact('bayis'));
     }
 
-    public function destroy(string $id): RedirectResponse
+    public function hapus_bayi(string $id): RedirectResponse
     {
         $bayis = Bayi::findOrFail($id);
 
@@ -35,7 +34,7 @@ class BayiController extends Controller
         }
 
         $bayis->delete();
-        return redirect()->route('bayis.index')->with(['message' => 'Artikel berhasil dihapus']);
+        return redirect()->route('bayi')->with(['message' => 'Bayi berhasil dihapus']);
     }
 
     public function trashed(): View

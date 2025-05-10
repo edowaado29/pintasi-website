@@ -2,26 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Pemeriksaan extends Model
 {
-    protected $fillable = [
-        'bayi_id',
-        'tanggal_pemeriksaan',
-        'berat_badan',
-        'tinggi_badan',
-        'lingkar_kepala',
-        'catatan',
-        'status_gizi',
-        'kalori',
-        'protein',
-        'lemak',
-        'karbohidrat',
-        'serat',
-    ];
+    use HasFactory;
 
-    public function bayi() {
-        return $this->belongsTo(Bayi::class, 'bayi_id');
+    protected $fillable = ['id_bayi', 'bb', 'tb', 'lk', 'imt', 'tgl_periksa', 'status_gizi', 'kalori', 'protein', 'lemak', 'karbo', 'serat'];
+
+    public function bayi()
+    {
+        return $this->belongsTo(Bayi::class, 'id_bayi');
     }
 }

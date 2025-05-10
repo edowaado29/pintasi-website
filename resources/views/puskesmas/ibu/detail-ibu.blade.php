@@ -43,7 +43,7 @@
         <div class="container-fluid py-4">
             <div class="card">
                 <div style="margin-left: 5vh;" class="py-3">
-                    <a href="{{ route('ibu') }}">
+                    <a href="/ibu">
                         <img src="{{ asset('assets/img/back-button.png') }}" style="width: 5vh; opacity: 50%;">
                     </a>
                 </div>
@@ -71,6 +71,8 @@
                         <h5 style="font-weight: 500; font-size: 1.15rem;">Alamat</h5>
                     </div>
                     <div class="col-1">
+                        <h5 style="font-weight: 500; font-size: 1.15rem;">:</h5>
+                        <h5 style="font-weight: 500; font-size: 1.15rem;">:</h5>
                         <h5 style="font-weight: 500; font-size: 1.15rem;">:</h5>
                         <h5 style="font-weight: 500; font-size: 1.15rem;">:</h5>
                         <h5 style="font-weight: 500; font-size: 1.15rem;">:</h5>

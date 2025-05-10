@@ -13,18 +13,18 @@ return new class extends Migration
     {
         Schema::create('pemeriksaans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('bayi_id')->constrained('bayis')->onDelete('cascade');
-            $table->date('tanggal_pemeriksaan');
-            $table->float('berat_badan');
-            $table->float('tinggi_badan');
-            $table->float('lingkar_kepala');
-            $table->text('catatan');
+            $table->foreignId('id_bayi')->constrained('bayis')->onDelete('cascade');
+            $table->float('bb');
+            $table->float('tb');
+            $table->float('lk');
+            $table->float('imt');
+            $table->date('tgl_periksa');
             $table->string('status_gizi');
-            $table->integer('kalori');
-            $table->integer('protein');
-            $table->integer('lemak');
-            $table->integer('karbohidrat');
-            $table->integer('serat');
+            $table->string('kalori');
+            $table->string('protein');
+            $table->string('lemak');
+            $table->string('karbo');
+            $table->string('serat');
             $table->timestamps();
         });
     }

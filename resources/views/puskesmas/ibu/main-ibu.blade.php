@@ -21,7 +21,7 @@
                 <div class="col-12">
                     <div class="card mb-4">
                         <div class="card-header pb-0">
-                            <h6>DATA IBU</h6>
+                            <h6>TABEL DATA IBU</h6>
                         </div>
                         <div class="container">
                             <div class="row">

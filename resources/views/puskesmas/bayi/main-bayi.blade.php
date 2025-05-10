@@ -21,7 +21,7 @@
                 <div class="col-12">
                     <div class="card mb-4">
                         <div class="card-header pb-0">
-                            <h6>DATA BAYI</h6>
+                            <h6>TABEL DATA BAYI</h6>
                         </div>
                         <div class="container">
                             <div class="row">
@@ -64,10 +64,10 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    {{ $by->nama }}
+                                                    {{ $by->nama_bayi }}
                                                 </td>
                                                 <td>
-                                                    {{ $by->ibu }}
+                                                    {{ $by->ibu->nama_ibu }}
                                                 </td>
                                                 <td>
                                                     {{ $by->catatan }}

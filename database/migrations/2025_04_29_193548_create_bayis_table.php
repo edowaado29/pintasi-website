@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('nama_bayi');
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
-            $table->enum('jenis_kelamin', ['Laki-Laki', 'Perempuan']);
+            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
             $table->string('nama_ayah')->nullable();
             $table->string('nama_ibu')->nullable();
             $table->string('foto_bayi')->nullable();

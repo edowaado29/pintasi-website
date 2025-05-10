@@ -14,9 +14,9 @@ class IbuController extends Controller
         return view('puskesmas.ibu.main-ibu', compact('ibus'));
     }
 
-    public function show(string $id)
+    public function detail_ibu(string $id)
     {
         $ibus = Ibu::findOrFail($id);
-        return view('puskesmas.ibu.show-ibu', compact('ibus'));
+        return view('puskesmas.ibu.detail-ibu', compact('ibus'));
     }
 }

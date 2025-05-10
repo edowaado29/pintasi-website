@@ -21,16 +21,13 @@
             <div class="col-12">
               <div class="card mb-4">
                 <div class="card-header pb-0">
-                  <h6>JADWAL POSYANDU</h6>
+                  <h6>TABEL JADWAL POSYANDU</h6>
                 </div>
                 <div class="container">
                   <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12 px-4">
                       <a href="/tambah_jadwal" class="btn btn-sm bg-gradient-primary">Tambah Jadwal</a>
                     </div>
-                    {{-- <div class="col-lg-6 col-md-6 col-sm-12">
-                      <input class="form-control" id="search" type="text" placeholder="Masukkan kata kunci ...">
-                    </div> --}}
                   </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2 mt-3">

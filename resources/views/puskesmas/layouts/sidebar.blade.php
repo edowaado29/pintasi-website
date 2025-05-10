@@ -3,8 +3,8 @@
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href="/dashboard">
-        <img src="../assets/img/logo-ct-dark.png" width="26px" height="26px" class="navbar-brand-img h-100" alt="main_logo">
-        <span class="ms-1 font-weight-bold">Creative Tim</span>
+        <!-- <img src="../assets/img/logo-ct-dark.png" width="26px" height="26px" class="navbar-brand-img h-100" alt="main_logo"> -->
+        <span class="ms-1 font-weight-bold">PINTASI</span>
       </a>
     </div>
     <hr class="horizontal dark mt-0">
@@ -40,10 +40,10 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="/jadwal">
+          <a class="nav-link " href="/motorik">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
             </div>
-            <span class="nav-link-text ms-1">Jadwal Posyandu</span>
+            <span class="nav-link-text ms-1">Data Motorik Bayi</span>
           </a>
         </li>
         <li class="nav-item">
@@ -51,6 +51,13 @@
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
             </div>
             <span class="nav-link-text ms-1">Data Pemeriksaan</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/jadwal">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            </div>
+            <span class="nav-link-text ms-1">Jadwal</span>
           </a>
         </li>
         <li class="nav-item">
