@@ -52,7 +52,7 @@
                       </div>
                     </td>
                     <td>
-                      <p class="text-x font-weight-bold mb-0">{{ $pemeriksaan->bayi->nama }}</p>
+                      <p class="text-x font-weight-bold mb-0">{{ $pemeriksaan->bayi->nama_bayi }}</p>
                     </td>
                     <td>
                       <p class="text-x font-weight-bold mb-0 text-center">{{ $pemeriksaan->bb }}</p>

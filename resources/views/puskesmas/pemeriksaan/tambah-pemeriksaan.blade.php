@@ -25,9 +25,9 @@
             <div class="container">
                 <form action="{{ route('store_pemeriksaan') }}" method="post">
                     @csrf
-                    <input type="text" name="id_bayi" value="{{ $bayi->id }}">
-                    <input type="text" name='jk' value="{{ $bayi->jenis_kelamin }}">
-                    <input type="text" name='usia_bulan' value="{{ number_format($usia_bulan, 0) }}">
+                    <input type="hidden" name="id_bayi" value="{{ $bayi->id }}">
+                    <input type="hidden" name='jk' value="{{ $bayi->jenis_kelamin }}">
+                    <input type="hidden" name='usia_bulan' value="{{ number_format($usia_bulan, 0) }}">
                     <div class="mb-3">
                       <label for="nama" class="form-label text-secondary fs-6">Nama <span class="text-danger">*</span></label>
                       <input type="text" class="form-control" id="nama" value="{{ $bayi->nama_bayi }}" disabled>

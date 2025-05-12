@@ -26,12 +26,12 @@
                 <form action="{{ route('update_pemeriksaan', $pemeriksaan->id) }}" method="post">
                     @csrf
                     @method('PUT')
-                    <input type="hidden" name="id_bayi" value="{{ $pemeriksaan->bayi->id }}">
-                    <input type="hidden" name='jk' value="{{ $pemeriksaan->bayi->jk }}">
-                    <input type="hidden" name='usia_bulan' value="{{ number_format($usia_bulan, 0) }}">
+                    <input type="text" name="id_bayi" value="{{ $pemeriksaan->bayi->id }}">
+                    <input type="text" name='jk' value="{{ $pemeriksaan->bayi->jenis_kelamin }}">
+                    <input type="text" name='usia_bulan' value="{{ number_format($usia_bulan, 0) }}">
                     <div class="mb-3">
                       <label for="nama" class="form-label text-secondary fs-6">Nama <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama', $pemeriksaan->bayi->nama) }}" disabled>
+                      <input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama', $pemeriksaan->bayi->nama_bayi) }}" disabled>
                     </div>
                     <div class="mb-3">
                       <label for="bb" class="form-label text-secondary fs-6">Berat Badan(kg) <span class="text-danger">*</span></label>
