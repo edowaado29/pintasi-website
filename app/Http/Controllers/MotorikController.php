@@ -27,17 +27,20 @@ class MotorikController extends Controller
     }
     public function add_motorik(Request $request) {
         $request->validate([
-            'usia' => 'required|integer',
-            'capaian' => 'required|string|max:255',
+            'min_usia' => 'required|integer',
+            'max_usia' => 'required|integer',
+            'capaian_motorik' => 'required|string|max:255',
         ], [
-            'usia.required' => 'Usia tidak boleh kosong.',
-            'capaian.required' => 'Capaian tidak boleh kosong.'
+            'min_usia.required' => 'Usia minimal tidak boleh kosong.',
+            'max_usia.required' => 'Usia maksimal tidak boleh kosong.',
+            'capaian_motorik.required' => 'Capaian Motorik tidak boleh kosong.'
         ]);
 
         
         Motorik::create([
-            'usia' => $request->usia,
-            'capaian' => $request->capaian,
+            'min_usia' => $request->min_usia,
+            'max_usia' => $request->max_usia,
+            'capaian_motorik' => $request->capaian_motorik,
         ]);
 
         return redirect()->route('motorik')->with(['message' => 'Data motorik berhasil ditambahkan']);
@@ -45,19 +48,22 @@ class MotorikController extends Controller
 
     public function update_motorik(Request $request, string $id) {
         $request->validate([
-            'usia' => 'required|integer',
-            'capaian' => 'required|string|max:255',
+            'min_usia' => 'required|integer',
+            'max_usia' => 'required|integer',
+            'capaian_motorik' => 'required|string|max:255',
         ], [
-            'usia.required' => 'Usia tidak boleh kosong.',
-            'capaian.required' => 'Capaian tidak boleh kosong.'
+            'min_usia.required' => 'Usia minimal tidak boleh kosong.',
+            'max_usia.required' => 'Usia maksimal tidak boleh kosong.',
+            'capaian_motorik.required' => 'Capaian Motorik tidak boleh kosong.'
         ]);
 
         
         $motoriks = Motorik::findOrFail($id);
         $motoriks->update(
             [
-                'usia' => $request->usia,
-                'capaian' => $request->capaian,
+                'min_usia' => $request->min_usia,
+                'max_usia' => $request->max_usia,
+                'capaian_motorik' => $request->capaian_motorik,
             ]); 
 
         return redirect()->route('motorik')->with(['message' => 'Data motorik berhasil diperbarui']);

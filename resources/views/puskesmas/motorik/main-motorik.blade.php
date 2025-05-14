@@ -9,9 +9,9 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
-                        <li class="breadcrumb-item text-sm text-white active" aria-current="page">Data Capaian Motorik</li>
+                        <li class="breadcrumb-item text-sm text-white active" aria-current="page">Daftar Motorik</li>
                     </ol>
-                    <h6 class="font-weight-bolder text-white mb-0">Data Capaian Motorik</h6>
+                    <h6 class="font-weight-bolder text-white mb-0">Daftar Motorik</h6>
                 </nav>
             </div>
         </nav>
@@ -21,7 +21,7 @@
                 <div class="col-12">
                     <div class="card mb-4">
                         <div class="card-header pb-0">
-                            <h6>TABEL CAPAIAN MOTORIK</h6>
+                            <h6>TABEL DAFTAR MOTORIK</h6>
                         </div>
                         <div class="container">
                             <div class="row">
@@ -58,10 +58,10 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    {{ $mtrk->usia }}
+                                                    {{ $mtrk->min_usia }} - {{ $mtrk->max_usia }}
                                                 </td>
                                                 <td>
-                                                    {{ $mtrk->capaian }}
+                                                    {{ $mtrk->capaian_motorik }}
                                                 </td>
                                                 <td class="align-middle text-sm">
                                                     <form action=""{{ route('hapus_motorik', $mtrk->id) }}"

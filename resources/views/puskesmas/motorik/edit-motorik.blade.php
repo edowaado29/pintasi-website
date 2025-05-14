@@ -14,9 +14,9 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
-                        <li class="breadcrumb-item text-sm text-white active" aria-current="page">Data Motorik Bayi</li>
+                        <li class="breadcrumb-item text-sm text-white active" aria-current="page">Daftar Motorik</li>
                     </ol>
-                    <h6 class="font-weight-bolder text-white mb-0">Edit Data Motorik Bayi</h6>
+                    <h6 class="font-weight-bolder text-white mb-0">Edit Daftar Motorik</h6>
                 </nav>
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
@@ -52,26 +52,40 @@
                                             @csrf
                                             @method('PUT')
                                             <div class="mb-3">
-                                                <label for="usia" class="form-label text-secondary fs-6">Usia
+                                                <label for="min_usia" class="form-label text-secondary fs-6">Usia Minimal (Bulan)
                                                     <span class="text-danger">*</span></label>
                                                 <input type="text"
-                                                    class="form-control @error('usia') is-invalid @enderror" id="usia"
-                                                    name="usia" value="{{ old('usia', $motoriks->usia) }}" onkeypress="return hanyaAngka(event)"
+                                                    class="form-control @error('min_usia') is-invalid @enderror" id="min_usia"
+                                                    name="min_usia" value="{{ old('min_usia', $motoriks->min_usia) }}" onkeypress="return hanyaAngka(event)"
                                                     oninput="cekPanjangInput(this)">
-                                                @error('usia')
+                                                @error('min_usia')
                                                     <script>
-                                                        const ErrorUsia = '{{ $message }}';
+                                                        const ErrorMinUsia = '{{ $message }}';
                                                     </script>
                                                 @enderror
                                             </div>
 
                                             <div class="mb-3">
-                                                <label for="capaian" class="form-label text-secondary fs-6">Capaian Motorik
+                                                <label for="max_usia" class="form-label text-secondary fs-6">Usia Maksimal (Bulan)
                                                     <span class="text-danger">*</span></label>
                                                 <input type="text"
-                                                    class="form-control @error('capaian') is-invalid @enderror" id="capaian"
-                                                    name="capaian" value="{{ old('capaian', $motoriks->capaian) }}">
-                                                @error('capaian')
+                                                    class="form-control @error('max_usia') is-invalid @enderror" id="max_usia"
+                                                    name="max_usia" value="{{ old('max_usia', $motoriks->max_usia) }}" onkeypress="return hanyaAngka(event)"
+                                                    oninput="cekPanjangInput(this)">
+                                                @error('max_usia')
+                                                    <script>
+                                                        const ErrorMaxUsia = '{{ $message }}';
+                                                    </script>
+                                                @enderror
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="capaian_motorik" class="form-label text-secondary fs-6">Capaian Motorik
+                                                    <span class="text-danger">*</span></label>
+                                                <input type="text"
+                                                    class="form-control @error('capaian_motorik') is-invalid @enderror" id="capaian_motorik"
+                                                    name="capaian_motorik" value="{{ old('capaian_motorik', $motoriks->capaian_motorik) }}">
+                                                @error('capaian_motorik')
                                                     <script>
                                                         const ErrorCapaian = '{{ $message }}';
                                                     </script>
@@ -116,7 +130,7 @@
     </script>
 
     <script>
-        if (typeof ErrorUsia !== 'undefined' || typeof ErrorCapaian !== 'undefined') {
+        if (typeof ErrorMinUsia !== 'undefined' || typeof ErrorMaxUsia !== 'undefined' || typeof ErrorCapaian !== 'undefined') {
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-right',
@@ -132,17 +146,22 @@
                 icon: 'warning',
                 title: "Form Tidak Boleh Kosong",
             });
-            if (typeof ErrorUsia !== 'undefined') {
+            if (typeof ErrorMinUsia !== 'undefined') {
                 Toast.fire({
                     icon: 'warning',
-                    title: ErrorUsia,
+                    title: ErrorMinUsia,
+                });
+            } else if (typeof ErrorMaxUsia !== 'undefined') {
+                Toast.fire({
+                    icon: 'warning',
+                    title: ErrorMaxUsia,
                 });
             } else if (typeof ErrorCapaian !== 'undefined') {
                 Toast.fire({
                     icon: 'warning',
                     title: ErrorCapaian,
                 });
-            }
+            } 
         }
     </script>
 @endsection

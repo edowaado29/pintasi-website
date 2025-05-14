@@ -40,10 +40,24 @@
           </a>
         </li>
         <li class="nav-item">
+          <a class="nav-link " href="">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            </div>
+            <span class="nav-link-text ms-1">Resep MPASI</span>
+          </a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link " href="/motorik">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
             </div>
-            <span class="nav-link-text ms-1">Data Motorik Bayi</span>
+            <span class="nav-link-text ms-1">Daftar Motorik</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            </div>
+            <span class="nav-link-text ms-1">Perkembangan Motorik</span>
           </a>
         </li>
         <li class="nav-item">
