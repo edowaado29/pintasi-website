@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('no_kk');
             $table->string('nik_bayi')->unique();
             $table->string('nama_bayi');
-            $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
             $table->string('nama_ayah')->nullable();

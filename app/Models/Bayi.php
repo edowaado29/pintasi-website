@@ -15,7 +15,6 @@ class Bayi extends Model
         'no_kk',
         'nik_bayi',
         'nama_bayi',
-        'tempat_lahir',
         'tanggal_lahir',
         'jenis_kelamin',
         'nama_ayah',

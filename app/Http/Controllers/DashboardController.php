@@ -7,8 +7,13 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    
     public function dashboard()
     {
         return view('puskesmas.dashboard.dashboard');
+    }
+
+    public function dashboard_kader() {
+        return view('kader.dashboard.dashboard');
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArtikelController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BayiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IbuController;
@@ -10,18 +11,48 @@ use App\Http\Controllers\MotorikController;
 use App\Http\Controllers\PemeriksaanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Auth\Middleware\Authenticate;
+use Illuminate\Container\Attributes\Auth;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'dashboard']);
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/loginUser', [AuthController::class, 'loginUser'])->name('loginUser');
+});
 
-Route::get('/ibu', [IbuController::class, 'ibu']);
+Route::middleware(['auth', 'role:kader'])->group(function () {
+    Route::get('/dashboard/kader', [DashboardController::class, 'dashboard_kader'])->name('dashboard_kader');
+});
+
+Route::middleware(['auth', 'role:bidan'])->group(function () {
+    Route::get('/dashboard/bidan', [DashboardController::class, 'dashboard'])->name('dashboard');
+});
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+Route::get('/ibu', [IbuController::class, 'ibu'])->name('ibu');
 Route::get('/detail_ibu/{id}', [IbuController::class, 'detail_ibu'])->name('detail_ibu');
+Route::get('/tambah_ibu', [IbuController::class, 'tambah_ibu'])->name('tambah_ibu');
+Route::post('/add_ibu', [IbuController::class, 'add_ibu'])->name('add_ibu');
+Route::get('/edit_ibu/{id}', [IbuController::class, 'edit_ibu'])->name('edit_ibu');
+Route::put('/update_ibu/{id}', [IbuController::class, 'update_ibu'])->name('update_ibu');
+Route::delete('/hapus_ibu/{id}', [IbuController::class, 'hapus_ibu'])->name('hapus_ibu');
 
 Route::get('/bayi', [BayiController::class, 'bayi'])->name('bayi');
 Route::get('/detail_bayi/{id}', [BayiController::class, 'detail_bayi'])->name('detail_bayi');
+Route::get('/tambah_bayi', [BayiController::class, 'tambah_bayi'])->name('tambah_bayi');
+Route::post('/add_bayi', [BayiController::class, 'add_bayi'])->name('add_bayi');
+Route::get('/edit_bayi/{id}', [BayiController::class, 'edit_bayi'])->name('edit_bayi');
+Route::put('/update_bayi/{id}', [BayiController::class, 'update_bayi'])->name('update_bayi');
+Route::delete('/hapus_bayi/{id}', [BayiController::class, 'hapus_bayi'])->name('hapus_bayi');
+Route::get('/bayii', [BayiController::class, 'bayii'])->name('bayii');
+Route::get('/detail_bayii/{id}', [BayiController::class, 'detail_bayii'])->name('detail_bayii');
 
 Route::get('/motorik', [MotorikController::class, 'motorik'])->name('motorik');
 Route::get('/tambah_motorik', [MotorikController::class, 'tambah_motorik'])->name('tambah_motorik');
@@ -37,17 +68,22 @@ Route::get('/detail_pemeriksaan/{id}', [PemeriksaanController::class, 'detail_pe
 Route::get('/edit_pemeriksaan/{id}', [PemeriksaanController::class, 'edit_pemeriksaan'])->name('edit_pemeriksaan');
 Route::put('/update_pemeriksaan/{id}', [PemeriksaanController::class, 'update_pemeriksaan'])->name('update_pemeriksaan');
 Route::delete('/delete_pemeriksaan/{id}', [PemeriksaanController::class, 'delete_pemeriksaan'])->name('delete_pemeriksaan');
+//kader
+Route::get('/pemeriksaann', [PemeriksaanController::class, 'pemeriksaann'])->name('pemeriksaann');
+Route::get('/tambah_pemeriksaann/{id_bayi}', [PemeriksaanController::class, 'tambah_pemeriksaann'])->name('tambah_pemeriksaann');
+Route::post('/store_pemeriksaann', [PemeriksaanController::class, 'store_pemeriksaann'])->name('store_pemeriksaann');
+Route::get('/detail_pemeriksaann/{id}', [PemeriksaanController::class, 'detail_pemeriksaann'])->name('detail_pemeriksaann');
+Route::get('/edit_pemeriksaann/{id}', [PemeriksaanController::class, 'edit_pemeriksaann'])->name('edit_pemeriksaann');
+Route::put('/update_pemeriksaann/{id}', [PemeriksaanController::class, 'update_pemeriksaann'])->name('update_pemeriksaann');
+Route::delete('/delete_pemeriksaann/{id}', [PemeriksaanController::class, 'delete_pemeriksaann'])->name('delete_pemeriksaann');
 
-Route::get('/jadwal', [JadwalController::class, 'jadwal']);
+Route::get('/jadwal', [JadwalController::class, 'jadwal'])->name('jadwal');
 Route::get('/tambah_jadwal', [JadwalController::class, 'tambah_jadwal'])->name('tambah_jadwal');
 Route::post('/add_jadwal', [JadwalController::class, 'add_jadwal'])->name('add_jadwal');
 Route::get('/edit_jadwal/{id}', [JadwalController::class, 'edit_jadwal'])->name('edit_jadwal');
 Route::put('/update_jadwal/{id}', [JadwalController::class, 'update_jadwal'])->name('update_jadwal');
 Route::delete('/hapus_jadwal/{id}', [JadwalController::class, 'hapus_jadwal'])->name('hapus_jadwal');
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 Route::get('/kader', [KaderController::class, 'kader'])->name('kader');
 Route::get('/detail_kader/{id}', [KaderController::class, 'detail_kader'])->name('detail_kader');
 Route::get('/tambah_kader', [KaderController::class, 'tambah_kader'])->name('tambah_kader');
@@ -63,3 +99,4 @@ Route::post('/add_artikel', [ArtikelController::class, 'add_artikel'])->name('ad
 Route::get('/edit_artikel/{id}', [ArtikelController::class, 'edit_artikel'])->name('edit_artikel');
 Route::put('/update_artikel/{id}', [ArtikelController::class, 'update_artikel'])->name('update_artikel');
 Route::delete('/hapus_artikel/{id}', [ArtikelController::class, 'hapus_artikel'])->name('hapus_artikel');
+});

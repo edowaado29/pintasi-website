@@ -105,18 +105,15 @@ class KaderController extends Controller
         $kaders = User::findOrFail($id);
 
         if ($request->hasFile('foto')) {
-            // Hapus foto lama
             if ($kaders->foto) {
                 Storage::delete('public/users/' . $kaders->foto);
             }
-
 
             $foto = $request->file('foto')->hashName();
             $request->file('foto')->storeAs('public/users', $foto);
             $kaders->foto = $foto;
         }
 
-        // Update data lainnya
         $data = [
             'nama' => $request->nama,
             'email' => $request->email,
@@ -144,38 +141,4 @@ class KaderController extends Controller
         $kaders->delete();
         return redirect()->route('kader')->with(['message' => 'Data berhasil dihapus']);
     }
-
-
-    // public function login(Request $request)
-    // {
-    //     $request->validate([
-    //         'email' => 'required|email',
-    //         'password' => 'required|string|min:8',
-    //     ], 
-    //     [
-    //         'email.required' => 'Email tidak boleh kosong.',
-    //         'password.required' => 'Password tidak boleh kosong.',
-    //         'password.min' => 'Password minimal 8 karakter.',
-    //     ]);
-
-    //     if(Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-
-    //         $kaders = Auth::user();
-    //         $token = $kaders->createToken('auth_token')->plainTextToken;
-
-    //         return response()->json([
-    //             'message' => 'Login Berhasil',
-    //             'token' => $token
-    //         ]);
-    //     }
-    //     return response()->json([
-    //         'message' => 'Email atau Password Salah!!',
-    //     ], 401);
-    // }
-
-    // public function logout(Request $request): RedirectResponse
-    // {
-    //     $request->user()->currentAccessToken()->delete();
-    //     return redirect()->route('login')->with('success', 'Berhasil Logout');
-    // }
 }

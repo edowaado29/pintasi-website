@@ -1163,4 +1163,126 @@ class PemeriksaanController extends Controller
 
         return $status_gizi;
     }
+
+    //kader
+    public function pemeriksaann(): View
+    {
+        $pemeriksaans = Pemeriksaan::all();
+        $bayis = Bayi::all();
+        return view('kader.pemeriksaan.main-pemeriksaan', compact('pemeriksaans','bayis'));
+    }
+    
+    public function tambah_pemeriksaann($id_bayi): View
+    {
+        $bayi = Bayi::findOrFail($id_bayi);
+        $usia_bulan = Carbon::parse($bayi->tanggal_lahir)->diffInMonths(now());
+
+        return view('kader.pemeriksaan.tambah-pemeriksaan', compact('bayi', 'usia_bulan'));
+    }
+
+    public function store_pemeriksaann(Request $request): RedirectResponse
+    {
+        $id_bayi = $request->id_bayi;
+        $bb = $request->bb;
+        $tb = $request->tb;
+        $lk = $request->lk;
+        $imt = $this->get_imt($bb, $tb);
+        $tgl_periksa = \Carbon\Carbon::now()->toDateString();
+        $jk = $request->jk;
+        $usia_bulan = $request->usia_bulan;
+        $status_gizi = $this->get_status_gizi($bb, $tb, $jk, $usia_bulan);
+        $get_nutrisi = $this->get_nutrisi_harian($usia_bulan);
+        $kalori = $get_nutrisi['kalori'];
+        $protein = $get_nutrisi['protein'];
+        $lemak = $get_nutrisi['lemak'];
+        $karbo = $get_nutrisi['karbo'];
+        $serat = $get_nutrisi['serat'];
+        
+        $pemeriksaan = Pemeriksaan::create([
+            'id_bayi' => $id_bayi,
+            'bb' => $bb,
+            'tb' => $tb,
+            'lk' => $lk,
+            'imt' => $imt,
+            'tgl_periksa' => $tgl_periksa,
+            'status_gizi' => $status_gizi,
+            'kalori' => $kalori,
+            'protein' => $protein,
+            'lemak' => $lemak,
+            'karbo' => $karbo,
+            'serat' => $serat
+        ]);
+
+        return redirect()->route('detail_pemeriksaann', $pemeriksaan->id)->with(['message' => 'Pemeriksaan berhasil ditambahkan']);
+    }
+
+    public function detail_pemeriksaann($id): View
+    {
+        $pemeriksaan = Pemeriksaan::with('bayi')->findOrFail($id);
+        $usia_bulan = Carbon::parse($pemeriksaan->bayi->tanggal_lahir)->diffInMonths(now());
+        return view('kader.pemeriksaan.detail-pemeriksaan', compact('pemeriksaan', 'usia_bulan'));
+    }
+    
+    public function edit_pemeriksaann($id): View
+    {
+        $pemeriksaan = Pemeriksaan::with('bayi')->findOrFail($id);
+        $usia_bulan = Carbon::parse($pemeriksaan->bayi->tanggal_lahir)->diffInMonths(now());
+        return view('kader.pemeriksaan.edit-pemeriksaan', compact('pemeriksaan', 'usia_bulan'));
+    }
+
+    public function update_pemeriksaann(Request $request, $id): RedirectResponse
+    {
+        $pemeriksaan = Pemeriksaan::findOrFail($id);
+
+        $bb = $request->bb;
+        $tb = $request->tb;
+        $lk = $request->lk;
+        $imt = $this->get_imt($bb, $tb);
+        $jk = $request->jk;
+        $usia_bulan = $request->usia_bulan;
+        $status_gizi = $this->get_status_gizi($bb, $tb, $jk, $usia_bulan);
+        $get_nutrisi = $this->get_nutrisi_harian($usia_bulan);
+        $kalori = $get_nutrisi['kalori'];
+        $protein = $get_nutrisi['protein'];
+        $lemak = $get_nutrisi['lemak'];
+        $karbo = $get_nutrisi['karbo'];
+        $serat = $get_nutrisi['serat'];
+
+        $pemeriksaan->update([
+            'bb' => $bb,
+            'tb' => $tb,
+            'lk' => $lk,
+            'imt' => $imt,
+            'status_gizi' => $status_gizi,
+            'kalori' => $kalori,
+            'protein' => $protein,
+            'lemak' => $lemak,
+            'karbo' => $karbo,
+            'serat' => $serat
+        ]);
+
+        return redirect()->route('detail_pemeriksaann', $id)->with(['message' => 'Pemeriksaan berhasil diedit']);
+    }
+    
+    public function delete_pemeriksaann($id): RedirectResponse
+    {
+        $pemeriksaan = Pemeriksaan::findOrFail($id);
+        
+        $pemeriksaan->delete();
+
+        return redirect()->route('pemeriksaann')->with(['message' => 'Pemeriksaan berhasil dihapus']);
+    }
+
+    
+    //API Mobile
+    public function get_pemeriksaan($id)
+    {
+        $pemeriksaan = Pemeriksaan::with('bayi')->findOrFail($id);
+        $usia_bulan = Carbon::parse($pemeriksaan->bayi->tanggal_lahir)->diffInMonths(now());
+        return response()->json([
+            'pemeriksaan' => $pemeriksaan,
+            'usia_bulan' => $usia_bulan
+        ]);
+    }
+
 }

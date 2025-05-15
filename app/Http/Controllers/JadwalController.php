@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Ibu;
 use App\Models\Jadwal;
+use App\Services\FirebaseService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
 class JadwalController extends Controller
@@ -37,14 +38,41 @@ class JadwalController extends Controller
             'tempat.required' => 'Tempat pemeriksaan tidak boleh kosong.',
         ]);
 
-        Jadwal::create([
-            'tanggal_pemeriksaan' => $request->tanggal_pemeriksaan,
-            'jam_pemeriksaan' => $request->jam_pemeriksaan,
-            'jenis_pemeriksaan' => $request->jenis_pemeriksaan,
-            'tempat' => $request->tempat,
-        ]);
+        try {
+            // Buat jadwal baru
+            $jadwal = Jadwal::create([
+                'tanggal_pemeriksaan' => $request->tanggal_pemeriksaan,
+                'jam_pemeriksaan' => $request->jam_pemeriksaan,
+                'jenis_pemeriksaan' => $request->jenis_pemeriksaan,
+                'tempat' => $request->tempat,
+            ]);
 
-        return redirect()->route('tambah_jadwal')->with(['message' => 'Jadwal berhasil ditambahkan']);
+            // Ambil semua token FCM dari tabel Ibu
+            $tokens = Ibu::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
+
+            if (count($tokens) > 0) {
+                $firebase = new FirebaseService();
+
+                // Kirim notifikasi dalam chunk 1000 token
+                foreach (array_chunk($tokens, 1000) as $chunk) {
+                    $firebase->sendMulticastNotification(
+                        $chunk,
+                        'Jadwal Baru',
+                        'Jadwal pemeriksaan "' . $jadwal->jenis_pemeriksaan . '" telah ditambahkan.',
+                        [
+                            'jadwal_id' => (string) $jadwal->id,
+                            'tanggal' => $jadwal->tanggal_pemeriksaan,
+                            'jam' => $jadwal->jam_pemeriksaan,
+                            'tempat' => $jadwal->tempat,
+                        ]
+                    );
+                }
+            }
+
+            return redirect()->route('tambah_jadwal')->with(['message' => 'Jadwal berhasil ditambahkan dan notifikasi dikirim']);
+        } catch (\Exception $e) {
+            return redirect()->route('tambah_jadwal')->with(['error' => 'Gagal menambahkan jadwal: ' . $e->getMessage()]);
+        }
     }
 
     public function edit_jadwal(string $id): View
@@ -68,15 +96,44 @@ class JadwalController extends Controller
             'tempat.required' => 'Tempat pemeriksaan tidak boleh kosong.',
         ]);
 
-        $jadwal = Jadwal::findOrFail($id);
-        $jadwal->update([
-            'tanggal_pemeriksaan' => $request->tanggal_pemeriksaan,
-            'jam_pemeriksaan' => $request->jam_pemeriksaan,
-            'jenis_pemeriksaan' => $request->jenis_pemeriksaan,
-            'tempat' => $request->tempat,
-        ]);
+        try {
+            // Cari jadwal berdasarkan ID
+            $jadwal = Jadwal::findOrFail($id);
 
-        return redirect()->route('tambah_jadwal')->with(['message' => 'Jadwal berhasil diperbarui']);
+            // Perbarui data jadwal
+            $jadwal->update([
+                'tanggal_pemeriksaan' => $request->tanggal_pemeriksaan,
+                'jam_pemeriksaan' => $request->jam_pemeriksaan,
+                'jenis_pemeriksaan' => $request->jenis_pemeriksaan,
+                'tempat' => $request->tempat,
+            ]);
+
+            // Ambil semua token FCM dari tabel Ibu
+            $tokens = Ibu::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
+
+            if (count($tokens) > 0) {
+                $firebase = new FirebaseService();
+
+                // Kirim notifikasi dalam chunk 1000 token
+                foreach (array_chunk($tokens, 1000) as $chunk) {
+                    $firebase->sendMulticastNotification(
+                        $chunk,
+                        'Jadwal Diperbarui',
+                        'Jadwal pemeriksaan "' . $jadwal->jenis_pemeriksaan . '" telah diperbarui.',
+                        [
+                            'jadwal_id' => (string) $jadwal->id,
+                            'tanggal' => $jadwal->tanggal_pemeriksaan,
+                            'jam' => $jadwal->jam_pemeriksaan,
+                            'tempat' => $jadwal->tempat,
+                        ]
+                    );
+                }
+            }
+
+            return redirect()->route('tambah_jadwal')->with(['message' => 'Jadwal berhasil diperbarui dan notifikasi dikirim']);
+        } catch (\Exception $e) {
+            return redirect()->route('tambah_jadwal')->with(['error' => 'Gagal memperbarui jadwal: ' . $e->getMessage()]);
+        }
     }
 
     public function hapus_jadwal(string $id): RedirectResponse
@@ -84,6 +141,12 @@ class JadwalController extends Controller
         $jadwal = Jadwal::findOrFail($id);
         $jadwal->delete();
         return redirect()->route('')->with(['message' => 'Jadwal berhasil dihapus']);
-        
+    }
+
+
+    //API Mobile
+    public function index() {
+        $penjadwalans = Jadwal::orderBy('created_at', 'desc')->get();
+        return response()->json($penjadwalans);
     }
 }

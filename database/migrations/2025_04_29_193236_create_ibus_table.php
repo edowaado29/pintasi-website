@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('email')->unique();
             $table->string('password'); 
-            $table->string('nik')->unique(); 
+            $table->string('fcm_token')->nullable();
+            $table->string('nik')->unique()->nullable(); 
             $table->string('nama_ibu');
-            $table->string('tempat_lahir'); 
-            $table->date('tanggal_lahir'); 
+            $table->string('tempat_lahir')->nullable(); 
+            $table->date('tanggal_lahir')->nullable(); 
             $table->string('alamat')->nullable(); 
             $table->string('telepon')->nullable(); 
             $table->string('foto')->nullable();

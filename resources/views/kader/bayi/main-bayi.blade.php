@@ -1,4 +1,4 @@
-@extends('puskesmas.layouts.template')
+@extends('kader.layouts.template')
 
 @section('content')
     <main class="main-content position-relative border-radius-lg ">
@@ -26,7 +26,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12 px-4">
-                                    <a href="/tambah_bayi" class="btn btn-sm bg-gradient-primary">Tambah Bayi</a>
+                                    {{-- <a href="/tambah_bayi" class="btn btn-sm bg-gradient-primary">Tambah Kader</a> --}}
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                     <input class="form-control" id="search" type="text" placeholder="Masukkan kata kunci ...">
@@ -76,8 +76,8 @@
                                                     <form action="" method="POST" id="delete-form">
                                                         <a href="{{ route('detail_bayi', $by->id) }}"
                                                             class="btn btn-sm bg-gradient-primary">Detail</a>
-                                                        <a href="{{ route('edit_bayi', $by->id) }}"
-                                                            class="btn btn-sm bg-gradient-success">Edit</a>
+                                                        {{-- <a href="{{ route('edit_bayi', $by->id) }}"
+                                                            class="btn btn-sm bg-gradient-success">Edit</a> --}}
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="button" class="btn btn-sm btn-danger"
@@ -129,7 +129,7 @@
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-right',
-                iconColor: 'green',
+                iconColor: 'white',
                 customClass: {
                     popup: 'colored-toast',
                 },

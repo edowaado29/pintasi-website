@@ -26,7 +26,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12 px-4">
-                                    {{-- <a href="/tambah_kader" class="btn btn-sm bg-gradient-primary">Tambah Kader</a> --}}
+                                    <a href="/tambah_ibu" class="btn btn-sm bg-gradient-primary">Tambah Ibu</a>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                     <input class="form-control" id="search" type="text" placeholder="Masukkan kata kunci ...">
@@ -67,7 +67,7 @@
                                                     {{ $ibu->nama_ibu }}
                                                 </td>
                                                 <td>
-                                                    {{ $ibu->no_hp }}
+                                                    {{ $ibu->telepon }}
                                                 </td>
                                                 <td>
                                                     {{ $ibu->alamat }}
@@ -76,6 +76,8 @@
                                                     <form action="" method="POST" id="delete-form">
                                                         <a href="{{ route('detail_ibu', $ibu->id) }}"
                                                             class="btn btn-sm bg-gradient-primary">Detail</a>
+                                                        <a href="{{ route('edit_ibu', $ibu->id) }}"
+                                                            class="btn btn-sm bg-gradient-success">Edit</a>
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="button" class="btn btn-sm btn-danger"

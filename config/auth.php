@@ -40,6 +40,12 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'ibu' => [
+        'driver' => 'session',
+        'provider' => 'ibus',
+    ],
+
     ],
 
     /*
@@ -59,17 +65,17 @@ return [
     |
     */
 
-    'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
-        ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+'providers' => [
+    'users' => [
+        'driver' => 'eloquent',
+        'model' => env('AUTH_MODEL', App\Models\User::class),
     ],
+
+    'ibus' => [
+        'driver' => 'eloquent',
+        'model' => env('AUTH_MODEL', App\Models\Ibu::class),
+    ],
+],
 
     /*
     |--------------------------------------------------------------------------

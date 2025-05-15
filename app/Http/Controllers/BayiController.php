@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bayi;
+use App\Models\Ibu;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -23,6 +24,97 @@ class BayiController extends Controller
     {
         $bayis = Bayi::findOrFail($id);
         return view('puskesmas.bayi.detail-bayi', compact('bayis'));
+    }
+
+    public function tambah_bayi(): View
+    {
+        $ibus = Ibu::all();
+        return view('puskesmas.bayi.tambah-bayi', compact('ibus'));
+    }
+
+    public function add_bayi(Request $request){
+        $request->validate([
+            'id_ibu' => 'required|exists:ibus,id',
+            'no_kk' => 'nullable|string|max:16',
+            'nik_bayi' => 'required|string|max:16|unique:bayis',
+            'nama_bayi' => 'required|string|max:255',
+            'tanggal_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'nama_ayah' => 'nullable|string|max:255',
+            'nama_ibu' => 'nullable|string|max:255',
+            'foto_bayi' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ], [
+            'id_ibu.required' => 'ID Ibu tidak boleh kosong.',
+            'nik_bayi.required' => 'NIK Bayi tidak boleh kosong.',
+            'nik_bayi.unique' => 'NIK Bayi sudah terdaftar.',
+            'nama_bayi.required' => 'Nama Bayi tidak boleh kosong.',
+            'tanggal_lahir.required' => 'Tanggal Lahir tidak boleh kosong.',
+            'jenis_kelamin.required' => 'Jenis Kelamin tidak boleh kosong.'
+
+        ]);
+
+        $fotoPath = $request->hasFile('foto_bayi') ? $request->file('foto_bayi')->store('public/bayis') : null;
+        $fotoBayi = $fotoPath ? $request->file('foto_bayi')->hashName() : null;
+
+        Bayi::create([
+            'id_ibu' => $request->id_ibu,
+            'no_kk' => $request->no_kk,
+            'nik_bayi' => $request->nik_bayi,
+            'nama_bayi' => $request->nama_bayi,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'nama_ayah' => $request->nama_ayah,
+            'nama_ibu' => $request->nama_ibu,
+            'foto_bayi' => $fotoBayi
+        ]);
+
+        return redirect()->route('bayi')->with(['message' => 'Bayi berhasil ditambahkan']);
+    }
+
+    public function edit_bayi(string $id): View
+    {
+        $bayis = Bayi::findOrFail($id);
+        return view('puskesmas.bayi.edit-bayi', compact('bayis'));
+    }
+
+    public function update_bayi(Request $request, string $id): RedirectResponse
+    {
+        $request->validate([
+            'id_ibu' => 'required|exists:ibus,id',
+            'no_kk' => 'nullable|string|max:16',
+            'nik_bayi' => 'required|string|max:16',
+            'nama_bayi' => 'required|string|max:255',
+            'tanggal_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|in:Laki-laki, Perempuan',
+            'nama_ayah' => 'nullable|string|max:255',
+            'nama_ibu' => 'nullable|string|max:255',
+            'foto_bayi' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $bayis = Bayi::findOrFail($id);
+
+        if ($request->hasFile('foto_bayi')) {
+            if ($bayis->foto_bayi) {
+                Storage::delete('public/bayis/' . $bayis->foto_bayi);
+            }
+
+            $fotoPath = $request->file('foto_bayi')->store('public/bayis');
+            $bayis->foto_bayi = basename($fotoPath);
+        }
+        
+        $data = [
+            'id_ibu' => $request->id_ibu,
+            'no_kk' => $request->no_kk,
+            'nik_bayi' => $request->nik_bayi,
+            'nama_bayi' => $request->nama_bayi,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'nama_ayah' => $request->nama_ayah,
+            'nama_ibu' => $request->nama_ibu,
+        ];
+
+        $bayis->update($data);
+        return redirect()->route('bayi')->with(['message' => 'Bayi berhasil diperbarui']);
     }
 
     public function hapus_bayi(string $id): RedirectResponse
@@ -51,65 +143,37 @@ class BayiController extends Controller
         return redirect()->route('bayis.index')->with(['message' => 'Data bayi berhasil dipulihkan']);
     }
 
-    public function list()
+    //kader
+    public function bayii(): View
     {
-        return Bayi::select('id', 'nama_bayi', 'jenis_kelamin', 'tanggal_lahir')->get();
+        $bayis = Bayi::latest()->paginate(10);
+        return view('kader.bayi.main-bayi', compact('bayis'));
     }
 
-    //Json
-    public function apiIndex(): JsonResponse
-{
-    $bayis = Bayi::select('id', 'nama_bayi', 'jenis_kelamin', 'tanggal_lahir')->get();
-
-    // foreach ($bayis as $bayi) {
-    //     $bayi->umur = round(Carbon::parse($bayi->tanggal_lahir)->floatDiffInMonths(now()));
-    // }
-
-    return response()->json($bayis);
-}
-
-
-public function apiStore(Request $request): JsonResponse
-{
-    $request->validate([
-        'id_ibu' => 'required|exists:ibus,id',
-        'no_kk' => 'nullable|string|max:16',
-        'nik_bayi' => 'required|string|max:16|unique:bayis,nik_bayi',
-        'nama_bayi' => 'required|string|max:255',
-        'tempat_lahir' => 'required|string|max:255',
-        'tanggal_lahir' => 'required|date',
-        'jenis_kelamin' => 'required|string|max:10',
-        'nama_ayah' => 'nullable|string|max:255',
-        'nama_ibu' => 'nullable|string|max:255',
-        'foto_bayi' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-    ]);
-
-    $data = $request->only([
-        'id_ibu', 'no_kk', 'nik_bayi', 'nama_bayi', 'tempat_lahir',
-        'tanggal_lahir', 'jenis_kelamin', 'nama_ayah', 'nama_ibu'
-    ]);
-
-    if ($request->hasFile('foto_bayi')) {
-        $file = $request->file('foto_bayi');
-        $filename = time() . '_' . $file->getClientOriginalName();
-        $file->storeAs('public/bayis', $filename);
-        $data['foto_bayi'] = $filename;
+    public function detail_bayii(string $id): View
+    {
+        $bayis = Bayi::findOrFail($id);
+        return view('kader.bayi.detail-bayi', compact('bayis'));
     }
 
-    $bayi = Bayi::create($data);
+    public function hapus_bayii(string $id): RedirectResponse
+    {
+        $bayis = Bayi::findOrFail($id);
 
-    return response()->json([
-        'message' => 'Data bayi berhasil ditambahkan.',
-        'data' => $bayi
-    ], 201);
-}
+        if ($bayis->foto_bayi) {
+            Storage::delete('public/bayis/' . $bayis->foto_bayi);
+        }
+
+        $bayis->delete();
+        return redirect()->route('bayii')->with(['message' => 'Bayi berhasil dihapus']);
+    }
 
 
-//API Mobile
+    //API Mobile
     public function index()
     {
         try {
-            $data = Bayi::all(); // atau query lain
+            $data = Bayi::all();
             return response()->json($data);
         } catch (\Exception $e) {
             Log::error('Gagal mengambil data bayi', ['error' => $e->getMessage()]);
@@ -122,9 +186,9 @@ public function apiStore(Request $request): JsonResponse
         try {
             $request->validate([
                 'no_kk' => 'nullable|string|max:16',
-                'nik_bayi' => 'required|string|max:16|unique:bayis', // ganti 'nik' dengan 'nik_anak'
+                'nik_bayi' => 'required|string|max:16|unique:bayis',
                 'nama_bayi' => 'required|string|max:255',
-                'tempat_lahir' => 'required|string|max:255',
+                'tempat_lahir' => 'required|string',
                 'tanggal_lahir' => 'required|date',
                 'jenis_kelamin' => 'required|string|max:10',
                 'nama_ayah' => 'nullable|string|max:255',
@@ -135,7 +199,7 @@ public function apiStore(Request $request): JsonResponse
             // Ambil data dari request
             $data = $request->only([
                 'no_kk',
-                'nik_bayi', // ganti dengan 'nik_anak'
+                'nik_bayi',
                 'nama_bayi',
                 'tempat_lahir',
                 'tanggal_lahir',
@@ -168,5 +232,19 @@ public function apiStore(Request $request): JsonResponse
                 'error' => $e->getMessage(),
             ], 500);
         }
+    }
+
+    public function showBayis(Request $request)
+    {
+        // Mendapatkan informasi pengguna yang terautentikasi
+        $user = $request->user();
+
+        // Mengambil bayi berdasarkan user_id
+        $bayis = Bayi::where('id_ibu', $user->id)->get();
+
+        // Mengembalikan data bayi sebagai JSON
+        return response()->json([
+            'data' => $bayis,
+        ]);
     }
 }

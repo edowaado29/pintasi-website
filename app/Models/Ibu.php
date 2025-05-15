@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 
-class Ibu extends Model
+class Ibu extends Authenticatable
 {
-    use HasFactory, SoftDeletes, HasApiTokens;
+    use HasApiTokens, SoftDeletes, Notifiable;
 
-    protected $table = 'Ibus';
+    protected $table = 'ibus';
 
     protected $fillable = [
         'email',
@@ -23,6 +24,11 @@ class Ibu extends Model
         'alamat',
         'telepon',
         'foto',
+    ];
+
+    protected $hidden = [
+        'password', // Sembunyikan password saat serialisasi
+        'remember_token',
     ];
 
     public function bayi()

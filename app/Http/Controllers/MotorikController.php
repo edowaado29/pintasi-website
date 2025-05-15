@@ -76,4 +76,10 @@ class MotorikController extends Controller
         return redirect()->route('motorik')->with(['message' => 'Data motorik berhasil dihapus']);
     }
 
+
+    //API Mobile
+    public function getMotorik() {
+        $motoriks = Motorik::all();
+        return response()->json($motoriks);
+    }
 }
