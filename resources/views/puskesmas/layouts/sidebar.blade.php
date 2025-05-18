@@ -40,7 +40,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="">
+          <a class="nav-link " href="/resep">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
             </div>
             <span class="nav-link-text ms-1">Resep MPASI</span>
@@ -48,13 +48,6 @@
         </li>
         <li class="nav-item">
           <a class="nav-link " href="/motorik">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-            </div>
-            <span class="nav-link-text ms-1">Daftar Motorik</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
             </div>
             <span class="nav-link-text ms-1">Perkembangan Motorik</span>
@@ -84,7 +77,7 @@
         <li class="nav-item">
                 <a class="nav-link " href="/logout">
                     <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center" onclick="confirmLogout(event)">
                     </div>
                     <span class="nav-link-text ms-1">Logout</span>
                 </a>
@@ -92,3 +85,23 @@
       </ul>
     </div>
   </aside>
+
+  {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    function confirmLogout(event) {
+      Swal.fire({
+        title: "Apakah Anda Yakin",
+        text: "Ingin Logout?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya",
+        cancelButtonText: "Tidak"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "/logout";
+        }
+      });
+    }
+  </script> --}}

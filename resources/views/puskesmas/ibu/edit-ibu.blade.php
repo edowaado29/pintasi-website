@@ -105,7 +105,9 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="tempat_lahir" class="form-label text-secondary fs-6">Tempat Lahir</label>
-                                                <textarea class="form-control" id="tempat_lahir" name="tempat_lahir" rows="3">{{ old('tempat_lahir', $ibus->tempat_lahir) }}</textarea>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    id="tempat_lahir" name="tempat_lahir" value="{{ old('tempat_lahir', $ibus->tempat_lahir) }}">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="tanggal_lahir" class="form-label text-secondary fs-6">Tanggal
@@ -152,9 +154,15 @@
                                         <div class="mb-3">
                                             <div class="preview">
                                                 <label class="text-secondary fs-6">Pratinjau Foto Ibu</label><br>
-                                                <img src="{{ asset('/storage/ibu/' . $ibus->foto) ?? asset('assets/img/no_image.png') }}" class="mb-3"
-                                                    id="ibuPreview"
-                                                    style="width: 100%; height: 400px; border: 2px solid #d4d4d4; border-radius: 10px;">
+                                                @if ($ibus->foto && file_exists(public_path('storage/ibus/' . $ibus->foto)))
+                                                    <img src="{{ asset('storage/ibus/' . $ibus->foto) }}"
+                                                        class="mb-3" id="ibuPreview"
+                                                        style="width: 100%; height: 400px; border: 2px solid #d4d4d4; border-radius: 10px;">
+                                                @else
+                                                    <img src="{{ asset('assets/img/no_image.png') }}" class="mb-3"
+                                                        id="ibuPreview"
+                                                        style="width: 100%; height: 400px; border: 2px solid #d4d4d4; border-radius: 10px;">
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

@@ -29,6 +29,18 @@ class PemeriksaanController extends Controller
 
     public function store_pemeriksaan(Request $request): RedirectResponse
     {
+        $request->validate([
+            'bb' => 'required|numeric',
+            'tb' => 'required|numeric',
+            'lk' => 'nullable|numeric',
+        ], [
+            'bb.required' => 'Berat Badan tidak boleh kosong.',
+            'bb.numeric' => 'Penulisan harus menggunakan titik (.)',
+            'tb.required' => 'Tinggi Badan tidak boleh kosong.',
+            'tb.numeric' => 'Penulisan harus menggunakan titik (.)',
+            'lk.numeric' => 'Penulisan harus menggunakan titik (.)',
+        ]);
+
         $id_bayi = $request->id_bayi;
         $bb = $request->bb;
         $tb = $request->tb;
@@ -79,6 +91,18 @@ class PemeriksaanController extends Controller
 
     public function update_pemeriksaan(Request $request, $id): RedirectResponse
     {
+        $request->validate([
+            'bb' => 'required|numeric',
+            'tb' => 'required|numeric',
+            'lk' => 'nullable|numeric',
+        ], [
+            'bb.required' => 'Berat Badan tidak boleh kosong.',
+            'bb.numeric' => 'Penulisan harus menggunakan titik (.)',
+            'tb.required' => 'Tinggi Badan tidak boleh kosong.',
+            'tb.numeric' => 'Penulisan harus menggunakan titik (.)',
+            'lk.numeric' => 'Penulisan harus menggunakan titik (.)',
+        ]);
+        
         $pemeriksaan = Pemeriksaan::findOrFail($id);
 
         $bb = $request->bb;

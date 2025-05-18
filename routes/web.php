@@ -9,6 +9,7 @@ use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\KaderController;
 use App\Http\Controllers\MotorikController;
 use App\Http\Controllers\PemeriksaanController;
+use App\Http\Controllers\ResepController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Auth\Middleware\Authenticate;
@@ -53,6 +54,14 @@ Route::put('/update_bayi/{id}', [BayiController::class, 'update_bayi'])->name('u
 Route::delete('/hapus_bayi/{id}', [BayiController::class, 'hapus_bayi'])->name('hapus_bayi');
 Route::get('/bayii', [BayiController::class, 'bayii'])->name('bayii');
 Route::get('/detail_bayii/{id}', [BayiController::class, 'detail_bayii'])->name('detail_bayii');
+
+Route::get('/resep', [ResepController::class, 'resep'])->name('resep');
+Route::get('/detail_resep/{id}', [ResepController::class, 'detail_resep'])->name('detail_resep');
+Route::get('/tambah_resep', [ResepController::class, 'tambah_resep'])->name('tambah_resep');
+Route::post('/add_resep', [ResepController::class, 'add_resep'])->name('add_resep');
+Route::get('/edit_resep/{id}', [ResepController::class, 'edit_resep'])->name('edit_resep');
+Route::put('/update_resep/{id}', [ResepController::class, 'update_resep'])->name('update_resep');
+Route::delete('/hapus_resep/{id}', [ResepController::class, 'hapus_resep'])->name('hapus_resep');
 
 Route::get('/motorik', [MotorikController::class, 'motorik'])->name('motorik');
 Route::get('/tambah_motorik', [MotorikController::class, 'tambah_motorik'])->name('tambah_motorik');

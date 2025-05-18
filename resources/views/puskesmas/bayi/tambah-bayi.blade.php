@@ -70,25 +70,6 @@
                                                 @enderror
                                             </div>
                                             <div class="mb-3">
-                                                <label for="no_kk" class="form-label text-secondary fs-6">Nomor
-                                                    KK</label>
-                                                <input type="regex" class="form-control" id="no_kk" name="no_kk"
-                                                    value="{{ old('no_kk') }}" onkeypress="return hanyaAngka(event)"
-                                                    oninput="cekPanjangInput(this)">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="nik_bayi" class="form-label text-secondary fs-6">NIK
-                                                    Bayi<span class="text-danger">*</span></label>
-                                                <input type="regex" class="form-control @error('nik_bayi') is-invalid @enderror" id="nik_bayi" name="nik_bayi"
-                                                    value="{{ old('nik_bayi') }}" onkeypress="return hanyaAngka(event)"
-                                                    oninput="cekPanjangInput(this)">
-                                                @error('nik_bayi')
-                                                    <script>
-                                                        const ErrorNik = '{{ $message }}';
-                                                    </script>
-                                                @enderror
-                                            </div>
-                                            <div class="mb-3">
                                                 <label for="nama_bayi" class="form-label text-secondary fs-6">Nama
                                                     Bayi <span class="text-danger">*</span></label>
                                                 <input type="text"
@@ -130,6 +111,25 @@
                                                     </script>
                                                 @enderror
                                             </div>
+                                            <div class="mb-3">
+                                                <label for="no_kk" class="form-label text-secondary fs-6">Nomor
+                                                    KK</label>
+                                                <input type="regex" class="form-control" id="no_kk" name="no_kk"
+                                                    value="{{ old('no_kk') }}" onkeypress="return hanyaAngka(event)"
+                                                    oninput="cekPanjangInput(this)">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="nik_bayi" class="form-label text-secondary fs-6">NIK
+                                                    Bayi</label>
+                                                <input type="regex" class="form-control @error('nik_bayi') is-invalid @enderror" id="nik_bayi" name="nik_bayi"
+                                                    value="{{ old('nik_bayi') }}" onkeypress="return hanyaAngka(event)"
+                                                    oninput="cekPanjangInput(this)">
+                                                @error('nik_bayi')
+                                                    <script>
+                                                        const ErrorNik = '{{ $message }}';
+                                                    </script>
+                                                @enderror
+                                            </div>
 
                                             <div class="mb-3">
                                                 <label for="nama_ayah" class="form-label text-secondary fs-6">Nama
@@ -137,12 +137,12 @@
                                                 <input type="text" class="form-control" id="nama_ayah"
                                                     name="nama_ayah" value="{{ old('nama_ayah') }}">
                                             </div>
-                                            <div class="mb-3">
+                                            {{-- <div class="mb-3">
                                                 <label for="nama_ibu" class="form-label text-secondary fs-6">Nama
                                                     Ibu</label>
                                                 <input type="text" class="form-control" id="nama_ibu"
                                                     name="nama_ibu" value="{{ old('nama_ibu') }}">
-                                            </div>
+                                            </div> --}}
                                             <div class="form-group">
                                                 <label for="foto_bayi" class="text-secondary fs-6">Foto Bayi
                                                     (Maksimal 2MB)</label><br>

@@ -79,8 +79,20 @@
                                                 @enderror
                                             </div>
                                             <div class="mb-3">
+                                                <label for="nama_ibu" class="form-label text-secondary fs-6">Nama
+                                                    Ibu <span class="text-danger">*</span></label>
+                                                    <input type="text"
+                                                    class="form-control @error('nama_ibu') is-invalid @enderror"
+                                                    id="nama_ibu" name="nama_ibu" value="{{ old('nama_ibu') }}">
+                                                    @error('nama_ibu')
+                                                    <script>
+                                                        const ErrorNama = '{{ $message }}';
+                                                        </script>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
                                                 <label for="nik" class="form-label text-secondary fs-6">NIK
-                                                    Ibu<span class="text-danger">*</span></label>
+                                                    Ibu</label>
                                                 <input type="regex" class="form-control @error('nik') is-invalid @enderror" id="nik" name="nik"
                                                     value="{{ old('nik') }}" onkeypress="return hanyaAngka(event)"
                                                     oninput="cekPanjangInput(this)">
@@ -91,20 +103,8 @@
                                                 @enderror
                                             </div>
                                             <div class="mb-3">
-                                                <label for="nama_ibu" class="form-label text-secondary fs-6">Nama
-                                                    Ibu <span class="text-danger">*</span></label>
-                                                <input type="text"
-                                                    class="form-control @error('nama_ibu') is-invalid @enderror"
-                                                    id="nama_ibu" name="nama_ibu" value="{{ old('nama_ibu') }}">
-                                                @error('nama_ibu')
-                                                    <script>
-                                                        const ErrorNama = '{{ $message }}';
-                                                    </script>
-                                                @enderror
-                                            </div>
-                                            <div class="mb-3">
                                                 <label for="tempat_lahir" class="form-label text-secondary fs-6">Tempat Lahir</label>
-                                                <textarea class="form-control" id="tempat_lahir" name="tempat_lahir" rows="3">{{ old('tempat_lahir') }}</textarea>
+                                                <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir">{{ old('tempat_lahir') }}</input>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="tanggal_lahir" class="form-label text-secondary fs-6">Tanggal

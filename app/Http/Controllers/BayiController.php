@@ -36,7 +36,7 @@ class BayiController extends Controller
         $request->validate([
             'id_ibu' => 'required|exists:ibus,id',
             'no_kk' => 'nullable|string|max:16',
-            'nik_bayi' => 'required|string|max:16|unique:bayis',
+            'nik_bayi' => 'nullable|string|max:16|unique:bayis',
             'nama_bayi' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
@@ -74,7 +74,8 @@ class BayiController extends Controller
     public function edit_bayi(string $id): View
     {
         $bayis = Bayi::findOrFail($id);
-        return view('puskesmas.bayi.edit-bayi', compact('bayis'));
+        $ibus = Ibu::all();
+        return view('puskesmas.bayi.edit-bayi', compact('bayis', 'ibus'));
     }
 
     public function update_bayi(Request $request, string $id): RedirectResponse
@@ -82,7 +83,7 @@ class BayiController extends Controller
         $request->validate([
             'id_ibu' => 'required|exists:ibus,id',
             'no_kk' => 'nullable|string|max:16',
-            'nik_bayi' => 'required|string|max:16',
+            'nik_bayi' => 'nullable|string|max:16',
             'nama_bayi' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required|in:Laki-laki, Perempuan',

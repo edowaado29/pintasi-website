@@ -64,18 +64,19 @@
                       <p class="text-x font-weight-bold mb-0 text-center">{{ $pemeriksaan->tgl_periksa }}</p>
                     </td>
                     <td class="align-middle text-sm">
-                      <form action="{{ route('delete_pemeriksaan', $pemeriksaan->id) }}" method="post">
+                      <form action="" method="post" id="delete-form">
                         <a href="{{ route('detail_pemeriksaan', $pemeriksaan->id) }}" class="btn btn-sm bg-gradient-primary">Detail</a>
                         <a href="{{ route('edit_pemeriksaan', $pemeriksaan->id) }}" class="btn btn-sm bg-gradient-success">Edit</a>
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm bg-gradient-danger">Hapus</button>
+                        <button type="button" class="btn btn-sm bg-gradient-danger"
+                          onclick="confirmDelete('{{ $pemeriksaan->id }}')">Hapus</button>
                       </form>
                     </td>
                   </tr>
                   @empty
                   <tr>
-                    <td colspan="3" class="text-center">Data pemeriksaan belum Tersedia.</td>
+                    <td colspan="5" class="text-center">Data pemeriksaan belum Tersedia.</td>
                   </tr>
                   @endforelse
                 </tbody>
@@ -132,6 +133,7 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(function() {
         $('#nama_bayi').autocomplete({
@@ -145,3 +147,46 @@
         });
     });
 </script>
+
+<script>
+        const baseUrl = "{{ url('/delete_pemeriksaan') }}";
+
+        function confirmDelete(id) {
+            Swal.fire({
+                title: "Apakah Anda Yakin?",
+                text: "Ingin Menghapus Data Ini",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya",
+                cancelButtonText: "Tidak"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const deleteForm = document.getElementById("delete-form");
+                    deleteForm.action = `${baseUrl}/${id}`;
+                    deleteForm.submit();
+                }
+            });
+        }
+    </script>
+
+    @if (session('message'))
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-right',
+                iconColor: 'green',
+                customClass: {
+                    popup: 'colored-toast',
+                },
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+            })
+            Toast.fire({
+                icon: 'success',
+                title: "{{ session('message') }}"
+            });
+        </script>
+    @endif

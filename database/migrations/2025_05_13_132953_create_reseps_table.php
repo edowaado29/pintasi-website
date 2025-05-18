@@ -21,7 +21,7 @@ return new class extends Migration
             $table->double('total_kalori');
             $table->double('total_protein');
             $table->double('total_lemak');
-            $table->string('gambar_resep');
+            $table->string('gambar_resep')->nullable();
             $table->timestamps();
         });
     }

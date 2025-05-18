@@ -39,7 +39,7 @@ class JadwalController extends Controller
         ]);
 
         try {
-            // Buat jadwal baru
+            
             $jadwal = Jadwal::create([
                 'tanggal_pemeriksaan' => $request->tanggal_pemeriksaan,
                 'jam_pemeriksaan' => $request->jam_pemeriksaan,
@@ -47,7 +47,7 @@ class JadwalController extends Controller
                 'tempat' => $request->tempat,
             ]);
 
-            // Ambil semua token FCM dari tabel Ibu
+            
             $tokens = Ibu::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
 
             if (count($tokens) > 0) {
@@ -58,7 +58,7 @@ class JadwalController extends Controller
                     $firebase->sendMulticastNotification(
                         $chunk,
                         'Jadwal Baru',
-                        'Jadwal pemeriksaan "' . $jadwal->jenis_pemeriksaan . '" telah ditambahkan.',
+                        'Jadwal pemeriksaan' . $jadwal->jenis_pemeriksaan . 'telah ditambahkan.',
                         [
                             'jadwal_id' => (string) $jadwal->id,
                             'tanggal' => $jadwal->tanggal_pemeriksaan,
@@ -69,7 +69,7 @@ class JadwalController extends Controller
                 }
             }
 
-            return redirect()->route('tambah_jadwal')->with(['message' => 'Jadwal berhasil ditambahkan dan notifikasi dikirim']);
+            return redirect()->route('jadwal')->with(['message' => 'Jadwal berhasil ditambahkan']);
         } catch (\Exception $e) {
             return redirect()->route('tambah_jadwal')->with(['error' => 'Gagal menambahkan jadwal: ' . $e->getMessage()]);
         }
@@ -130,7 +130,7 @@ class JadwalController extends Controller
                 }
             }
 
-            return redirect()->route('tambah_jadwal')->with(['message' => 'Jadwal berhasil diperbarui dan notifikasi dikirim']);
+            return redirect()->route('jadwal')->with(['message' => 'Jadwal berhasil diperbarui']);
         } catch (\Exception $e) {
             return redirect()->route('tambah_jadwal')->with(['error' => 'Gagal memperbarui jadwal: ' . $e->getMessage()]);
         }
@@ -140,7 +140,7 @@ class JadwalController extends Controller
     {
         $jadwal = Jadwal::findOrFail($id);
         $jadwal->delete();
-        return redirect()->route('')->with(['message' => 'Jadwal berhasil dihapus']);
+        return redirect()->route('jadwal')->with(['message' => 'Jadwal berhasil dihapus']);
     }
 
 

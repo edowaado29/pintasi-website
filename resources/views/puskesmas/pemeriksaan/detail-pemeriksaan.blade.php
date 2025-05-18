@@ -18,6 +18,11 @@
     <div class="container-fluid py-4 px-5">
         <div class="card">
             <div class="card-body">
+                <div style="margin-left: 5vh;" class="py-3">
+                    <a href="{{ route('pemeriksaan') }}">
+                        <img src="{{ asset('assets/img/back-button.png') }}" style="width: 5vh; opacity: 50%;">
+                    </a>
+                </div>
                 <div class="row text-center justify-content-center">
                     <div class="col-lg-4 col-md-12">
                         <div class="d-flex align-items-center p-3 rounded shadow-sm">

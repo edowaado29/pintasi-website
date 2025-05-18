@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('id_bayi')->constrained('bayis')->onDelete('cascade');
             $table->float('bb');
             $table->float('tb');
-            $table->float('lk');
+            $table->float('lk')->nullable();
             $table->float('imt');
             $table->date('tgl_periksa');
             $table->string('status_gizi');

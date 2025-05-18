@@ -98,6 +98,7 @@
                                                     <script>
                                                         const ErrorJam = '{{ $message }}';
                                                     </script>
+                                                    @enderror
                                                 </div>
 
                                                 <div class="mb-3">

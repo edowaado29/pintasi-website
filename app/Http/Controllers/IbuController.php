@@ -53,7 +53,7 @@ class IbuController extends Controller
             ]
         );
 
-        $fotopath = $request->hasFile('foto') ? $request->file('foto')->store('public/ibu') : null;
+        $fotopath = $request->hasFile('foto') ? $request->file('foto')->store('public/ibus') : null;
         $foto = $fotopath ? $request->file('foto')->hashName() : null;
 
         Ibu::create([
@@ -104,11 +104,11 @@ class IbuController extends Controller
 
         if ($request->hasFile('foto')) {
             if ($ibus->foto) {
-                Storage::delete('public/ibu/' . $ibus->foto);
+                Storage::delete('public/ibus/' . $ibus->foto);
             }
 
             $foto = $request->file('foto')->hashName();
-            $request->file('foto')->storeAs('public/ibu', $foto);
+            $request->file('foto')->storeAs('public/ibus', $foto);
             $ibus->foto = $foto;
         }
 
@@ -119,7 +119,7 @@ class IbuController extends Controller
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
             'alamat' => $request->alamat,
-            'telepon' => $request->no_hp,
+            'telepon' => $request->telepon,
         ];
 
         // Update password jika diisi
@@ -135,8 +135,8 @@ class IbuController extends Controller
     public function hapus_ibu(string $id)
     {
         $ibus = Ibu::findOrFail($id);
-        if ($ibus->foto && Storage::exists('public/ibu/' . $ibus->foto)) {
-            Storage::delete('public/ibu/' . $ibus->foto);
+        if ($ibus->foto && Storage::exists('public/ibus/' . $ibus->foto)) {
+            Storage::delete('public/ibus/' . $ibus->foto);
         }
         $ibus->delete();
         return redirect()->route('ibu')->with(['message' => 'Data berhasil dihapus']);

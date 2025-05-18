@@ -72,29 +72,8 @@
                                                 @enderror
                                             </div>
                                             <div class="mb-3">
-                                                <label for="no_kk" class="form-label text-secondary fs-6">Nomor
-                                                    KK</label>
-                                                <input type="regex" class="form-control" id="no_kk" name="no_kk"
-                                                    value="{{ old('no_kk', $bayis->no_kk) }}"
-                                                    onkeypress="return hanyaAngka(event)" oninput="cekPanjangInput(this)">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="nik_bayi" class="form-label text-secondary fs-6">NIK
-                                                    Bayi<span class="text-danger">*</span></label>
-                                                <input type="regex"
-                                                    class="form-control @error('nik_bayi') is-invalid @enderror"
-                                                    id="nik_bayi" name="nik_bayi"
-                                                    value="{{ old('nik_bayi', $bayis->nik_bayi) }}"
-                                                    onkeypress="return hanyaAngka(event)" oninput="cekPanjangInput(this)">
-                                                @error('nik_bayi')
-                                                    <script>
-                                                        const ErrorNik = '{{ $message }}';
-                                                    </script>
-                                                @enderror
-                                            </div>
-                                            <div class="mb-3">
                                                 <label for="nama_bayi" class="form-label text-secondary fs-6">Nama
-                                                    Bayi <span class="text-danger">*</span></label>
+                                                    Bayi<span class="text-danger">*</span></label>
                                                 <input type="text"
                                                     class="form-control @error('nama_bayi') is-invalid @enderror"
                                                     id="nama_bayi" name="nama_bayi"
@@ -107,7 +86,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="tanggal_lahir" class="form-label text-secondary fs-6">Tanggal
-                                                    Lahir <span class="text-danger">*</span></label>
+                                                    Lahir<span class="text-danger">*</span></label>
                                                 <input type="date"
                                                     class="form-control @error('tanggal_lahir') is-invalid @enderror"
                                                     id="tanggal_lahir" name="tanggal_lahir"
@@ -125,15 +104,36 @@
                                                     id="jenis_kelamin" name="jenis_kelamin">
                                                     <option value="">Pilih Jenis Kelamin</option>
                                                     <option value="Laki-laki"
-                                                        {{ old('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>
+                                                        {{ old('jenis_kelamin', $bayis->jenis_kelamin) == 'Laki-laki' ? 'selected' : '' }}>
                                                         Laki-laki</option>
                                                     <option value="Perempuan"
-                                                        {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>
+                                                        {{ old('jenis_kelamin', $bayis->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>
                                                         Perempuan</option>
                                                 </select>
                                                 @error('jenis_kelamin')
                                                     <script>
                                                         const ErrorJenis = '{{ $message }}';
+                                                    </script>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="no_kk" class="form-label text-secondary fs-6">Nomor
+                                                    KK</label>
+                                                <input type="regex" class="form-control" id="no_kk" name="no_kk"
+                                                    value="{{ old('no_kk', $bayis->no_kk) }}"
+                                                    onkeypress="return hanyaAngka(event)" oninput="cekPanjangInput(this)">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="nik_bayi" class="form-label text-secondary fs-6">NIK
+                                                    Bayi</label>
+                                                <input type="regex"
+                                                    class="form-control @error('nik_bayi') is-invalid @enderror"
+                                                    id="nik_bayi" name="nik_bayi"
+                                                    value="{{ old('nik_bayi', $bayis->nik_bayi) }}"
+                                                    onkeypress="return hanyaAngka(event)" oninput="cekPanjangInput(this)">
+                                                @error('nik_bayi')
+                                                    <script>
+                                                        const ErrorNik = '{{ $message }}';
                                                     </script>
                                                 @enderror
                                             </div>
@@ -144,12 +144,12 @@
                                                 <input type="text" class="form-control" id="nama_ayah"
                                                     name="nama_ayah" value="{{ old('nama_ayah', $bayis->nama_ayah) }}">
                                             </div>
-                                            <div class="mb-3">
+                                            {{-- <div class="mb-3">
                                                 <label for="nama_ibu" class="form-label text-secondary fs-6">Nama
                                                     Ibu</label>
                                                 <input type="text" class="form-control" id="nama_ibu"
                                                     name="nama_ibu" value="{{ old('nama_ibu', $bayis->nama_ibu) }}">
-                                            </div>
+                                            </div> --}}
                                             <div class="form-group">
                                                 <label for="foto_bayi" class="text-secondary fs-6">Foto Bayi
                                                     (Maksimal 2MB)</label><br>
@@ -158,7 +158,7 @@
                                             </div>
                                             <div class="row mt-4">
                                                 <div class="col-6">
-                                                    <a href="/bayis"
+                                                    <a href="/bayi"
                                                         class="btn btn-sm bg-gradient-danger w-100">Kembali</a>
                                                 </div>
                                                 <div class="col-6">
@@ -178,9 +178,15 @@
                                         <div class="mb-3">
                                             <div class="preview">
                                                 <label class="text-secondary fs-6">Pratinjau Foto Bayi</label><br>
-                                                <img src="{{ asset('/storage/bayis/' . $bayis->foto_bayi) ?? asset('assets/img/no_image.png') }}"
-                                                    class="mb-3" id="bayiPreview"
-                                                    style="width: 100%; height: 400px; border: 2px solid #d4d4d4; border-radius: 10px;">
+                                                @if ($bayis->foto_bayi && file_exists(public_path('storage/bayis/' . $bayis->foto_bayi)))
+                                                    <img src="{{ asset('storage/bayis/' . $bayis->foto_bayi) }}"
+                                                        class="mb-3" id="bayiPreview"
+                                                        style="width: 100%; height: 400px; border: 2px solid #d4d4d4; border-radius: 10px;">
+                                                @else
+                                                    <img src="{{ asset('assets/img/no_image.png') }}" class="mb-3"
+                                                        id="bayiPreview"
+                                                        style="width: 100%; height: 400px; border: 2px solid #d4d4d4; border-radius: 10px;">
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

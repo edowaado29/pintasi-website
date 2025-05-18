@@ -9,9 +9,9 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
-                        <li class="breadcrumb-item text-sm text-white active" aria-current="page">Data Akun Ibu</li>
+                        <li class="breadcrumb-item text-sm text-white active" aria-current="page">Resep MPASI</li>
                     </ol>
-                    <h6 class="font-weight-bolder text-white mb-0">Data Akun Ibu</h6>
+                    <h6 class="font-weight-bolder text-white mb-0">Data Resep MPASI</h6>
                 </nav>
             </div>
         </nav>
@@ -21,12 +21,12 @@
                 <div class="col-12">
                     <div class="card mb-4">
                         <div class="card-header pb-0">
-                            <h6>TABEL DATA IBU</h6>
+                            <h6>TABEL DATA Resep MPASI</h6>
                         </div>
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12 px-4">
-                                    <a href="/tambah_ibu" class="btn btn-sm bg-gradient-primary">Tambah Ibu</a>
+                                    <a href="/tambah_resep" class="btn btn-sm bg-gradient-primary">Tambah Resep</a>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                     <input class="form-control" id="search" type="text" placeholder="Masukkan kata kunci ...">
@@ -42,19 +42,13 @@
                                             </th>
                                             <th
                                                 class="text-uppercase text-success text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Nama Ibu</th>
-                                            <th
-                                                class="text-uppercase text-success text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Nomor Handphone</th>
-                                            <th
-                                                class="text-uppercase text-success text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Alamat</th>
+                                                Nama Resep</th>
                                             <th class="text-uppercase text-success text-xxs font-weight-bolder opacity-7">
                                                 Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($ibus as $ibu)
+                                        @forelse ($reseps as $rsp)
                                             <tr>
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
@@ -64,30 +58,24 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    {{ $ibu->nama_ibu }}
-                                                </td>
-                                                <td>
-                                                    {{ $ibu->telepon }}
-                                                </td>
-                                                <td>
-                                                    {{ $ibu->alamat }}
+                                                    {{ $rsp->nama_resep }}
                                                 </td>
                                                 <td class="align-middle text-sm">
                                                     <form action="" method="POST" id="delete-form">
-                                                        <a href="{{ route('detail_ibu', $ibu->id) }}"
+                                                        <a href="{{ route('detail_resep', $rsp->id) }}"
                                                             class="btn btn-sm bg-gradient-primary">Detail</a>
-                                                        <a href="{{ route('edit_ibu', $ibu->id) }}"
+                                                        <a href="{{ route('edit_resep', $rsp->id) }}"
                                                             class="btn btn-sm bg-gradient-success">Edit</a>
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="button" class="btn btn-sm btn-danger"
-                                                            onclick="confirmDelete('{{ $ibu->id }}')">HAPUS</button>
+                                                            onclick="confirmDelete('{{ $rsp->id }}')">HAPUS</button>
                                                     </form>
                                                 </td>
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="5" class="text-center">Data Ibu belum Tersedia</td>
+                                                <td colspan="5" class="text-center">Data Resep belum Tersedia</td>
                                             </tr>
                                         @endforelse
                                     </tbody>
@@ -102,7 +90,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('assets/js/search.js') }}"></script>
     <script>
-        const baseUrl = "{{ url('/hapus_ibu') }}";
+        const baseUrl = "{{ url('/hapus_resep') }}";
 
         function confirmDelete(id) {
             Swal.fire({
@@ -143,5 +131,4 @@
             });
         </script>
     @endif
-
-    @endsection
+@endsection

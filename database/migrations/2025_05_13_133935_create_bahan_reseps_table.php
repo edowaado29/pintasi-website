@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('id_resep')->constrained('reseps')->onDelete('cascade');
             $table->string('nama_bahan');
             $table->integer('berat');
-            $table->string('satuan_bahan');
+            $table->string('satuan_berat');
             $table->timestamps();
         });
     }

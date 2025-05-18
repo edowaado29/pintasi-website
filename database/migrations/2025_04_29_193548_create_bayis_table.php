@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('bayis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_ibu')->constrained('ibus')->onDelete('cascade');
-            $table->string('no_kk');
-            $table->string('nik_bayi')->unique();
+            $table->string('no_kk')->nullable();
+            $table->string('nik_bayi')->unique()->nullable();
             $table->string('nama_bayi');
             $table->date('tanggal_lahir');
             $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);

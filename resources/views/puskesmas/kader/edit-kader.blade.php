@@ -156,9 +156,15 @@
                                         <div class="mb-3">
                                             <div class="preview">
                                                 <label class="text-secondary fs-6">Pratinjau Foto Kader</label><br>
-                                                <img src="{{ asset('/storage/users/' . $kaders->foto) ?? asset('assets/img/no_image.png') }}"
-                                                    class="mb-3" id="kaderPreview"
-                                                    style="width: 100%; height: 400px; border: 2px solid #d4d4d4; border-radius: 10px;">
+                                                @if ($kaders->foto && file_exists(public_path('storage/kaders/' . $kaders->foto)))
+                                                    <img src="{{ asset('storage/kaders/' . $kaders->foto) }}"
+                                                        class="mb-3" id="kaderPreview"
+                                                        style="width: 100%; height: 400px; border: 2px solid #d4d4d4; border-radius: 10px;">
+                                                @else
+                                                    <img src="{{ asset('assets/img/no_image.png') }}" class="mb-3"
+                                                        id="kaderPreview"
+                                                        style="width: 100%; height: 400px; border: 2px solid #d4d4d4; border-radius: 10px;">
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
