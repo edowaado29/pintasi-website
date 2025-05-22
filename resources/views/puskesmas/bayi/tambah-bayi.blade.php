@@ -50,7 +50,7 @@
                                     <div class="container">
                                         <form action="{{ route('add_bayi') }}" method="post" enctype="multipart/form-data">
                                             @csrf
-                                            <div class=" mb-3">
+                                            <div class="mb-3">
                                                 <label for="id_ibu" class="form-label text-secondary fs-6">Ibu <span
                                                         class="text-danger">*</span></label>
                                                 <select id="id_ibu"

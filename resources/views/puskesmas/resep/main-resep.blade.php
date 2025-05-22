@@ -21,7 +21,7 @@
                 <div class="col-12">
                     <div class="card mb-4">
                         <div class="card-header pb-0">
-                            <h6>TABEL DATA Resep MPASI</h6>
+                            <h6>TABEL DATA RESEP MPASI</h6>
                         </div>
                         <div class="container">
                             <div class="row">
@@ -51,14 +51,10 @@
                                         @forelse ($reseps as $rsp)
                                             <tr>
                                                 <td>
-                                                    <div class="d-flex px-2 py-1">
-                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
-                                                        </div>
-                                                    </div>
+                                                    <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
                                                 </td>
                                                 <td>
-                                                    {{ $rsp->nama_resep }}
+                                                    <p class="text-x font-weight-bold mb-0">{{ $rsp->nama_resep }}
                                                 </td>
                                                 <td class="align-middle text-sm">
                                                     <form action="" method="POST" id="delete-form">
@@ -75,7 +71,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="5" class="text-center">Data Resep belum Tersedia</td>
+                                                <td colspan="5" class="text-center font-weight-bold">Data Resep belum Tersedia</td>
                                             </tr>
                                         @endforelse
                                     </tbody>

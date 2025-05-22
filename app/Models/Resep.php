@@ -15,5 +15,8 @@ class Resep extends Model
         'total_kalori',
         'total_protein',
         'total_lemak',
+        'total_karbohidrat',
+        'total_serat',
+        'gambar_resep',
     ];
 }

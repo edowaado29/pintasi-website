@@ -47,23 +47,19 @@
                         @forelse ($jadwals as $jdwl)
                         <tr>
                           <td>
-                            <div class="d-flex px-2 py-1">
-                              <div class="d-flex flex-column justify-content-center">
-                                <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
-                              </div>
-                            </div>
+                              <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
                           </td>
                           <td>
-                            {{ $jdwl->jenis_pemeriksaan }}
+                            <p class="text-x font-weight-bold mb-0">{{ $jdwl->jenis_pemeriksaan }}
                           </td>
                           <td>
-                            {{ $jdwl->jam_pemeriksaan }}
+                            <p class="text-x font-weight-bold mb-0">{{ $jdwl->jam_pemeriksaan }}
                           </td>
                           <td>
-                            {{ $jdwl->tanggal_pemeriksaan}}
+                            <p class="text-x font-weight-bold mb-0">{{ $jdwl->tanggal_pemeriksaan}}
                           </td>
                           <td>
-                            {{ $jdwl->tempat }}
+                            <p class="text-x font-weight-bold mb-0">{{ $jdwl->tempat }}
                           </td>
                           <td class="align-middle text-sm">
                             <form action="/hapus_jadwal" method="POST" id="delete-form">
@@ -77,7 +73,7 @@
                         </tr>
                         @empty
                         <tr>
-                          <td colspan="6" class="text-center">Data Kegiatan belum Tersedia.</td>
+                          <td colspan="6" class="text-center font-weight-bold">Data Kegiatan belum Tersedia.</td>
                         </tr>
                         @endforelse
                       </tbody>

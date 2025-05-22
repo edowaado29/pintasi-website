@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BahanResep;
+use App\Models\DaftarBahan;
 use App\Models\Resep;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,46 +20,59 @@ class ResepController extends Controller
     public function detail_resep(string $id)
     {
         $reseps = Resep::findOrFail($id);
-        return view('puskesmas.resep.detail-resep', compact('reseps'));
+        $bahans = BahanResep::where('id_resep', $id)->get();
+        $daftarBahans = DaftarBahan::all();
+        return view('puskesmas.resep.detail-resep', compact('reseps', 'bahans'));
     }
     public function tambah_resep()
     {
-        return view('puskesmas.resep.tambah-resep');
+        $daftarBahans = DaftarBahan::all();
+        return view('puskesmas.resep.tambah-resep', compact('daftarBahans'));
     }
     public function add_resep(Request $request): RedirectResponse
     {
         $request->validate([
             'nama_resep' => 'required|string|max:255',
-            'langkah' => 'required|string|max:255',
+            'langkah' => 'required|string',
             'jumlah_porsi' => 'required|integer',
             'min_usia' => 'required|integer',
             'max_usia' => 'required|integer',
-            'total_kalori' => 'required|integer',
-            'total_protein' => 'required|integer',
-            'total_lemak' => 'required|integer',
             'gambar_resep' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'nama_bahan' => 'required|array',
-            'nama_bahan.*' => 'required|string|max:255',
+            'id_daftarBahan' => 'required|array|min:1',
+            'id_daftarBahan.*' => 'required|exists:daftar_bahans,id',
             'berat' => 'required|array',
             'berat.*' => 'required|integer',
-            'satuan_berat' => 'required|array',
-            'satuan_berat.*' => 'required|string|max:255',
         ], [
             'nama_resep.required' => 'Nama Resep tidak boleh kosong.',
             'langkah.required' => 'Langkah tidak boleh kosong.',
             'jumlah_porsi.required' => 'Jumlah Porsi tidak boleh kosong.',
             'min_usia.required' => 'Usia minimum tidak boleh kosong.',
             'max_usia.required' => 'Usia maksimum tidak boleh kosong.',
-            'total_kalori.required' => 'Total kalori tidak boleh kosong.',
-            'total_protein.required' => 'Total protein tidak boleh kosong.',
-            'total_lemak.required' => 'Total lemak tidak boleh kosong.',
             'gambar_resep.image' => 'File yang diunggah harus berupa gambar.',
             'gambar_resep.mimes' => 'Gambar harus berformat jpeg, png, atau jpg.',
             'gambar_resep.max' => 'Ukuran gambar maksimal 2MB.',
-            'nama_bahan.required' => 'Nama Bahan tidak boleh kosong.',
+            'id_bahan.required' => 'Nama Bahan tidak boleh kosong.',
             'berat.required' => 'Berat tidak boleh kosong.',
-            'satuan_berat.required' => 'Satuan berat tidak boleh kosong.',
         ]);
+
+        $total_kalori = 0;
+        $total_protein = 0;
+        $total_lemak = 0;
+        $total_karbohidrat = 0;
+        $total_serat = 0;
+
+        foreach ($request->id_daftarBahan as $i => $id_daftarBahan) {
+            $bahan = DaftarBahan::find($id_daftarBahan);
+            $berat = $request->berat[$i];
+
+            if ($bahan) {
+                $total_kalori += ($bahan->kalori * $berat) / 100;
+                $total_protein += ($bahan->protein * $berat) / 100;
+                $total_lemak += ($bahan->lemak * $berat) / 100;
+                $total_karbohidrat += ($bahan->karbohidrat * $berat) / 100;
+                $total_serat += ($bahan->serat * $berat) / 100;
+            }
+        }
 
         $fotoPath = $request->hasFile('gambar_resep') ? $request->file('gambar_resep')->store('public/reseps') : null;
         $gambarResep = $fotoPath ? $request->file('gambar_resep')->hashName() : null;
@@ -69,19 +83,20 @@ class ResepController extends Controller
             'jumlah_porsi' => $request->jumlah_porsi,
             'min_usia' => $request->min_usia,
             'max_usia' => $request->max_usia,
-            'total_kalori' => $request->total_kalori,
-            'total_protein' => $request->total_protein,
-            'total_lemak' => $request->total_lemak,
+            'total_kalori' => $total_kalori,
+            'total_protein' => $total_protein,
+            'total_lemak' => $total_lemak,
+            'total_karbohidrat' => $total_karbohidrat,
+            'total_serat' => $total_serat,
             'gambar_resep' => $gambarResep,
         ]);
 
         // Simpan bahan-bahan resep
-        foreach ($request->nama_bahan as $i => $nama_bahan) {
+        foreach ($request->id_daftarBahan as $i => $id_daftarBahan) {
             BahanResep::create([
                 'id_resep' => $reseps->id,
-                'nama_bahan' => $nama_bahan,
+                'id_daftarBahan' => $id_daftarBahan,
                 'berat' => $request->berat[$i],
-                'satuan_berat' => $request->satuan_berat[$i],
             ]);
         }
 
@@ -91,30 +106,47 @@ class ResepController extends Controller
     {
         $reseps = Resep::findOrFail($id);
         $bahans = BahanResep::where('id_resep', $id)->get();
-        return view('puskesmas.resep.edit-resep', compact('reseps', 'bahans'));
+        $id_daftarBahan = $bahans->pluck('id_daftarBahan')->toArray();
+        $berat = $bahans->pluck('berat')->toArray();
+        $daftarBahans = DaftarBahan::all();
+        return view('puskesmas.resep.edit-resep', compact('reseps', 'bahans', 'id_daftarBahan', 'berat', 'daftarBahans'));
     }
 
     public function update_resep(Request $request, string $id): RedirectResponse
     {
         $request->validate([
             'nama_resep' => 'required|string|max:255',
-            'langkah' => 'required|string|max:255',
+            'langkah' => 'required|string',
             'jumlah_porsi' => 'required|integer',
             'min_usia' => 'required|integer',
             'max_usia' => 'required|integer',
-            'total_kalori' => 'required|integer',
-            'total_protein' => 'required|integer',
-            'total_lemak' => 'required|integer',
             'gambar_resep' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'nama_bahan' => 'required|array',
-            'nama_bahan.*' => 'required|string|max:255',
+            'id_daftarBahan' => 'required|array|min:1',
+            'id_daftarBahan.*' => 'required|exists:daftar_bahans,id',
             'berat' => 'required|array',
             'berat.*' => 'required|integer',
-            'satuan_berat' => 'required|array',
-            'satuan_berat.*' => 'required|string|max:255',
         ]);
 
         $reseps = Resep::findOrFail($id);
+
+        $total_kalori = 0;
+        $total_protein = 0;
+        $total_lemak = 0;
+        $total_karbohidrat = 0;
+        $total_serat = 0;
+
+        foreach ($request->id_daftarBahan as $i => $id_daftarBahan) {
+            $bahan = DaftarBahan::find($id_daftarBahan);
+            $berat = $request->berat[$i];
+
+            if ($bahan) {
+                $total_kalori += ($bahan->kalori * $berat) / 100;
+                $total_protein += ($bahan->protein * $berat) / 100;
+                $total_lemak += ($bahan->lemak * $berat) / 100;
+                $total_karbohidrat += ($bahan->karbohidrat * $berat) / 100;
+                $total_serat += ($bahan->serat * $berat) / 100;
+            }
+        }
 
         if ($request->hasFile('gambar_resep')) {
             if ($reseps->gambar_resep) {
@@ -130,19 +162,20 @@ class ResepController extends Controller
             'jumlah_porsi' => $request->jumlah_porsi,
             'min_usia' => $request->min_usia,
             'max_usia' => $request->max_usia,
-            'total_kalori' => $request->total_kalori,
-            'total_protein' => $request->total_protein,
-            'total_lemak' => $request->total_lemak,
+            'total_kalori' => $total_kalori,
+            'total_protein' => $total_protein,
+            'total_lemak' => $total_lemak,
+            'total_karbohidrat' => $total_karbohidrat,
+            'total_serat' => $total_serat,
             'gambar_resep' => $reseps->gambar_resep,
         ]);
 
         BahanResep::where('id_resep', $id)->delete();
-        foreach ($request->nama_bahan as $i => $nama_bahan) {
+        foreach ($request->id_daftarBahan as $i => $id_daftarBahan) {
             BahanResep::create([
                 'id_resep' => $id,
-                'nama_bahan' => $nama_bahan,
+                'id_daftarBahan' => $id_daftarBahan,
                 'berat' => $request->berat[$i],
-                'satuan_berat' => $request->satuan_berat[$i],
             ]);
         }
 

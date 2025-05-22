@@ -51,17 +51,14 @@
                                         @forelse ($motoriks as $mtrk)
                                             <tr>
                                                 <td>
-                                                    <div class="d-flex px-2 py-1">
-                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
-                                                        </div>
+                                                    <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    {{ $mtrk->min_usia }} - {{ $mtrk->max_usia }}
+                                                    <p class="text-x font-weight-bold mb-0">{{ $mtrk->min_usia }} - {{ $mtrk->max_usia }}
                                                 </td>
                                                 <td>
-                                                    {{ $mtrk->capaian_motorik }}
+                                                    <p class="text-x font-weight-bold mb-0">{{ $mtrk->capaian_motorik }}
                                                 </td>
                                                 <td class="align-middle text-sm">
                                                     <form action=""{{ route('hapus_motorik', $mtrk->id) }}"
@@ -77,7 +74,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="5" class="text-center">Data Motorik Bayi belum Tersedia</td>
+                                                <td colspan="5" class="text-center font-weight-bold">Data Motorik Bayi belum Tersedia</td>
                                             </tr>
                                         @endforelse
                                     </tbody>

@@ -45,11 +45,7 @@
                   @forelse($pemeriksaans as $pemeriksaan)
                   <tr>
                     <td>
-                      <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
-                        </div>
-                      </div>
+                      <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
                     </td>
                     <td>
                       <p class="text-x font-weight-bold mb-0">{{ $pemeriksaan->bayi->nama_bayi }}</p>
@@ -76,7 +72,7 @@
                   </tr>
                   @empty
                   <tr>
-                    <td colspan="5" class="text-center">Data pemeriksaan belum Tersedia.</td>
+                    <td colspan="5" class="text-center font-weight-bold">Data pemeriksaan belum Tersedia.</td>
                   </tr>
                   @endforelse
                 </tbody>

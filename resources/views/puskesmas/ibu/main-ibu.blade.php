@@ -57,20 +57,16 @@
                                         @forelse ($ibus as $ibu)
                                             <tr>
                                                 <td>
-                                                    <div class="d-flex px-2 py-1">
-                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
-                                                        </div>
-                                                    </div>
+                                                    <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
                                                 </td>
                                                 <td>
-                                                    {{ $ibu->nama_ibu }}
+                                                    <p class="text-x font-weight-bold mb-0">{{ $ibu->nama_ibu }}
                                                 </td>
                                                 <td>
-                                                    {{ $ibu->telepon }}
+                                                    <p class="text-x font-weight-bold mb-0">{{ $ibu->telepon }}
                                                 </td>
                                                 <td>
-                                                    {{ $ibu->alamat }}
+                                                    <p class="text-x font-weight-bold mb-0">{{ $ibu->alamat }}
                                                 </td>
                                                 <td class="align-middle text-sm">
                                                     <form action="" method="POST" id="delete-form">
@@ -87,7 +83,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="5" class="text-center">Data Ibu belum Tersedia</td>
+                                                <td colspan="5" class="text-center font-weight-bold">Data Ibu belum Tersedia</td>
                                             </tr>
                                         @endforelse
                                     </tbody>

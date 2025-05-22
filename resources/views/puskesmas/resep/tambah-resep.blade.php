@@ -64,149 +64,141 @@
                                                 @enderror
                                             </div>
                                             <div class="mb-3">
-                                                <label for="total_kalori" class="form-label text-secondary fs-6">Total
-                                                    Kalori<span class="text-danger">*</span></label>
-                                                <input type="regex"
-                                                    class="form-control @error('total_kalori') is-invalid @enderror"
-                                                    id="total_kalori" name="total_kalori" value="{{ old('total_kalori') }}"
-                                                    onkeypress="return hanyaAngka(event)" oninput="cekPanjangInputt(this)">
-                                                @error('total_kalori')
-                                                    <script>
-                                                        const ErrorKalori = '{{ $message }}';
-                                                    </script>
-                                                @enderror
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="total_protein" class="form-label text-secondary fs-6">Total
-                                                    Protein<span class="text-danger">*</span></label>
-                                                <input type="regex"
-                                                    class="form-control @error('total_protein') is-invalid @enderror"
-                                                    id="total_protein" name="total_protein"
-                                                    value="{{ old('total_protein') }}" onkeypress="return hanyaAngka(event)"
-                                                    oninput="cekPanjangInputt(this)">
-                                                @error('total_protein')
-                                                    <script>
-                                                        const ErrorProtein = '{{ $message }}';
-                                                    </script>
-                                                @enderror
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="total_lemak" class="form-label text-secondary fs-6">Total
-                                                    Lemak<span class="text-danger">*</span></label>
-                                                <input type="regex"
-                                                    class="form-control @error('total_lemak') is-invalid @enderror"
-                                                    id="total_lemak" name="total_lemak" value="{{ old('total_lemak') }}"
-                                                    onkeypress="return hanyaAngka(event)" oninput="cekPanjangInputt(this)">
-                                                @error('total_lemak')
-                                                    <script>
-                                                        const ErrorLemak = '{{ $message }}';
-                                                    </script>
-                                                @enderror
-                                            </div>
-
-                                            <div class="mb-3">
                                                 <div class="d-flex align-items-center justify-content-between mb-3">
-                                                    <label for="nama_bahan" class="form-label text-secondary fs-6 mb-0">
+                                                    <label for="id_daftarBahan" class="form-label text-secondary fs-6 mb-0">
                                                         Bahan Resep <span class="text-danger">*</span>
                                                     </label>
                                                     <i class="fas fa-solid fa-plus" onclick="addField()"
                                                         style="border: 3px solid green; color: green; padding: 3px; border-radius: 5px; cursor: pointer;"></i>
                                                 </div>
                                                 <div id="input_fields_wrap">
-                                                    <div class="form-group d-flex align-items-center mb-2">
-                                                        <input type="text" name="nama_bahan[]" class="form-control me-2"
-                                                            placeholder="Nama Bahan" value="{{ old('nama_bahan') }}"
-                                                            required>
-                                                        <input type="number" name="berat[]" class="form-control me-2"
-                                                            placeholder="Berat" value="{{ old('berat') }}" required>
-                                                        <select class="form-control me-2" name="satuan_berat[]" required>
-                                                            <option value="" disabled
-                                                                {{ old('satuan_berat') == '' ? 'selected' : '' }}>Satuan
-                                                                Berat</option>
-                                                            <option value="Gram"
-                                                                {{ old('satuan_berat') == 'Gram' ? 'selected' : '' }}>Gram
-                                                                (g)</option>
-                                                            <option value="Kilogram"
-                                                                {{ old('satuan_berat') == 'Kilogram' ? 'selected' : '' }}>
-                                                                Kilogram (kg)</option>
-                                                            <option value="Miligram"
-                                                                {{ old('satuan_berat') == 'Miligram' ? 'selected' : '' }}>
-                                                                Miligram (mg)</option>
-                                                            <option value="Ons"
-                                                                {{ old('satuan_berat') == 'Ons' ? 'selected' : '' }}>Ons
-                                                            </option>
-                                                            <option value="Sendok makan (sdm)"
-                                                                {{ old('satuan_berat') == 'Sendok makan (sdm)' ? 'selected' : '' }}>
-                                                                Sendok makan (sdm)</option>
-                                                            <option value="Sendok teh (sdt)"
-                                                                {{ old('satuan_berat') == 'Sendok teh (sdt)' ? 'selected' : '' }}>
-                                                                Sendok teh (sdt)</option>
-                                                            <option value="Cup"
-                                                                {{ old('satuan_berat') == 'Cup' ? 'selected' : '' }}>Cup
-                                                                (cangkir)</option>
-                                                            <option value="Liter"
-                                                                {{ old('satuan_berat') == 'Liter' ? 'selected' : '' }}>
-                                                                Liter (l)</option>
-                                                            <option value="Mililiter"
-                                                                {{ old('satuan_berat') == 'Mililiter' ? 'selected' : '' }}>
-                                                                Mililiter (ml)</option>
-                                                            <option value="Buah"
-                                                                {{ old('satuan_berat') == 'Buah' ? 'selected' : '' }}>Buah
-                                                            </option>
-                                                            <option value="Lembar"
-                                                                {{ old('satuan_berat') == 'Lembar' ? 'selected' : '' }}>
-                                                                Lembar</option>
-                                                            <option value="Batang"
-                                                                {{ old('satuan_berat') == 'Batang' ? 'selected' : '' }}>
-                                                                Batang</option>
-                                                            <option value="Siung"
-                                                                {{ old('satuan_berat') == 'Siung' ? 'selected' : '' }}>
-                                                                Siung</option>
-                                                            <option value="Potong"
-                                                                {{ old('satuan_berat') == 'Potong' ? 'selected' : '' }}>
-                                                                Potong</option>
-                                                        </select>
-                                                        <button type="button" class="btn btn-danger btn-sm"
-                                                            onclick="removeField(this)">-</button>
-                                                    </div>
+                                                    @foreach (old('id_daftarBahan', [null]) as $i => $id_daftarBahan)
+                                                        <div class="form-group d-flex align-items-center mb-2">
+                                                            <select class="form-control me-2" name="id_daftarBahan[]"
+                                                                required>
+                                                                <option value="">Nama Bahan</option>
+                                                                @foreach ($daftarBahans as $dftBhn)
+                                                                    <option value="{{ $dftBhn->id }}"
+                                                                        {{ $dftBhn->id == $id_daftarBahan ? 'selected' : '' }}>
+                                                                        {{ $dftBhn->nama_bahan }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+
+                                                            <input type="text" name="berat[]" class="form-control me-2"
+                                                                placeholder="Berat (Gram)"
+                                                                value="{{ old('berat')[$i] ?? '' }}"
+                                                                onkeypress="return hanyaAngka(event)" required>
+
+                                                            <button type="button" class="btn btn-danger btn-sm"
+                                                                onclick="removeField(this)">-</button>
+                                                        </div>
+                                                    @endforeach
                                                 </div>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="langkah"
                                                     class="form-label text-secondary fs-6">Langkah-langkah<span
                                                         class="text-danger">*</span></label>
-                                                <textarea class="form-control" id="langkah" name="langkah" rows="3">{{ old('langkah') }}</textarea>
+                                                <textarea class="form-control @error('langkah') is-invalid @enderror" id="langkah" name="langkah" rows="3">{{ old('langkah') }}</textarea>
+                                                @error('langkah')
+                                                    <script>
+                                                        const ErrorLangkah = '{{ $message }}';
+                                                    </script>
+                                                @enderror
                                             </div>
                                             <div class="mb-3">
-                                                <label for="jumlah_porsi" class="form-label text-secondary fs-6">Jumlah
-                                                    Porsi<span class="text-danger">*</span></label>
-                                                <input type="regex" class="form-control" id="jumlah_porsi"
-                                                    name="jumlah_porsi" value="{{ old('jumlah_porsi') }}"
-                                                    onkeypress="return hanyaAngka(event)"
-                                                    oninput="cekPanjangInputt(this)">
+                                                <label for="jumlah_porsi" class="form-label text-secondary fs-6">Porsi
+                                                    Makan<span class="text-danger">*</span></label>
+                                                <select class="form-control @error('jumlah_porsi') is-invalid @enderror"
+                                                    id="jumah_porsi" name="jumlah_porsi">
+                                                    <option value="">Jumlah Porsi</option>
+                                                    <option value="3"
+                                                        {{ old('jumlah_porsi') == '3' ? 'selected' : '' }}>3</option>
+                                                    <option value="2"
+                                                        {{ old('jumlah_porsi') == '2' ? 'selected' : '' }}>2</option>
+                                                    <option value="1"
+                                                        {{ old('jumlah_porsi') == '1' ? 'selected' : '' }}>1</option>
+                                                </select>
+                                                @error('jumlah_porsi')
+                                                    <script>
+                                                        const ErrorJumlah = '{{ $message }}';
+                                                    </script>
+                                                @enderror
                                             </div>
                                             <div class="mb-3">
                                                 <label for="min_usia" class="form-label text-secondary fs-6">Minimal
                                                     Usia (bulan)<span class="text-danger">*</span></label>
-                                                <input type="regex" class="form-control" id="min_usia"
-                                                    name="min_usia" value="{{ old('min_usia') }}"
-                                                    onkeypress="return hanyaAngka(event)"
-                                                    oninput="cekPanjangInputt(this)">
+                                                <input type="text"
+                                                    class="form-control @error('min_usia') is-invalid @enderror"
+                                                    id="min_usia" name="min_usia" value="{{ old('min_usia') }}"
+                                                    onkeypress="return hanyaAngka(event)" oninput="cekPanjangInput(this)">
+                                                @error('min_usia')
+                                                    <script>
+                                                        const ErrorMin = '{{ $message }}';
+                                                    </script>
+                                                @enderror
                                             </div>
                                             <div class="mb-3">
                                                 <label for="max_usia" class="form-label text-secondary fs-6">Maksimal
                                                     Usia (bulan)<span class="text-danger">*</span></label>
-                                                <input type="regex" class="form-control" id="max_usia"
-                                                    name="max_usia" value="{{ old('max_usia') }}"
-                                                    onkeypress="return hanyaAngka(event)"
-                                                    oninput="cekPanjangInputt(this)">
+                                                <input type="text"
+                                                    class="form-control @error('max_usia') is-invalid @enderror"
+                                                    id="max_usia" name="max_usia" value="{{ old('max_usia') }}"
+                                                    onkeypress="return hanyaAngka(event)" oninput="cekPanjangInput(this)">
+                                                @error('max_usia')
+                                                    <script>
+                                                        const ErrorMax = '{{ $message }}';
+                                                    </script>
+                                                @enderror
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="total_kalori" class="form-label text-secondary fs-6">Total
+                                                        Kalori</label>
+                                                    <input type="text" id="total_kalori" name="total_kalori"
+                                                        class="form-control" readonly>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="total_protein"
+                                                        class="form-label text-secondary fs-6">Total Protein</label>
+                                                    <input type="text" id="total_protein" name="total_protein"
+                                                        class="form-control" readonly>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="total_lemak" class="form-label text-secondary fs-6">Total
+                                                        Lemak</label>
+                                                    <input type="text" id="total_lemak" name="total_lemak"
+                                                        class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="total_karbohidrat"
+                                                        class="form-label text-secondary fs-6">Total Karbohidrat</label>
+                                                    <input type="text" id="total_karbohidrat" name="total_karbohidrat"
+                                                        class="form-control" readonly>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="total_serat" class="form-label text-secondary fs-6">Total
+                                                        Serat</label>
+                                                    <input type="text" id="total_serat" name="total_serat"
+                                                        class="form-control" readonly>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="gambar_resep" class="text-secondary fs-6">Gambar Resep
                                                     (Maksimal 2MB)
                                                 </label><br>
-                                                <input type="file" class="form-control" id="gambar_resep"
-                                                    name="gambar_resep" onchange="resepPreview(event)">
+                                                <input type="file"
+                                                    class="form-control @error('gambar_resep') is-invalid @enderror"
+                                                    id="gambar_resep" name="gambar_resep" onchange="resepPreview(event)">
+                                                @error('gambar_resep')
+                                                    <script>
+                                                        const ErrorGambar = '{{ $message }}';
+                                                    </script>
+                                                @enderror
                                             </div>
                                             <div class="row mt-4">
                                                 <div class="col-6">
@@ -242,7 +234,6 @@
                     </div>
                 </div>
             </div>
-        </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -253,45 +244,25 @@
                 return false;
             return true;
         }
-
-        function cekPanjangInput(input) {
-            if (input.value.length > 16) {
-                input.value = input.value.slice(0, 16);
-            }
-        }
-
-        function cekPanjangInputt(input) {
-            if (input.value.length > 3) {
-                input.value = input.value.slice(0, 3);
-            }
-        }
     </script>
+    <script>
+        const bahanData = @json($daftarBahans->keyBy('id'));
+        const bahanOptions = `{!! collect($daftarBahans)->map(function ($dftBhn) {
+                return '<option value="' . $dftBhn->id . '">' . $dftBhn->nama_bahan . '</option>';
+            })->implode('') !!}`;
+    </script>
+
     <script>
         function addField() {
             var wrapper = document.getElementById("input_fields_wrap");
             var newField = document.createElement("div");
             newField.className = "form-group d-flex align-items-center mb-2";
-            newField.innerHTML =
-    `<input type="text" name="nama_bahan[]" class="form-control me-2" placeholder="Nama Bahan" required>
-    <input type="number" name="berat[]" class="form-control me-2" placeholder="Berat" min="1" required>
-    <select class="form-control me-2" name="satuan_berat[]" required>
-        <option value="" disabled selected>Satuan Berat</option>
-        <option value="Gram">Gram (g)</option>
-        <option value="Kilogram">Kilogram (kg)</option>
-        <option value="Miligram">Miligram (mg)</option>
-        <option value="Ons">Ons</option>
-        <option value="Sendok makan (sdm)">Sendok makan (sdm)</option>
-        <option value="Sendok teh (sdt)">Sendok teh (sdt)</option>
-        <option value="Cup">Cup (cangkir)</option>
-        <option value="Liter">Liter (l)</option>
-        <option value="Mililiter">Mililiter (ml)</option>
-        <option value="Buah">Buah</option>
-        <option value="Lembar">Lembar</option>
-        <option value="Batang">Batang</option>
-        <option value="Siung">Siung</option>
-        <option value="Potong">Potong</option>
-    </select>
-    <button type="button" class="btn btn-danger btn-sm" onclick="removeField(this)">-</button>`;
+            newField.innerHTML = `<select class="form-control me-2" name="id_daftarBahan[]" required>
+            <option value="" disabled selected>Nama Bahan</option>
+            ${bahanOptions}
+        </select>
+        <input type="text" name="berat[]" class="form-control me-2" placeholder="Berat" min="1" required>
+        <button type="button" class="btn btn-danger btn-sm" onclick="removeField(this)">-</button>`;
             wrapper.appendChild(newField);
         }
 
@@ -299,6 +270,48 @@
             button.parentNode.remove();
         }
     </script>
+
+    <script>
+        function hitungTotal() {
+            let totalKalori = 0,
+                totalProtein = 0,
+                totalLemak = 0,
+                totalKarbo = 0,
+                totalSerat = 0;
+
+            const fieldGroups = document.querySelectorAll('#input_fields_wrap .form-group');
+            fieldGroups.forEach(group => {
+                const select = group.querySelector('select[name="id_daftarBahan[]"]');
+                const beratInput = group.querySelector('input[name="berat[]"]');
+                if (select && beratInput && select.value && beratInput.value) {
+                    const bahan = bahanData[select.value];
+                    const berat = parseFloat(beratInput.value);
+                    if (bahan && berat) {
+                        totalKalori += (bahan.kalori * berat) / 100;
+                        totalProtein += (bahan.protein * berat) / 100;
+                        totalLemak += (bahan.lemak * berat) / 100;
+                        totalKarbo += (bahan.karbohidrat * berat) / 100;
+                        totalSerat += (bahan.serat * berat) / 100;
+                    }
+                }
+            });
+            document.getElementById('total_kalori').value = totalKalori === 0 ? '' : totalKalori.toFixed(2);
+            document.getElementById('total_protein').value = totalProtein === 0 ? '' : totalProtein.toFixed(2);
+            document.getElementById('total_lemak').value = totalLemak === 0 ? '' : totalLemak.toFixed(2);
+            document.getElementById('total_karbohidrat').value = totalKarbo === 0 ? '' : totalKarbo.toFixed(2);
+            document.getElementById('total_serat').value = totalSerat === 0 ? '' : totalSerat.toFixed(2);
+        }
+
+        document.addEventListener('input', function(e) {
+            if (e.target.matches('select[name="id_daftarBahan[]"], input[name="berat[]"]')) {
+                hitungTotal();
+            }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            hitungTotal();
+        });
+    </script>
+
     <script>
         function resepPreview(event) {
             const reader = new FileReader();
@@ -321,14 +334,15 @@
     </script>
 
     <script>
-        if (typeof ErrorNama !== 'undefined' || typeof ErrorLangkah !== 'undefined' || typeof ErrorPorsi !== 'undefined' ||
-            typeof ErrorMin !== 'undefined' || typeof ErrorMax !== 'undefined' || typeof ErrorKalori !== 'undefined' ||
-            typeof ErrorProtein !== 'undefined' || typeof ErrorLemak !== 'undefined' || typeof ErrorGambar !== 'undefined'
+        if (typeof ErrorNama !== 'undefined' || typeof ErrorLangkah !== 'undefined' || typeof ErrorJumlah !== 'undefined' ||
+            typeof ErrorPorsi !== 'undefined' ||
+            typeof ErrorMin !== 'undefined' || typeof ErrorMax !== 'undefined' || typeof ErrorBahan !== 'undefined' ||
+            typeof ErrorBerat !== 'undefined' || typeof ErrorGambar !== 'undefined'
         ) {
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-right',
-                iconColor: 'green',
+                iconColor: 'white',
                 customClass: {
                     popup: 'colored-toast swal2-icon-error',
                 },
@@ -340,25 +354,45 @@
                 icon: 'warning',
                 title: "Form Tidak Boleh Kosong",
             });
-            if (typeof ErrorEmail !== 'undefined') {
-                Toast.fire({
-                    icon: 'warning',
-                    title: ErrorEmail,
-                });
-            } else if (typeof ErrorPassword !== 'undefined') {
-                Toast.fire({
-                    icon: 'warning',
-                    title: ErrorPassword,
-                });
-            } else if (typeof ErrorNik !== 'undefined') {
-                Toast.fire({
-                    icon: 'warning',
-                    title: ErrorNik,
-                });
-            } else if (typeof ErrorNama !== 'undefined') {
+            if (typeof ErrorNama !== 'undefined') {
                 Toast.fire({
                     icon: 'warning',
                     title: ErrorNama,
+                });
+            } else if (typeof ErrorLangkah !== 'undefined') {
+                Toast.fire({
+                    icon: 'warning',
+                    title: ErrorLangkah,
+                });
+            } else if (typeof ErrorJumlah !== 'undefined') {
+                Toast.fire({
+                    icon: 'warning',
+                    title: ErrorJumlah,
+                });
+            } else if (typeof ErrorMin !== 'undefined') {
+                Toast.fire({
+                    icon: 'warning',
+                    title: ErrorMin,
+                });
+            } else if (typeof ErrorMax !== 'undefined') {
+                Toast.fire({
+                    icon: 'warning',
+                    title: ErrorMax,
+                });
+            } else if (typeof ErrorBahan !== 'undefined') {
+                Toast.fire({
+                    icon: 'warning',
+                    title: ErrorBahan,
+                });
+            } else if (typeof ErrorBerat !== 'undefined') {
+                Toast.fire({
+                    icon: 'warning',
+                    title: ErrorBerat,
+                });
+            } else if (typeof ErrorGambar !== 'undefined') {
+                Toast.fire({
+                    icon: 'warning',
+                    title: ErrorGambar,
                 });
             }
         }

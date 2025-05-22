@@ -57,20 +57,16 @@
                                         @forelse ($kaders as $kdr)
                                             <tr>
                                                 <td>
-                                                    <div class="d-flex px-2 py-1">
-                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
-                                                        </div>
-                                                    </div>
+                                                    <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
                                                 </td>
                                                 <td>
-                                                    {{ $kdr->nama }}
+                                                    <p class="text-x font-weight-bold mb-0">{{ $kdr->nama }}
                                                 </td>
                                                 <td>
-                                                    {{ $kdr->email }}
+                                                    <p class="text-x font-weight-bold mb-0">{{ $kdr->email }}
                                                 </td>
                                                 <td>
-                                                    {{ $kdr->no_hp }}
+                                                    <p class="text-x font-weight-bold mb-0">{{ $kdr->no_hp }}
                                                 </td>
                                                 <td class="align-middle text-sm">
                                                     <form action="/hapus_kader" method="POST" id="delete-form">
@@ -87,7 +83,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="5" class="text-center">Data Kader belum Tersedia</td>
+                                                <td colspan="5" class="text-center font-weight-bold">Data Kader belum Tersedia</td>
                                             </tr>
                                         @endforelse
                                     </tbody>

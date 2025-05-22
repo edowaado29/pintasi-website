@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BayiController;
+use App\Http\Controllers\DaftarBahanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IbuController;
 use App\Http\Controllers\JadwalController;
@@ -63,6 +64,14 @@ Route::get('/edit_resep/{id}', [ResepController::class, 'edit_resep'])->name('ed
 Route::put('/update_resep/{id}', [ResepController::class, 'update_resep'])->name('update_resep');
 Route::delete('/hapus_resep/{id}', [ResepController::class, 'hapus_resep'])->name('hapus_resep');
 
+Route::get('/daftar_bahan', [DaftarBahanController::class, 'daftar_bahan'])->name('daftar_bahan');
+Route::get('/detail_bahan/{id}', [DaftarBahanController::class, 'detail_bahan'])->name('detail_bahan');
+Route::get('/tambah_bahan', [DaftarBahanController::class, 'tambah_bahan'])->name('tambah_bahan');
+Route::post('/add_bahan', [DaftarBahanController::class, 'add_bahan'])->name('add_bahan');
+Route::get('/edit_bahan/{id}', [DaftarBahanController::class, 'edit_bahan'])->name('edit_bahan');
+Route::put('/update_bahan/{id}', [DaftarBahanController::class, 'update_bahan'])->name('update_bahan');
+Route::delete('/hapus_bahan/{id}', [DaftarBahanController::class, 'hapus_bahan'])->name('hapus_bahan');
+
 Route::get('/motorik', [MotorikController::class, 'motorik'])->name('motorik');
 Route::get('/tambah_motorik', [MotorikController::class, 'tambah_motorik'])->name('tambah_motorik');
 Route::post('/add_motorik', [MotorikController::class, 'add_motorik'])->name('add_motorik');
@@ -77,6 +86,7 @@ Route::get('/detail_pemeriksaan/{id}', [PemeriksaanController::class, 'detail_pe
 Route::get('/edit_pemeriksaan/{id}', [PemeriksaanController::class, 'edit_pemeriksaan'])->name('edit_pemeriksaan');
 Route::put('/update_pemeriksaan/{id}', [PemeriksaanController::class, 'update_pemeriksaan'])->name('update_pemeriksaan');
 Route::delete('/delete_pemeriksaan/{id}', [PemeriksaanController::class, 'delete_pemeriksaan'])->name('delete_pemeriksaan');
+
 //kader
 Route::get('/pemeriksaann', [PemeriksaanController::class, 'pemeriksaann'])->name('pemeriksaann');
 Route::get('/tambah_pemeriksaann/{id_bayi}', [PemeriksaanController::class, 'tambah_pemeriksaann'])->name('tambah_pemeriksaann');

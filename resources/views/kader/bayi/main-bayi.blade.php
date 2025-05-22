@@ -46,9 +46,6 @@
                                             <th
                                                 class="text-uppercase text-success text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Nama Ibu</th>
-                                            <th
-                                                class="text-uppercase text-success text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Catatan</th>
                                             <th class="text-uppercase text-success text-xxs font-weight-bolder opacity-7">
                                                 Aksi</th>
                                         </tr>
@@ -64,13 +61,10 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    {{ $by->nama_bayi }}
+                                                    <p class="text-x font-weight-bold mb-0">{{ $by->nama_bayi }}
                                                 </td>
                                                 <td>
-                                                    {{ $by->ibu->nama_ibu }}
-                                                </td>
-                                                <td>
-                                                    {{ $by->catatan }}
+                                                    <p class="text-x font-weight-bold mb-0">{{ $by->ibu->nama_ibu }}
                                                 </td>
                                                 <td class="align-middle text-sm">
                                                     <form action="" method="POST" id="delete-form">

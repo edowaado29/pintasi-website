@@ -46,9 +46,6 @@
                                             <th
                                                 class="text-uppercase text-success text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Nama Ibu</th>
-                                            <th
-                                                class="text-uppercase text-success text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Catatan</th>
                                             <th class="text-uppercase text-success text-xxs font-weight-bolder opacity-7">
                                                 Aksi</th>
                                         </tr>
@@ -57,20 +54,13 @@
                                         @forelse ($bayis as $by)
                                             <tr>
                                                 <td>
-                                                    <div class="d-flex px-2 py-1">
-                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
-                                                        </div>
-                                                    </div>
+                                                    <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
                                                 </td>
                                                 <td>
-                                                    {{ $by->nama_bayi }}
+                                                    <p class="text-x font-weight-bold mb-0">{{ $by->nama_bayi }}
                                                 </td>
                                                 <td>
-                                                    {{ $by->ibu->nama_ibu }}
-                                                </td>
-                                                <td>
-                                                    {{ $by->catatan }}
+                                                    <p class="text-x font-weight-bold mb-0">{{ $by->ibu->nama_ibu }}
                                                 </td>
                                                 <td class="align-middle text-sm">
                                                     <form action="" method="POST" id="delete-form">
@@ -87,7 +77,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="5" class="text-center">Data Bayi belum Tersedia</td>
+                                                <td colspan="4" class="text-center font-weight-bold">Data Bayi belum Tersedia</td>
                                             </tr>
                                         @endforelse
                                     </tbody>
