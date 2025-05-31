@@ -65,7 +65,6 @@
                 <div class="row mt-3 pb-3">
                     <div class="col-4" style="padding-left: 60px;">
                         <h5 style="font-weight: 500; font-size: 1.15rem;">No KK</h5>
-                        <h5 style="font-weight: 500; font-size: 1.15rem;">Tempat Lahir</h5>
                         <h5 style="font-weight: 500; font-size: 1.15rem;">Tanggal Lahir</h5>
                         <h5 style="font-weight: 500; font-size: 1.15rem;">Jenis Kelamin</h5>
                         <h5 style="font-weight: 500; font-size: 1.15rem;">Nama Ayah</h5>
@@ -75,11 +74,9 @@
                         <h5 style="font-weight: 500; font-size: 1.15rem;">:</h5>
                         <h5 style="font-weight: 500; font-size: 1.15rem;">:</h5>
                         <h5 style="font-weight: 500; font-size: 1.15rem;">:</h5>
-                        <h5 style="font-weight: 500; font-size: 1.15rem;">:</h5>
                     </div>
                     <div class="col-7">
                         <h5 style="font-weight: 500; font-size: 1.15rem;">{{ $bayis->no_kk }}</h5>
-                        <h5 style="font-weight: 500; font-size: 1.15rem;">{{ $bayis->tempat_lahir }}</h5>
                         <h5 style="font-weight: 500; font-size: 1.15rem;">{{ $bayis->tanggal_lahir }}</h5>
                         <h5 style="font-weight: 500; font-size: 1.15rem;">{{ $bayis->jenis_kelamin }}</h5>
                         <h5 style="font-weight: 500; font-size: 1.15rem;">{{ $bayis->nama_ayah }}</h5>

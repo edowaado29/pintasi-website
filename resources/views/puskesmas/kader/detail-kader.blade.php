@@ -76,7 +76,7 @@
                     <div class="col-7">
                         <h5 style="font-weight: 500; font-size: 1.15rem;">{{ $kaders->role }}</h5>
                         <h5 style="font-weight: 500; font-size: 1.15rem;">{{ $kaders->no_hp }}</h5>
-                        <h5 style="font-weight: 500; font-size: 1.15rem;">{{ $kaders->alamat }}
+                        <h5 style="font-weight: 500; font-size: 1.15rem;">{{ $kaders->alamat }}</h5>
                     </div>
                 </div>
             </div>

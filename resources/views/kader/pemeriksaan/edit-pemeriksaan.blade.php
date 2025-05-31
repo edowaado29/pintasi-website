@@ -23,7 +23,7 @@
         <div class="container">
           <div class="card-body px-0 pt-0 pb-2 mt-3">
             <div class="container">
-                <form action="{{ route('update_pemeriksaann', $pemeriksaan->id) }}" method="post">
+                <form action="{{ route('update_pemeriksaan_kader', $pemeriksaan->id) }}" method="post">
                     @csrf
                     @method('PUT')
                     <input type="text" name="id_bayi" value="{{ $pemeriksaan->bayi->id }}">
@@ -47,7 +47,7 @@
                     </div>
                     <div class="row mt-4">
                       <div class="col-6">
-                        <a href="{{ route('pemeriksaann') }}" class="btn btn-sm bg-gradient-danger w-100">Kembali</a>
+                        <a href="{{ route('pemeriksaan_kader') }}" class="btn btn-sm bg-gradient-danger w-100">Kembali</a>
                       </div>
                       <div class="col-6">
                         <button type="submit" class="btn btn-sm bg-gradient-success w-100">Edit</button>

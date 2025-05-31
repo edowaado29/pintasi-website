@@ -84,7 +84,7 @@
                                                 <input type="password"
                                                     class="form-control form-control-lg @error('password') is-invalid @enderror"
                                                     id="password" name="password" aria-label="Password"
-                                                    value="{{ old('password', $kaders->password) }}">
+                                                    value="{{ old('password') }}">
                                                 <i class="fa fa-eye position-absolute" id="togglePassword"
                                                     style="cursor: pointer; right: 40px; top: 195px;"></i>
                                                 @error('password')

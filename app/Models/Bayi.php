@@ -27,4 +27,11 @@ class Bayi extends Model
     {
         return $this->belongsTo(Ibu::class, 'id_ibu');
     }
+
+    public function pemeriksaan() {
+        return $this->hasOne(Pemeriksaan::class, 'id_bayi')->latestOfMany('tgl_periksa');
+    }
+    public function pemeriksaans() {
+        return $this->hasMany(Pemeriksaan::class, 'id_bayi');
+    }
 }

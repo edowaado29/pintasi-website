@@ -26,7 +26,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12 px-4">
-                                    {{-- <a href="/tambah_bayi" class="btn btn-sm bg-gradient-primary">Tambah Kader</a> --}}
+                                    {{-- <a href="/tambah_bayi_kader" class="btn btn-sm bg-gradient-primary">Tambah Bayi</a> --}}
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                     <input class="form-control" id="search" type="text" placeholder="Masukkan kata kunci ...">
@@ -54,11 +54,7 @@
                                         @forelse ($bayis as $by)
                                             <tr>
                                                 <td>
-                                                    <div class="d-flex px-2 py-1">
-                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
-                                                        </div>
-                                                    </div>
+                                                    <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
                                                 </td>
                                                 <td>
                                                     <p class="text-x font-weight-bold mb-0">{{ $by->nama_bayi }}
@@ -68,20 +64,20 @@
                                                 </td>
                                                 <td class="align-middle text-sm">
                                                     <form action="" method="POST" id="delete-form">
-                                                        <a href="{{ route('detail_bayi', $by->id) }}"
+                                                        <a href="{{ route('detail_bayi_kader', $by->id) }}"
                                                             class="btn btn-sm bg-gradient-primary">Detail</a>
-                                                        {{-- <a href="{{ route('edit_bayi', $by->id) }}"
+                                                        {{-- <a href="{{ route('edit_bayi_kader', $by->id) }}"
                                                             class="btn btn-sm bg-gradient-success">Edit</a> --}}
-                                                        @csrf
+                                                        {{-- @csrf
                                                         @method('DELETE')
                                                         <button type="button" class="btn btn-sm btn-danger"
-                                                            onclick="confirmDelete('{{ $by->id }}')">HAPUS</button>
+                                                            onclick="confirmDelete('{{ $by->id }}')">HAPUS</button> --}}
                                                     </form>
                                                 </td>
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="5" class="text-center">Data Bayi belum Tersedia</td>
+                                                <td colspan="4" class="text-center font-weight-bold">Data Bayi belum Tersedia</td>
                                             </tr>
                                         @endforelse
                                     </tbody>
@@ -123,7 +119,7 @@
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-right',
-                iconColor: 'white',
+                iconColor: 'green',
                 customClass: {
                     popup: 'colored-toast',
                 },

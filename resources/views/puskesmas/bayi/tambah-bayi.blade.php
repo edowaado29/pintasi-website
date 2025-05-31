@@ -137,12 +137,6 @@
                                                 <input type="text" class="form-control" id="nama_ayah"
                                                     name="nama_ayah" value="{{ old('nama_ayah') }}">
                                             </div>
-                                            {{-- <div class="mb-3">
-                                                <label for="nama_ibu" class="form-label text-secondary fs-6">Nama
-                                                    Ibu</label>
-                                                <input type="text" class="form-control" id="nama_ibu"
-                                                    name="nama_ibu" value="{{ old('nama_ibu') }}">
-                                            </div> --}}
                                             <div class="form-group">
                                                 <label for="foto_bayi" class="text-secondary fs-6">Foto Bayi
                                                     (Maksimal 2MB)</label><br>

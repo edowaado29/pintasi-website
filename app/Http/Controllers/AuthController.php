@@ -27,18 +27,35 @@ class AuthController extends Controller
             ]
         );
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        // if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
 
-            $kaders = User::where('email', '=', $request->email)->firstOrFail();;
-            $request->session()->regenerate();
+        //     $kaders = User::where('email', '=', $request->email)->firstOrFail();
+        //     $request->session()->regenerate();
 
-            if ($kaders->role == 'kader') {
-                return redirect()->route('dashboard_kader')->with(['message' => 'Login Berhasil']);
-            } elseif ($kaders->role == 'bidan') {
-                return redirect()->route('dashboard')->with(['message' => 'Login Berhasil']);
-            }
-        }
-        return redirect()->route('login')->with('error', 'Email atau Password Salah!!');
+        //     if ($request->has('remember')) {
+        //         $cookie = cookie('remember', $request->email, 60 * 24 * 30); // 30 days
+        //         return redirect()->route('dashboard')->with(['message' => 'Login Berhasil'])->cookie($cookie);
+        //     }
+
+        //     if ($kaders->role == 'kader') {
+        //         return redirect()->route('dashboard_kader')->with(['message' => 'Login Berhasil']);
+        //     } elseif ($kaders->role == 'bidan') {
+        //         return redirect()->route('dashboard')->with(['message' => 'Login Berhasil']);
+        //     }
+        // }
+        
+                if (Auth::attempt(['email' => $request->email, 'password' => $request->password], remember: $request->has('remember'))) {
+                    $kaders = Auth::user();
+                    $request->session()->regenerate();
+
+                    if ($kaders->role == 'kader') {
+                        return redirect()->route('dashboard_kader')->with(['message' => 'Login Berhasil']);
+                    } elseif ($kaders->role == 'bidan') {
+                        return redirect()->route('dashboard')->with(['message' => 'Login Berhasil']);
+                    }
+                }
+        return redirect()->route('login')->with(['message' => 'Login Gagal, Periksa Kembali Email dan Password Anda'])
+            ->withInput($request->only('email', 'remember'));
     }
 
     public function logout(Request $request)

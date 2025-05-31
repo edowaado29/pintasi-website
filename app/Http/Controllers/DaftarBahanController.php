@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\DaftarBahanImport;
 use App\Models\DaftarBahan;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DaftarBahanController extends Controller
 {
@@ -97,5 +99,18 @@ class DaftarBahanController extends Controller
         $bahans = DaftarBahan::findOrFail($id);
         $bahans->delete();
         return redirect()->route('daftar_bahan')->with(['message' => 'Bahan berhasil dihapus.']);
+    }
+
+    public function import_bahan(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv',
+        ], [
+            'file.mimes' => 'File harus berupa file Excel (xlsx, xls) atau CSV.',
+        ]);
+
+        Excel::import(new DaftarBahanImport, $request->file('file'));
+
+        return redirect()->route('daftar_bahan')->with(['message' => 'Bahan berhasil diimpor']);
     }
 }

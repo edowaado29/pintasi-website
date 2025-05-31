@@ -1189,14 +1189,14 @@ class PemeriksaanController extends Controller
     }
 
     //kader
-    public function pemeriksaann(): View
+    public function pemeriksaan_kader(): View
     {
         $pemeriksaans = Pemeriksaan::all();
         $bayis = Bayi::all();
         return view('kader.pemeriksaan.main-pemeriksaan', compact('pemeriksaans','bayis'));
     }
     
-    public function tambah_pemeriksaann($id_bayi): View
+    public function tambah_pemeriksaan_kader($id_bayi): View
     {
         $bayi = Bayi::findOrFail($id_bayi);
         $usia_bulan = Carbon::parse($bayi->tanggal_lahir)->diffInMonths(now());
@@ -1204,7 +1204,7 @@ class PemeriksaanController extends Controller
         return view('kader.pemeriksaan.tambah-pemeriksaan', compact('bayi', 'usia_bulan'));
     }
 
-    public function store_pemeriksaann(Request $request): RedirectResponse
+    public function store_pemeriksaan_kader(Request $request): RedirectResponse
     {
         $id_bayi = $request->id_bayi;
         $bb = $request->bb;
@@ -1240,21 +1240,21 @@ class PemeriksaanController extends Controller
         return redirect()->route('detail_pemeriksaann', $pemeriksaan->id)->with(['message' => 'Pemeriksaan berhasil ditambahkan']);
     }
 
-    public function detail_pemeriksaann($id): View
+    public function detail_pemeriksaan_kader($id): View
     {
         $pemeriksaan = Pemeriksaan::with('bayi')->findOrFail($id);
         $usia_bulan = Carbon::parse($pemeriksaan->bayi->tanggal_lahir)->diffInMonths(now());
         return view('kader.pemeriksaan.detail-pemeriksaan', compact('pemeriksaan', 'usia_bulan'));
     }
     
-    public function edit_pemeriksaann($id): View
+    public function edit_pemeriksaan_kader($id): View
     {
         $pemeriksaan = Pemeriksaan::with('bayi')->findOrFail($id);
         $usia_bulan = Carbon::parse($pemeriksaan->bayi->tanggal_lahir)->diffInMonths(now());
         return view('kader.pemeriksaan.edit-pemeriksaan', compact('pemeriksaan', 'usia_bulan'));
     }
 
-    public function update_pemeriksaann(Request $request, $id): RedirectResponse
+    public function update_pemeriksaan_kader(Request $request, $id): RedirectResponse
     {
         $pemeriksaan = Pemeriksaan::findOrFail($id);
 
@@ -1288,13 +1288,13 @@ class PemeriksaanController extends Controller
         return redirect()->route('detail_pemeriksaann', $id)->with(['message' => 'Pemeriksaan berhasil diedit']);
     }
     
-    public function delete_pemeriksaann($id): RedirectResponse
+    public function delete_pemeriksaan_kader($id): RedirectResponse
     {
         $pemeriksaan = Pemeriksaan::findOrFail($id);
         
         $pemeriksaan->delete();
 
-        return redirect()->route('pemeriksaann')->with(['message' => 'Pemeriksaan berhasil dihapus']);
+        return redirect()->route('pemeriksaan_kader')->with(['message' => 'Pemeriksaan berhasil dihapus']);
     }
 
     

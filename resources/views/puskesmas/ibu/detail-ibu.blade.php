@@ -55,7 +55,7 @@
                     </div>
                     <div class="col-lg-9 col-sm-12">
                         <div style="margin-top: 5vh;">
-                            <h2 style="font-size: 1.25rem; font-weight: 400; color: grey;">{{ $ibus->id }}</h2>
+                            {{-- <h2 style="font-size: 1.25rem; font-weight: 400; color: grey;">{{ $ibus->id }}</h2> --}}
                             <h3 style="font-size: 2.25rem;">{{ $ibus->nama_ibu }}</h3>
                             <h4 style="color: #73A578; font-weight: 400;">{{ $ibus->email }}</h4>
                         </div>
