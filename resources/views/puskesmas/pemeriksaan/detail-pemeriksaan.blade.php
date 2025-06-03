@@ -13,23 +13,42 @@
                     </ol>
                     <h6 class="font-weight-bolder text-white mb-0">Detail Data Pemeriksaan</h6>
                 </nav>
+                <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                    <div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
+                    <ul class="navbar-nav  justify-content-end">
+                        <li class="nav-item d-flex align-items-center">
+                            <a href="/b/profil" class="nav-link text-white font-weight-bold px-0">
+                                <i class="fa fa-user me-sm-1"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                            <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
+                                <div class="sidenav-toggler-inner">
+                                    <i class="sidenav-toggler-line bg-white"></i>
+                                    <i class="sidenav-toggler-line bg-white"></i>
+                                    <i class="sidenav-toggler-line bg-white"></i>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
         <!-- End Navbar -->
         <div class="container-fluid py-4 px-5">
             <div class="card">
                 <div class="card-body">
-                    <div style="margin-left: 5vh;" class="py-3">
-                        <a href="{{ route('pemeriksaan') }}">
+                    {{-- <div style="margin-left: 5vh;" class="py-3">
+                        <a href="{{ route('b/pemeriksaan') }}">
                             <img src="{{ asset('assets/img/back-button.png') }}" style="width: 5vh; opacity: 50%;">
                         </a>
-                    </div>
+                    </div> --}}
                     <div class="row text-center justify-content-center">
                         <div class="col-lg-4 col-md-12">
                             <div class="d-flex align-items-center p-3 rounded shadow-sm">
                                 <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
                                     style="width: 60px; height: 60px; background-color: #f2f2f2;">
-                                    <img src="../assets/img/illustrations/name.png" alt="name" style="width: 30px;">
+                                    <img src="{{ asset('assets/img/illustrations/name.png') }}" alt="name" style="width: 30px;">
                                 </div>
                                 <div class="text-start">
                                     <small class="text-muted" style="font-size: 1rem; font-weight: 600;">Nama</small><br>
@@ -42,7 +61,7 @@
                             <div class="d-flex align-items-center p-3 rounded shadow-sm">
                                 <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
                                     style="width: 60px; height: 60px; background-color: #f2f2f2;">
-                                    <img src="../assets/img/illustrations/gender.png" alt="gender" style="width: 30px;">
+                                    <img src="{{ asset('assets/img/illustrations/gender.png') }}" alt="gender" style="width: 30px;">
                                 </div>
                                 <div class="text-start">
                                     <small class="text-muted" style="font-size: 1rem; font-weight: 600;">Jenis
@@ -56,7 +75,7 @@
                             <div class="d-flex align-items-center p-3 rounded shadow-sm">
                                 <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
                                     style="width: 60px; height: 60px; background-color: #f2f2f2;">
-                                    <img src="../assets/img/illustrations/age.png" alt="age" style="width: 30px;">
+                                    <img src="{{ asset('assets/img/illustrations/age.png') }}" alt="age" style="width: 30px;">
                                 </div>
                                 <div class="text-start">
                                     <small class="text-muted" style="font-size: 1rem; font-weight: 600;">Usia</small><br>
@@ -81,7 +100,7 @@
                             <div class="card-body px-4 pt-2 pb-1">
                                 <p style="font-size: 4rem; font-weight: 800;">{{ $pemeriksaan->bb }}<span
                                         style="font-size: 2rem;">kg</span></p>
-                                <img src="../assets/img/illustrations/bb.png" alt="bb"
+                                <img src="{{ asset('assets/img/illustrations/bb.png') }}" alt="bb"
                                     style="position: absolute; bottom: 15px; right: 20px; width: 100px; opacity: 0.225;">
                             </div>
                         </div>
@@ -96,7 +115,7 @@
                             <div class="card-body px-4 pt-2 pb-1">
                                 <p style="font-size: 4rem; font-weight: 800;">{{ $pemeriksaan->tb }}<span
                                         style="font-size: 2rem;">cm</span></p>
-                                <img src="../assets/img/illustrations/tb.png" alt="bb"
+                                <img src="{{ asset('assets/img/illustrations/tb.png') }}" alt="bb"
                                     style="position: absolute; bottom: 15px; right: 20px; width: 100px; opacity: 0.125;">
                             </div>
                         </div>
@@ -111,7 +130,7 @@
                             <div class="card-body px-4 pt-2 pb-1">
                                 <p style="font-size: 4rem; font-weight: 800;">{{ $pemeriksaan->lk }}<span
                                         style="font-size: 2rem;">cm</span></p>
-                                <img src="../assets/img/illustrations/lk.png" alt="bb"
+                                <img src="{{ asset('assets/img/illustrations/lk.png') }}" alt="bb"
                                     style="position: absolute; bottom: 15px; right: 20px; width: 100px; opacity: 0.125;">
                             </div>
                         </div>
@@ -125,7 +144,7 @@
                         <div class="container position-relative">
                             <div class="card-body px-4 pt-2 pb-1">
                                 <p style="font-size: 4rem; font-weight: 800;">{{ number_format($pemeriksaan->imt, 2) }}</p>
-                                <img src="../assets/img/illustrations/imt.png" alt="bb"
+                                <img src="{{ asset('assets/img/illustrations/imt.png') }}" alt="bb"
                                     style="position: absolute; bottom: 15px; right: 20px; width: 100px; opacity: 0.15;">
                             </div>
                         </div>
@@ -147,7 +166,7 @@
                                     <div class="card-body">
                                         <h6 style="font-size: 2.75rem; font-weight: 800;">{{ $pemeriksaan->kalori }}<span
                                                 style="font-size: 1.75rem;">kal</span></h6>
-                                        <img src="../assets/img/illustrations/calorie.png" alt="bb"
+                                        <img src="{{ asset('assets/img/illustrations/calorie.png') }}" alt="bb"
                                             style="position: absolute; bottom: 15px; right: 20px; width: 100px; opacity: 0.2;">
                                     </div>
                                 </div>
@@ -162,7 +181,7 @@
                                     <div class="card-body">
                                         <h6 style="font-size: 2.75rem; font-weight: 800;">{{ $pemeriksaan->protein }}<span
                                                 style="font-size: 1.75rem;">g</span></h6>
-                                        <img src="../assets/img/illustrations/protein.png" alt="bb"
+                                        <img src="{{ asset('assets/img/illustrations/protein.png') }}" alt="bb"
                                             style="position: absolute; bottom: 15px; right: 20px; width: 100px; opacity: 0.2;">
                                     </div>
                                 </div>
@@ -179,7 +198,7 @@
                                     <div class="card-body">
                                         <h6 style="font-size: 2.75rem; font-weight: 800;">{{ $pemeriksaan->lemak }}<span
                                                 style="font-size: 1.75rem;">g</span></h6>
-                                        <img src="../assets/img/illustrations/fat.png" alt="bb"
+                                        <img src="{{ asset('assets/img/illustrations/fat.png') }}" alt="bb"
                                             style="position: absolute; bottom: 15px; right: 20px; width: 100px; opacity: 0.2;">
                                     </div>
                                 </div>
@@ -194,7 +213,7 @@
                                     <div class="card-body">
                                         <h6 style="font-size: 2.75rem; font-weight: 800;">{{ $pemeriksaan->karbo }}<span
                                                 style="font-size: 1.75rem;">g</span></h6>
-                                        <img src="../assets/img/illustrations/carbs.png" alt="bb"
+                                        <img src="{{ asset('assets/img/illustrations/carbs.png') }}" alt="bb"
                                             style="position: absolute; bottom: 15px; right: 20px; width: 100px; opacity: 0.2;">
                                     </div>
                                 </div>
@@ -209,7 +228,7 @@
                                     <div class="card-body">
                                         <h6 style="font-size: 2.75rem; font-weight: 800;">{{ $pemeriksaan->serat }}<span
                                                 style="font-size: 1.75rem;">g</span></h6>
-                                        <img src="../assets/img/illustrations/fiber.png" alt="bb"
+                                        <img src="{{ asset('assets/img/illustrations/fiber.png') }}" alt="bb"
                                             style="position: absolute; bottom: 15px; right: 20px; width: 100px; opacity: 0.2;">
                                     </div>
                                 </div>

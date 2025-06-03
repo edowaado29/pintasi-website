@@ -13,6 +13,25 @@
                     </ol>
                     <h6 class="font-weight-bolder text-white mb-0">Daftar Motorik</h6>
                 </nav>
+                <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                    <div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
+                    <ul class="navbar-nav  justify-content-end">
+                        <li class="nav-item d-flex align-items-center">
+                            <a href="/b/profil" class="nav-link text-white font-weight-bold px-0">
+                                <i class="fa fa-user me-sm-1"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                            <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
+                                <div class="sidenav-toggler-inner">
+                                    <i class="sidenav-toggler-line bg-white"></i>
+                                    <i class="sidenav-toggler-line bg-white"></i>
+                                    <i class="sidenav-toggler-line bg-white"></i>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
         <!-- End Navbar -->
@@ -26,7 +45,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12 px-4">
-                                    <a href="{{ route('tambah_motorik') }}" class="btn btn-sm bg-gradient-primary">Tambah Data</a>
+                                    <a href="{{ route('b/tambah_motorik') }}" class="btn btn-sm bg-gradient-primary">Tambah Data</a>
                                 </div>
                             </div>
                         </div>
@@ -61,9 +80,9 @@
                                                     <p class="text-x font-weight-bold mb-0">{{ $mtrk->capaian_motorik }}
                                                 </td>
                                                 <td class="align-middle text-sm">
-                                                    <form action=""{{ route('hapus_motorik', $mtrk->id) }}"
+                                                    <form action=""{{ route('b/hapus_motorik', $mtrk->id) }}"
                                                         method="POST" id="delete-form">
-                                                        <a href="{{ route('edit_motorik', $mtrk->id) }}"
+                                                        <a href="{{ route('b/edit_motorik', $mtrk->id) }}"
                                                             class="btn btn-sm bg-gradient-success">Edit</a>
                                                         @csrf
                                                         @method('DELETE')
@@ -89,7 +108,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('assets/js/search.js') }}"></script>
     <script>
-        const baseUrl = "{{ url('/hapus_motorik') }}";
+        const baseUrl = "{{ url('b/hapus_motorik') }}";
 
         function confirmDelete(id) {
             Swal.fire({

@@ -22,7 +22,7 @@
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
                     <ul class="navbar-nav  justify-content-end">
                         <li class="nav-item d-flex align-items-center">
-                            <a href="" class="nav-link text-white font-weight-bold px-0">
+                            <a href="/b/profil" class="nav-link text-white font-weight-bold px-0">
                                 <i class="fa fa-user me-sm-1"></i>
                             </a>
                         </li>
@@ -48,7 +48,7 @@
                             <div class="card" style="height: 100%">
                                 <div class="card-body px-0 pt-0 pb-2 mt-3">
                                     <div class="container">
-                                        <form action="{{ route('update_bayi', $bayis->id) }}" method="post"
+                                        <form action="{{ route('b/update_bayi', $bayis->id) }}" method="post"
                                             enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
@@ -144,12 +144,6 @@
                                                 <input type="text" class="form-control" id="nama_ayah"
                                                     name="nama_ayah" value="{{ old('nama_ayah', $bayis->nama_ayah) }}">
                                             </div>
-                                            {{-- <div class="mb-3">
-                                                <label for="nama_ibu" class="form-label text-secondary fs-6">Nama
-                                                    Ibu</label>
-                                                <input type="text" class="form-control" id="nama_ibu"
-                                                    name="nama_ibu" value="{{ old('nama_ibu', $bayis->nama_ibu) }}">
-                                            </div> --}}
                                             <div class="form-group">
                                                 <label for="foto_bayi" class="text-secondary fs-6">Foto Bayi
                                                     (Maksimal 2MB)</label><br>
@@ -158,7 +152,7 @@
                                             </div>
                                             <div class="row mt-4">
                                                 <div class="col-6">
-                                                    <a href="/bayi"
+                                                    <a href="/b/bayi"
                                                         class="btn btn-sm bg-gradient-danger w-100">Kembali</a>
                                                 </div>
                                                 <div class="col-6">

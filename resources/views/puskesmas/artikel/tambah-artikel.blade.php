@@ -22,7 +22,7 @@
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
                     <ul class="navbar-nav  justify-content-end">
                         <li class="nav-item d-flex align-items-center">
-                            <a href="" class="nav-link text-white font-weight-bold px-0">
+                            <a href="/b/profil" class="nav-link text-white font-weight-bold px-0">
                                 <i class="fa fa-user me-sm-1"></i>
                             </a>
                         </li>
@@ -48,7 +48,7 @@
                         <div class="card" style="height: 100%">
                             <div class="card-body px-0 pt-0 pb-2 mt-3">
                                 <div class="container">
-                                    <form action="/add_artikel" method="post" enctype="multipart/form-data">
+                                    <form action="/b/add_artikel" method="post" enctype="multipart/form-data">
                                         @csrf
                                         <div class="mb-3">
                                             <label for="judul" class="form-label text-secondary fs-6">Judul Artikel <span class="text-danger">*</span></label>
@@ -75,7 +75,7 @@
                                         </div>
                                         <div class="row mt-4">
                                             <div class="col-6">
-                                                <a href="/artikel" class="btn btn-sm bg-gradient-danger w-100">Kembali</a>
+                                                <a href="/b/artikel" class="btn btn-sm bg-gradient-danger w-100">Kembali</a>
                                             </div>
                                             <div class="col-6">
                                                 <button type="submit" class="btn btn-sm bg-gradient-success w-100">Tambah</button>
@@ -107,7 +107,7 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.ckeditor.com/4.25.1/standard/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
 <script>
     CKEDITOR.replace('konten');
 </script>

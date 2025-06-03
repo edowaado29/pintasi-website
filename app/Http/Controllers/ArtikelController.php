@@ -11,24 +11,24 @@ use Illuminate\View\View;
 
 class ArtikelController extends Controller
 {
-    public function artikel(): View
+    public function b_artikel(): View
     {
         $artikels = Artikel::all();
         return view('puskesmas.artikel.main-artikel', compact('artikels'));
     }
 
-    public function detail_artikel(string $id): View
+    public function b_detail_artikel(string $id): View
     {
         $artikels = Artikel::findOrFail($id);
         return view('puskesmas.artikel.detail-artikel', compact('artikels'));
     }
 
-    public function tambah_artikel(): View
+    public function b_tambah_artikel(): View
     {
         return view('puskesmas.artikel.tambah-artikel');
     }
 
-    public function add_artikel(Request $request): RedirectResponse
+    public function b_add_artikel(Request $request): RedirectResponse
     {
         $request->validate([
             'judul' => 'required|string|max:255',
@@ -52,16 +52,16 @@ class ArtikelController extends Controller
             'gambar' => basename($gambarPath),
         ]);
 
-        return redirect()->route('artikel')->with(['message' => 'Artikel Berhasil Ditambahkan']);
+        return redirect()->route('b/artikel')->with(['message' => 'Artikel Berhasil Ditambahkan']);
     }
 
-    public function edit_artikel(string $id): View
+    public function b_edit_artikel(string $id): View
     {
         $artikels = Artikel::findOrFail($id);
         return view('puskesmas.artikel.edit-artikel', compact('artikels'));
     }
 
-    public function update_artikel(Request $request, string $id): RedirectResponse
+    public function b_update_artikel(Request $request, string $id): RedirectResponse
     {
         $request->validate([
             'judul' => 'required|string|max:255',
@@ -98,10 +98,10 @@ class ArtikelController extends Controller
             ]);
         }
 
-        return redirect()->route('artikel')->with(['message' => 'Artikel berhasil diperbarui']);
+        return redirect()->route('b/artikel')->with(['message' => 'Artikel berhasil diperbarui']);
     }
 
-    public function hapus_artikel(string $id): RedirectResponse
+    public function b_hapus_artikel(string $id): RedirectResponse
     {
         $artikels = Artikel::findOrFail($id);
 
@@ -110,7 +110,7 @@ class ArtikelController extends Controller
         }
 
         $artikels->delete();
-        return redirect()->route('artikel')->with(['message' => 'Artikel berhasil dihapus']);
+        return redirect()->route('b/artikel')->with(['message' => 'Artikel berhasil dihapus']);
     }
 
     // API Mobile

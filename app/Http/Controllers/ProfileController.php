@@ -13,14 +13,14 @@ use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
-    public function profil(){
+    public function b_profil(){
         $user = Auth::user();
-        return view('profil.profil', compact('user'));
+        return view('puskesmas.profil.profil', compact('user'));
     }
 
-    public function updateProfile(Request $request)
+    public function b_updateProfile(Request $request)
     {
-        $id_user = Auth::user();
+        $id_user = Auth::id();
         $user = User::findOrFail($id_user);
         
         $user->update([
@@ -29,10 +29,10 @@ class ProfileController extends Controller
             'no_hp' => $request->no_hp,
             'alamat' => $request->alamat,
         ]);
-        return redirect()->route('profil')->with(['message' => 'Data berhasil diperbarui']);
+        return redirect()->route('b/profil')->with(['message' => 'Data berhasil diperbarui']);
     }
 
-    public function uploadImg(Request $request)
+    public function b_uploadImg(Request $request)
     {
         $request->validate([
             'foto' => 'image|mimes:jpeg,jpg,png|max:2048'
@@ -42,21 +42,23 @@ class ProfileController extends Controller
             'foto.max' => 'Ukuran foto profil terlalu besar'
         ]);
 
-        $id_user = Auth::user();
+        $id_user = Auth::id();
         $user = User::findOrFail($id_user);
         
         $foto = $request->file('foto');
         $foto->storeAs('public/users', $foto->hashName());
-        Storage::delete('public/users/' . $user->foto);
+        if ($user->foto) {
+            Storage::delete('public/users/' . $user->foto);
+        }
         
         $user->update([
             'foto' => $foto->hashName()
         ]);
 
-        return redirect()->route('profil')->with(['message' => 'Foto profile berhasil diedit']);
+        return redirect()->route('b/profil')->with(['message' => 'Foto profile berhasil diedit']);
     }
 
-    public function updatePassword(Request $request)
+    public function b_updatePassword(Request $request)
     {
         $request->validate([
             'password' => 'required|min:8|max:16'
@@ -67,14 +69,81 @@ class ProfileController extends Controller
             'password.max' => 'Password harus terdiri dari 8-16 karakter'
         ]);
 
-        $id_user = Auth::user();
+        $id_user = Auth::id();
         $user = User::findOrFail($id_user);
 
         $user->update([
             'password' => Hash::make($request->password)
         ]);
 
-        return redirect()->route('profil')->with(['message' => 'Password berhasil diedit']);
+        return redirect()->route('b/profil')->with(['message' => 'Password berhasil diedit']);
+    }
+
+    //Kader
+    public function k_profil(){
+        $user = Auth::user();
+        return view('kader.profil.profil', compact('user'));
+    }
+
+    public function k_updateProfile(Request $request)
+    {
+        $id_user = Auth::id();
+        $user = User::findOrFail($id_user);
+        
+        $user->update([
+            // 'nama' => $request->nama,
+            'email' => $request->email,
+            'no_hp' => $request->no_hp,
+            'alamat' => $request->alamat,
+        ]);
+        return redirect()->route('k/profil')->with(['message' => 'Data berhasil diperbarui']);
+    }
+
+    public function k_uploadImg(Request $request)
+    {
+        $request->validate([
+            'foto' => 'image|mimes:jpeg,jpg,png|max:2048'
+        ],
+        [
+            'foto.image' => 'Format foto profil salah',
+            'foto.max' => 'Ukuran foto profil terlalu besar'
+        ]);
+
+        $id_user = Auth::id();
+        $user = User::findOrFail($id_user);
+        
+        $foto = $request->file('foto');
+        $foto->storeAs('public/users', $foto->hashName());
+        if ($user->foto) {
+            Storage::delete('public/users/' . $user->foto);
+        }
+        
+        $user->update([
+            'foto' => $foto->hashName()
+        ]);
+
+        return redirect()->route('k/profil')->with(['message' => 'Foto profile berhasil diedit']);
+    }
+
+    public function k_updatePassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|min:8|max:16'
+        ],
+        [
+            'password.required' => 'Password harus diisi!',
+            'password.min' => 'Password harus terdiri dari 8-16 karakter',
+            'password.max' => 'Password harus terdiri dari 8-16 karakter'
+        ]);
+
+        $id_user = Auth::id();
+        $user = User::findOrFail($id_user);
+
+        $user->update([
+            'password' => Hash::make($request->password)
+        ]);
+
+        return redirect()->route('k/profil')->with(['message' => 'Password berhasil diedit']);
     }
 
 

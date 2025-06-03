@@ -22,7 +22,7 @@
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
                     <ul class="navbar-nav  justify-content-end">
                         <li class="nav-item d-flex align-items-center">
-                            <a href="" class="nav-link text-white font-weight-bold px-0">
+                            <a href="/b/profil" class="nav-link text-white font-weight-bold px-0">
                                 <i class="fa fa-user me-sm-1"></i>
                             </a>
                         </li>
@@ -43,7 +43,7 @@
         <div class="container-fluid py-4">
             <div class="card">
                 <div style="margin-left: 5vh;" class="py-3">
-                    <a href="{{ route('artikel') }}">
+                    <a href="{{ route('b/artikel') }}">
                     </a>
                 </div>
                 <hr class="horizontal dark mt-0">
@@ -51,10 +51,10 @@
                     <img src="{{ $artikels->gambar !== null ? asset('/storage/artikels/' . $artikels->gambar) : asset('/assets/img/no_image.png') }}"
                         style="width: 100%; border: 2px solid #d4d4d4; border-radius: 10px;">
                     <h2 class="pt-4 pb-3">{{ $artikels->judul }}</h2>
-                    <p class="pb-5">{{ $artikels->konten }}</p>
+                    <div class="pb-5">{!! $artikels->konten !!}</div>
                 </div>
                 <div class="col-6">
-                    <a href="{{route ('artikel')}}" class="btn btn-sm bg-gradient-danger w-100">Kembali</a>
+                    <a href="{{route ('b/artikel')}}" class="btn btn-sm bg-gradient-danger w-100">Kembali</a>
                 </div>
             </div>
         </div>

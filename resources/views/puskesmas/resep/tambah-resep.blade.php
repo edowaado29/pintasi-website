@@ -22,7 +22,7 @@
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
                     <ul class="navbar-nav  justify-content-end">
                         <li class="nav-item d-flex align-items-center">
-                            <a href="" class="nav-link text-white font-weight-bold px-0">
+                            <a href="/b/profil" class="nav-link text-white font-weight-bold px-0">
                                 <i class="fa fa-user me-sm-1"></i>
                             </a>
                         </li>
@@ -48,7 +48,7 @@
                             <div class="card" style="height: 100%">
                                 <div class="card-body px-0 pt-0 pb-2 mt-3">
                                     <div class="container">
-                                        <form action="{{ route('add_resep') }}" method="post"
+                                        <form action="{{ route('b/add_resep') }}" method="post"
                                             enctype="multipart/form-data">
                                             @csrf
                                             <div class="mb-3">
@@ -107,7 +107,7 @@
                                                     </script>
                                                 @enderror
                                             </div>
-                                            <div class="mb-3">
+                                            {{-- <div class="mb-3">
                                                 <label for="jumlah_porsi" class="form-label text-secondary fs-6">Porsi
                                                     Makan<span class="text-danger">*</span></label>
                                                 <select class="form-control @error('jumlah_porsi') is-invalid @enderror"
@@ -125,7 +125,7 @@
                                                         const ErrorJumlah = '{{ $message }}';
                                                     </script>
                                                 @enderror
-                                            </div>
+                                            </div> --}}
                                             <div class="mb-3">
                                                 <label for="min_usia" class="form-label text-secondary fs-6">Minimal
                                                     Usia (bulan)<span class="text-danger">*</span></label>
@@ -156,19 +156,19 @@
                                             <div class="row">
                                                 <div class="col-md-4 mb-3">
                                                     <label for="total_kalori" class="form-label text-secondary fs-6">Total
-                                                        Kalori</label>
+                                                        Kalori (kcal)</label>
                                                     <input type="text" id="total_kalori" name="total_kalori"
                                                         class="form-control" readonly>
                                                 </div>
                                                 <div class="col-md-4 mb-3">
                                                     <label for="total_protein"
-                                                        class="form-label text-secondary fs-6">Total Protein</label>
+                                                        class="form-label text-secondary fs-6">Total Protein (g)</label>
                                                     <input type="text" id="total_protein" name="total_protein"
                                                         class="form-control" readonly>
                                                 </div>
                                                 <div class="col-md-4 mb-3">
                                                     <label for="total_lemak" class="form-label text-secondary fs-6">Total
-                                                        Lemak</label>
+                                                        Lemak (g)</label>
                                                     <input type="text" id="total_lemak" name="total_lemak"
                                                         class="form-control" readonly>
                                                 </div>
@@ -176,13 +176,13 @@
                                             <div class="row">
                                                 <div class="col-md-6 mb-3">
                                                     <label for="total_karbohidrat"
-                                                        class="form-label text-secondary fs-6">Total Karbohidrat</label>
+                                                        class="form-label text-secondary fs-6">Total Karbohidrat (g)</label>
                                                     <input type="text" id="total_karbohidrat" name="total_karbohidrat"
                                                         class="form-control" readonly>
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <label for="total_serat" class="form-label text-secondary fs-6">Total
-                                                        Serat</label>
+                                                        Serat (g)</label>
                                                     <input type="text" id="total_serat" name="total_serat"
                                                         class="form-control" readonly>
                                                 </div>
@@ -202,7 +202,7 @@
                                             </div>
                                             <div class="row mt-4">
                                                 <div class="col-6">
-                                                    <a href="/resep"
+                                                    <a href="/b/resep"
                                                         class="btn btn-sm bg-gradient-danger w-100">Kembali</a>
                                                 </div>
                                                 <div class="col-6">

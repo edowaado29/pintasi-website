@@ -15,68 +15,42 @@ use Illuminate\Support\Facades\Log;
 
 class BayiController extends Controller
 {
-    public function bayi(): View
+    public function b_bayi(): View
     {
-        $bayis = Bayi::latest()->paginate(10);
+        $bayis = Bayi::all();
         return view('puskesmas.bayi.main-bayi', compact('bayis'));
     }
 
-//     public function detail_bayi(string $id): View
-// {
-//     $bayis = Bayi::with(['ibu', 'pemeriksaans' => function ($q) {
-//         $q->orderBy('tgl_periksa');
-//     }])->findOrFail($id);
-
-//     $tglLahir = Carbon::parse($bayis->tgl_lahir);
-
-//     $bb_per_bulan = array_fill(0, 25, null);
-//     $tb_per_bulan = array_fill(0, 25, null);
-//     $imt_per_bulan = array_fill(0, 25, null);
-
-//     foreach ($bayis->pemeriksaans as $p) {
-//         $bulan = $tglLahir->diffInMonths(Carbon::parse($p->tgl_periksa));
-//         if ($bulan >= 0 && $bulan <= 24) {
-//             $bb_per_bulan[$bulan] = $p->bb;
-//             $tb_per_bulan[$bulan] = $p->tb;
-//             $imt_per_bulan[$bulan] = $p->imt;
-//         }
-//     }
-
-//     $labels = range(0, 24);
-
-//     return view('puskesmas.bayi.detail-bayi', compact(
-//         'bayis', 'labels', 'bb_per_bulan', 'tb_per_bulan', 'imt_per_bulan'
-//     ));
-// }
-    public function detail_bayi(string $id): View
+    public function b_detail_bayi(string $id): View
     {
         $bayis = Bayi::with(['ibu', 'pemeriksaans' => function ($q) {
             $q->orderBy('tgl_periksa');
         }])->findOrFail($id);
 
-        $tglLahir = Carbon::parse($bayis->tgl_lahir);
+        $tglLahir = Carbon::parse($bayis->tanggal_lahir);
 
-    $umurBulan = $bayis->pemeriksaans->map(function ($pemeriksaan) use ($tglLahir) {
-        return $tglLahir->diffInMonths(Carbon::parse($pemeriksaan->tgl_periksa));
-    });
+        $bb = $tb = $imt = array_fill(0, 25, null);
 
-    $labels = $umurBulan;
-
-        // $labels = $bayis->pemeriksaans->pluck('tgl_periksa');
-        $bb = $bayis->pemeriksaans->pluck('bb');
-        $tb = $bayis->pemeriksaans->pluck('tb');
-        $imt = $bayis->pemeriksaans->pluck('imt');
-
-        return view('puskesmas.bayi.detail-bayi', compact('bayis', 'labels', 'bb', 'tb', 'imt'));
+    foreach ($bayis->pemeriksaans as $p) {
+        $bulan = $tglLahir->diffInMonths(Carbon::parse($p->tgl_periksa));
+        if ($bulan >= 0 && $bulan <= 24) {
+            $bb[$bulan] = $p->bb;
+            $tb[$bulan] = $p->tb;
+            $imt[$bulan] = $p->imt;
+        }
     }
 
-    public function tambah_bayi(): View
+    $labels = range(0, 24);
+
+    return view('puskesmas.bayi.detail-bayi', compact('bayis', 'labels', 'bb', 'tb', 'imt'));
+}
+    public function b_tambah_bayi(): View
     {
         $ibus = Ibu::all();
         return view('puskesmas.bayi.tambah-bayi', compact('ibus'));
     }
 
-    public function add_bayi(Request $request)
+    public function b_add_bayi(Request $request)
     {
         $request->validate([
             'id_ibu' => 'required|exists:ibus,id',
@@ -115,17 +89,17 @@ class BayiController extends Controller
             'foto_bayi' => $fotoBayi
         ]);
 
-        return redirect()->route('bayi')->with(['message' => 'Bayi berhasil ditambahkan']);
+        return redirect()->route('b/bayi')->with(['message' => 'Bayi berhasil ditambahkan']);
     }
 
-    public function edit_bayi(string $id): View
+    public function b_edit_bayi(string $id): View
     {
         $bayis = Bayi::findOrFail($id);
         $ibus = Ibu::all();
         return view('puskesmas.bayi.edit-bayi', compact('bayis', 'ibus'));
     }
 
-    public function update_bayi(Request $request, string $id): RedirectResponse
+    public function b_update_bayi(Request $request, string $id): RedirectResponse
     {
         $request->validate([
             'id_ibu' => 'required|exists:ibus,id',
@@ -163,10 +137,10 @@ class BayiController extends Controller
         ];
 
         $bayis->update($data);
-        return redirect()->route('bayi')->with(['message' => 'Bayi berhasil diperbarui']);
+        return redirect()->route('b/bayi')->with(['message' => 'Bayi berhasil diperbarui']);
     }
 
-    public function hapus_bayi(string $id): RedirectResponse
+    public function b_hapus_bayi(string $id): RedirectResponse
     {
         $bayis = Bayi::findOrFail($id);
 
@@ -175,43 +149,60 @@ class BayiController extends Controller
         }
 
         $bayis->delete();
-        return redirect()->route('bayi')->with(['message' => 'Bayi berhasil dihapus']);
+        return redirect()->route('b/bayi')->with(['message' => 'Bayi berhasil dihapus']);
     }
 
-    public function trashed(): View
+    public function b_trashed(): View
     {
         $bayis = Bayi::onlyTrashed()->get();
         return view('bayis.trashed', compact('bayis'));
     }
 
-    public function restore(string $id): RedirectResponse
+    public function b_restore(string $id): RedirectResponse
     {
         $bayis = Bayi::onlyTrashed()->where('id', $id)->firstOrFail();
         $bayis->restore();
 
-        return redirect()->route('bayi')->with(['message' => 'Data bayi berhasil dipulihkan']);
+        return redirect()->route('b/bayi')->with(['message' => 'Data bayi berhasil dipulihkan']);
     }
 
     //kader
-    public function bayi_kader(): View
+    public function k_bayi(): View
     {
-        $bayis = Bayi::latest()->paginate(10);
+        $bayis = Bayi::latest();
         return view('kader.bayi.main-bayi', compact('bayis'));
     }
 
-    public function detail_bayi_kader(string $id): View
+    public function k_detail_bayi(string $id): View
     {
-        $bayis = Bayi::findOrFail($id);
-        return view('kader.bayi.detail-bayi', compact('bayis'));
+        $bayis = Bayi::with(['ibu', 'pemeriksaans' => function ($q) {
+            $q->orderBy('tgl_periksa');
+        }])->findOrFail($id);
+
+        $tglLahir = Carbon::parse($bayis->tanggal_lahir);
+
+        $bb = $tb = $imt = array_fill(0, 25, null);
+
+    foreach ($bayis->pemeriksaans as $p) {
+        $bulan = $tglLahir->diffInMonths(Carbon::parse($p->tgl_periksa));
+        if ($bulan >= 0 && $bulan <= 24) {
+            $bb[$bulan] = $p->bb;
+            $tb[$bulan] = $p->tb;
+            $imt[$bulan] = $p->imt;
+        }
     }
 
-    public function tambah_bayi_kader(): View
+    $labels = range(0, 24);
+
+    return view('kader.bayi.detail-bayi', compact('bayis', 'labels', 'bb', 'tb', 'imt'));
+}
+    public function k_tambah_bayi(): View
     {
         $ibus = Ibu::all();
         return view('kader.bayi.tambah-bayi', compact('ibus'));
     }
 
-    public function add_bayi_kader(Request $request)
+    public function k_add_bayi(Request $request)
     {
         $request->validate([
             'id_ibu' => 'required|exists:ibus,id',
@@ -236,6 +227,8 @@ class BayiController extends Controller
         $fotoPath = $request->hasFile('foto_bayi') ? $request->file('foto_bayi')->store('public/bayis') : null;
         $fotoBayi = $fotoPath ? $request->file('foto_bayi')->hashName() : null;
 
+        $ibu = Ibu::find($request->id_ibu);
+
         Bayi::create([
             'id_ibu' => $request->id_ibu,
             'no_kk' => $request->no_kk,
@@ -244,21 +237,21 @@ class BayiController extends Controller
             'tanggal_lahir' => $request->tanggal_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
             'nama_ayah' => $request->nama_ayah,
-            'nama_ibu' => $request->nama_ibu,
+            'nama_ibu' => $ibu ? $ibu->nama_ibu : null,
             'foto_bayi' => $fotoBayi
         ]);
 
-        return redirect()->route('bayi_kader')->with(['message' => 'Bayi berhasil ditambahkan']);
+        return redirect()->route('k/bayi')->with(['message' => 'Bayi berhasil ditambahkan']);
     }
 
-    public function edit_bayi_kader(string $id): View
+    public function k_edit_bayi(string $id): View
     {
         $bayis = Bayi::findOrFail($id);
         $ibus = Ibu::all();
         return view('kader.bayi.edit-bayi', compact('bayis', 'ibus'));
     }
 
-    public function update_bayi_kader(Request $request, string $id): RedirectResponse
+    public function k_update_bayi(Request $request, string $id): RedirectResponse
     {
         $request->validate([
             'id_ibu' => 'required|exists:ibus,id',
@@ -282,6 +275,7 @@ class BayiController extends Controller
             $fotoPath = $request->file('foto_bayi')->store('public/bayis');
             $bayis->foto_bayi = basename($fotoPath);
         }
+        $ibu = Ibu::find($request->id_ibu);
 
         $data = [
             'id_ibu' => $request->id_ibu,
@@ -291,14 +285,14 @@ class BayiController extends Controller
             'tanggal_lahir' => $request->tanggal_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
             'nama_ayah' => $request->nama_ayah,
-            'nama_ibu' => $request->nama_ibu,
+            'nama_ibu' => $ibu ? $ibu->nama_ibu : null,
         ];
 
         $bayis->update($data);
-        return redirect()->route('bayi_kader')->with(['message' => 'Bayi berhasil diperbarui']);
+        return redirect()->route('k/bayi')->with(['message' => 'Bayi _kaderberhasil diperbarui']);
     }
 
-    public function hapus_bayi_kader(string $id): RedirectResponse
+    public function k_hapus_bayi(string $id): RedirectResponse
     {
         $bayis = Bayi::findOrFail($id);
 
@@ -307,7 +301,7 @@ class BayiController extends Controller
         }
 
         $bayis->delete();
-        return redirect()->route('bayi_kader')->with(['message' => 'Bayi berhasil dihapus']);
+        return redirect()->route('k/bayi')->with(['message' => 'Bayi berhasil dihapus']);
     }
 
 

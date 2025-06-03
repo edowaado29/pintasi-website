@@ -26,7 +26,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12 px-4">
-                                    <a href="/tambah_kader" class="btn btn-sm bg-gradient-primary">Tambah Kader</a>
+                                    <a href="/b/tambah_kader" class="btn btn-sm bg-gradient-primary">Tambah Kader</a>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                     <input class="form-control" id="search" type="text" placeholder="Masukkan kata kunci ...">
@@ -70,9 +70,9 @@
                                                 </td>
                                                 <td class="align-middle text-sm">
                                                     <form action="/hapus_kader" method="POST" id="delete-form">
-                                                        <a href="{{ route('detail_kader', $kdr->id) }}"
+                                                        <a href="{{ route('b/detail_kader', $kdr->id) }}"
                                                             class="btn btn-sm bg-gradient-primary">Detail</a>
-                                                        <a href="{{ route('edit_kader', $kdr->id) }}"
+                                                        <a href="{{ route('b/edit_kader', $kdr->id) }}"
                                                             class="btn btn-sm bg-gradient-success">Edit</a>
                                                         @csrf
                                                         @method('DELETE')
@@ -98,7 +98,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('assets/js/search.js') }}"></script>
     <script>
-        const baseUrl = "{{ url('/hapus_kader') }}";
+        const baseUrl = "{{ url('b/hapus_kader') }}";
 
         function confirmDelete(id) {
             Swal.fire({

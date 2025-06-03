@@ -22,7 +22,7 @@
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
                     <ul class="navbar-nav  justify-content-end">
                         <li class="nav-item d-flex align-items-center">
-                            <a href="" class="nav-link text-white font-weight-bold px-0">
+                            <a href="/b/profil" class="nav-link text-white font-weight-bold px-0">
                                 <i class="fa fa-user me-sm-1"></i>
                             </a>
                         </li>
@@ -48,7 +48,7 @@
                             <div class="card" style="height: 100%">
                                 <div class="card-body px-0 pt-0 pb-2 mt-3">
                                     <div class="container">
-                                        <form action="{{ route('add_kader') }}" method="post"
+                                        <form action="{{ route('b/add_kader') }}" method="post"
                                             enctype="multipart/form-data">
                                             @csrf
                                             <div class="mb-3">
@@ -131,7 +131,7 @@
                                             </div>
                                             <div class="row mt-4">
                                                 <div class="col-6">
-                                                    <a href="/kader"
+                                                    <a href="/b/kader"
                                                         class="btn btn-sm bg-gradient-danger w-100">Kembali</a>
                                                 </div>
                                                 <div class="col-6">

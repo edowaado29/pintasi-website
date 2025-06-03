@@ -11,25 +11,25 @@ use Illuminate\Support\Facades\Storage;
 
 class ResepController extends Controller
 {
-    public function resep()
+    public function b_resep()
     {
-        $reseps = Resep::latest()->paginate(10);
+        $reseps = Resep::all();
         return view('puskesmas.resep.main-resep', compact('reseps'));
     }
 
-    public function detail_resep(string $id)
+    public function b_detail_resep(string $id)
     {
         $reseps = Resep::findOrFail($id);
         $bahans = BahanResep::where('id_resep', $id)->get();
         $daftarBahans = DaftarBahan::all();
         return view('puskesmas.resep.detail-resep', compact('reseps', 'bahans'));
     }
-    public function tambah_resep()
+    public function b_tambah_resep()
     {
         $daftarBahans = DaftarBahan::all();
         return view('puskesmas.resep.tambah-resep', compact('daftarBahans'));
     }
-    public function add_resep(Request $request): RedirectResponse
+    public function b_add_resep(Request $request): RedirectResponse
     {
         $request->validate([
             'nama_resep' => 'required|string|max:255',
@@ -100,9 +100,9 @@ class ResepController extends Controller
             ]);
         }
 
-        return redirect()->route('resep')->with(['message' => 'Resep berhasil ditambahkan']);
+        return redirect()->route('b/resep')->with(['message' => 'Resep berhasil ditambahkan']);
     }
-    public function edit_resep(string $id)
+    public function b_edit_resep(string $id)
     {
         $reseps = Resep::findOrFail($id);
         $bahans = BahanResep::where('id_resep', $id)->get();
@@ -112,7 +112,7 @@ class ResepController extends Controller
         return view('puskesmas.resep.edit-resep', compact('reseps', 'bahans', 'id_daftarBahan', 'berat', 'daftarBahans'));
     }
 
-    public function update_resep(Request $request, string $id): RedirectResponse
+    public function b_update_resep(Request $request, string $id): RedirectResponse
     {
         $request->validate([
             'nama_resep' => 'required|string|max:255',
@@ -179,11 +179,11 @@ class ResepController extends Controller
             ]);
         }
 
-        return redirect()->route('resep')->with(['message' => 'Resep berhasil diperbarui']);
+        return redirect()->route('b/resep')->with(['message' => 'Resep berhasil diperbarui']);
     }
 
 
-    public function hapus_resep($id): RedirectResponse
+    public function b_hapus_resep($id): RedirectResponse
     {
         $reseps = Resep::findOrFail($id);
         $bahans = BahanResep::where('id_resep', $id)->get();
@@ -195,6 +195,6 @@ class ResepController extends Controller
             $bahan->delete();
         }
         $reseps->delete();
-        return redirect()->route('resep')->with(['message' => 'Resep berhasil dihapus']);
+        return redirect()->route('b/resep')->with(['message' => 'Resep berhasil dihapus']);
     }
 }

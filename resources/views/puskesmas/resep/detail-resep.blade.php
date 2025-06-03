@@ -22,7 +22,7 @@
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
                     <ul class="navbar-nav  justify-content-end">
                         <li class="nav-item d-flex align-items-center">
-                            <a href="" class="nav-link text-white font-weight-bold px-0">
+                            <a href="/b/profil" class="nav-link text-white font-weight-bold px-0">
                                 <i class="fa fa-user me-sm-1"></i>
                             </a>
                         </li>
@@ -42,11 +42,11 @@
         <!-- End Navbar -->
         <div class="container-fluid py-4">
             <div class="card">
-                <div style="margin-left: 5vh;" class="py-3">
-                    <a href="/resep">
+                {{-- <div style="margin-left: 5vh;" class="py-3">
+                    <a href="/b/resep">
                         <img src="{{ asset('assets/img/back-button.png') }}" style="width: 5vh; opacity: 50%;">
                     </a>
-                </div>
+                </div> --}}
                 <hr class="horizontal dark mt-0">
                 <div class="row">
                     <div class="col-lg-3 col-sm-12 px-5 pb-3">
@@ -74,9 +74,9 @@
                         <h5 style="font-weight: 500; font-size: 1.15rem;">:</h5>
                     </div>
                     <div class="col-2">
-                        <h5 style="font-weight: 500; font-size: 1.15rem;">{{ $reseps->total_kalori }}</h5>
-                        <h5 style="font-weight: 500; font-size: 1.15rem;">{{ $reseps->total_protein }}</h5>
-                        <h5 style="font-weight: 500; font-size: 1.15rem;">{{ $reseps->total_lemak }}</h5>
+                        <h5 style="font-weight: 500; font-size: 1.15rem;">{{ $reseps->total_kalori }} kcal</h5>
+                        <h5 style="font-weight: 500; font-size: 1.15rem;">{{ $reseps->total_protein }} g</h5>
+                        <h5 style="font-weight: 500; font-size: 1.15rem;">{{ $reseps->total_lemak }} g</h5>
                     </div>
                     <div class="col-3" style="padding-left: 60px;">
                         <h5 style="font-weight: 500; font-size: 1.15rem;">Total Karbohidrat</h5>
@@ -89,8 +89,8 @@
                         <h5 style="font-weight: 500; font-size: 1.15rem;">:</h5>
                     </div>
                     <div class="col-3">
-                        <h5 style="font-weight: 500; font-size: 1.15rem;">{{ $reseps->total_karbohidrat }} Gram</h5>
-                        <h5 style="font-weight: 500; font-size: 1.15rem;">{{ $reseps->total_serat }} Gram</h5>
+                        <h5 style="font-weight: 500; font-size: 1.15rem;">{{ $reseps->total_karbohidrat }} g</h5>
+                        <h5 style="font-weight: 500; font-size: 1.15rem;">{{ $reseps->total_serat }} g</h5>
                         <h5 style="font-weight: 500; font-size: 1.15rem;">{{ $reseps->jumlah_porsi }} Kali</h5>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
                     <div class="col-2">
                         @foreach ($bahans as $bahan)
                             <h5 style="font-weight: 500; font-size: 1.15rem;">
-                                {{ $bahan->daftarBahan->nama_bahan ?? '-' }} ({{ $bahan->berat }} Gram)
+                                {{ $bahan->daftarBahan->nama_bahan ?? '-' }} ({{ $bahan->berat }} g)
                             </h5>
                         @endforeach
                     </div>

@@ -1,4 +1,4 @@
-@extends('puskesmas.layouts.template')
+@extends('kader.layouts.template')
 
 @section('content')
     <main class="main-content position-relative border-radius-lg ">
@@ -26,7 +26,7 @@
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
                     <ul class="navbar-nav  justify-content-end">
                         <li class="nav-item d-flex align-items-center">
-                            <a href="/profil" class="nav-link text-white font-weight-bold px-0">
+                            <a href="/k/profil" class="nav-link text-white font-weight-bold px-0">
                                 <i class="fa fa-user me-sm-1"></i>
                             </a>
                         </li>
@@ -50,7 +50,7 @@
                 <div class="row gx-4">
                     <div class="col-auto">
                         <div class="avatar avatar-xl position-relative">
-                            <img src="{{ asset('/storage/users/' . $user->foto) }}"
+                            <img src="{{ $user->foto !== null ? asset('/storage/users/' . $user->foto) : asset('/assets/img/no_image.png') }}"
                                 class="w-100 border-radius-lg shadow-sm">
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                                         <span class="ms-2">Ubah Foto Profil</span>
                                     </a>
                                 </li>
-                                <form action="{{ route('uploadImg') }}" method="post" enctype="multipart/form-data"
+                                <form action="{{ route('k/uploadImg') }}" method="post" enctype="multipart/form-data"
                                     id="fileUploadForm">
                                     @csrf
                                     @method('PUT')
@@ -97,7 +97,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('updateProfile') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('k/updateProfile') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
@@ -164,7 +164,7 @@
                         <h5 class="modal-title" id="exampleModalLabel">Password Baru</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="updatePassword" method="post" enctype="multipart/form-data">
+                    <form action="/k/updatePassword" method="post" enctype="multipart/form-data">
                         <div class="modal-body">
                             @csrf
                             @method('PUT')
@@ -225,7 +225,7 @@
                 $('#foto').click();
             });
 
-            $('#foot').change(function() {
+            $('#foto').change(function() {
                 var formData = new FormData($('#fileUploadForm')[0]);
 
                 $.ajax({
@@ -233,7 +233,10 @@
                     type: 'POST',
                     data: formData,
                     processData: false,
-                    contentType: false
+                    contentType: false,
+                    success: function() {
+                    location.reload();
+                }
                 });
             });
         });

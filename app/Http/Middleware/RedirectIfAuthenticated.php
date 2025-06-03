@@ -21,9 +21,9 @@ class RedirectIfAuthenticated
 
             // Redirect ke dashboard berdasarkan role
             if ($user->role === 'kader') {
-                return redirect()->route('dashboard_kader');
+                return redirect()->route('k/dashboard');
             } elseif ($user->role === 'bidan') {
-                return redirect()->route('dashboard');
+                return redirect()->route('b/dashboard');
             }
         }
 

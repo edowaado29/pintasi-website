@@ -12,137 +12,148 @@ use App\Http\Controllers\MotorikController;
 use App\Http\Controllers\PemeriksaanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResepController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Auth\Middleware\Authenticate;
-use Illuminate\Container\Attributes\Auth;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/loginUser', [AuthController::class, 'loginUser'])->name('loginUser');
+    Route::post('/forgot_password_act', [AuthController::class, 'forgot_password_act'])->name('forgot_password_act');
+    Route::get('/validasi_forgot_password/{token}', [AuthController::class, 'validasi_forgot_password'])->name('validasi_forgot_password');
+    Route::post('/validasi_forgot_password_act', [AuthController::class, 'validasi_forgot_password_act'])->name('validasi_forgot_password_act');
 });
 
 Route::middleware(['auth', 'role:kader'])->group(function () {
-    Route::get('/dashboard/kader', [DashboardController::class, 'dashboard_kader'])->name('dashboard_kader');
+    Route::get('k/dashboard', [DashboardController::class, 'k_dashboard'])->name('k/dashboard');
 
     // route profile
-    Route::get('/profil', [ProfileController::class, 'profil'])->name('profil');
-    Route::put('/updateProfile', [ProfileController::class, 'updateProfile'])->name('updateProfile');
-    Route::put('/uploadImg', [ProfileController::class, 'uploadImg'])->name('uploadImg');
-    Route::put('/updatePassword', [ProfileController::class, 'updatePassword'])->name('updatePassword');
+    Route::get('k/profil', [ProfileController::class, 'k_profil'])->name('k/profil');
+    Route::put('k/updateProfile', [ProfileController::class, 'k_updateProfile'])->name('k/updateProfile');
+    Route::put('k/uploadImg', [ProfileController::class, 'k_uploadImg'])->name('k/uploadImg');
+    Route::put('k/updatePassword', [ProfileController::class, 'k_updatePassword'])->name('k/updatePassword');
+
+    //route ibu
+    Route::get('k/ibu', [IbuController::class, 'k_ibu'])->name('k/ibu');
+    Route::get('k/detail_ibu/{id}', [IbuController::class, 'k_detail_ibu'])->name('k/detail_ibu');
+    Route::get('k/tambah_ibu', [IbuController::class, 'k_tambah_ibu'])->name('k/tambah_ibu');
+    Route::post('k/add_ibu', [IbuController::class, 'k_add_ibu'])->name('k/add_ibu');
+    Route::get('k/edit_ibu/{id}', [IbuController::class, 'k_edit_ibu'])->name('k/edit_ibu');
+    Route::put('k/update_ibu/{id}', [IbuController::class, 'k_update_ibu'])->name('k/update_ibu');
+    Route::delete('k/hapus_ibu/{id}', [IbuController::class, 'k_hapus_ibu'])->name('k/hapus_ibu');
 
     // route bayi kader
-    Route::get('/bayi_kader', [BayiController::class, 'bayi_kader'])->name('bayi_kader');
-    Route::get('/detail_bayi_kader/{id}', [BayiController::class, 'detail_bayi_kader'])->name('detail_bayi_kader');
-    Route::get('/tambah_bayi_kader', [BayiController::class, 'tambah_bayi_kader'])->name('tambah_bayi_kader');
-    Route::post('/add_bayi_kader', [BayiController::class, 'add_bayi_kader'])->name('add_bayi_kader');
-    Route::get('/edit_bayi_kader/{id}', [BayiController::class, 'edit_bayi_kader'])->name('edit_bayi_kader');
-    Route::put('/update_bayi_kader/{id}', [BayiController::class, 'update_bayi_kader'])->name('update_bayi_kader');
-    Route::delete('/hapus_bayi_kader/{id}', [BayiController::class, 'hapus_bayi_kader'])->name('hapus_bayi_kader');
+    Route::get('k/bayi', [BayiController::class, 'k_bayi'])->name('k/bayi');
+    Route::get('k/detail_bayi/{id}', [BayiController::class, 'k_detail_bayi'])->name('k/detail_bayi');
+    Route::get('k/tambah_bayi', [BayiController::class, 'k_tambah_bayi'])->name('k/tambah_bayi');
+    Route::post('k/add_bayi', [BayiController::class, 'k_add_bayi'])->name('k/add_bayi');
+    Route::get('k/edit_bayi/{id}', [BayiController::class, 'k_edit_bayi'])->name('k/edit_bayi');
+    Route::put('k/update_bayi/{id}', [BayiController::class, 'k_update_bayi'])->name('k/update_bayi');
+    Route::delete('k/hapus_bayi/{id}', [BayiController::class, 'k_hapus_bayi'])->name('k/hapus_bayi');
 
-    //route pemeriksaan kader
-    Route::get('/pemeriksaan_kader', [PemeriksaanController::class, 'pemeriksaan_kader'])->name('pemeriksaan_kader');
-    Route::get('/tambah_pemeriksaan_kader/{id_bayi}', [PemeriksaanController::class, 'tambah_pemeriksaan_kader'])->name('tambah_pemeriksaan_kader');
-    Route::post('/store_pemeriksaan_kader', [PemeriksaanController::class, 'store_pemeriksaan_kader'])->name('store_pemeriksaan_kader');
-    Route::get('/detail_pemeriksaan_kader/{id}', [PemeriksaanController::class, 'detail_pemeriksaan_kader'])->name('detail_pemeriksaan_kader');
-    Route::get('/edit_pemeriksaan_kader/{id}', [PemeriksaanController::class, 'edit_pemeriksaan_kader'])->name('edit_pemeriksaan_kader');
-    Route::put('/update_pemeriksaan_kader/{id}', [PemeriksaanController::class, 'update_pemeriksaan_kader'])->name('update_pemeriksaan_kader');
-    Route::delete('/delete_pemeriksaan_kader/{id}', [PemeriksaanController::class, 'delete_pemeriksaan_kader'])->name('delete_pemeriksaan_kader');
+    // route pemeriksaan kader
+    Route::get('k/pemeriksaan', [PemeriksaanController::class, 'k_pemeriksaan'])->name('k/pemeriksaan');
+    Route::get('k/tambah_pemeriksaan/{id_bayi}', [PemeriksaanController::class, 'k_tambah_pemeriksaan'])->name('k/tambah_pemeriksaan');
+    Route::post('k/store_pemeriksaan', [PemeriksaanController::class, 'k_store_pemeriksaan'])->name('k/store_pemeriksaan');
+    Route::get('k/detail_pemeriksaan/{id}', [PemeriksaanController::class, 'k_detail_pemeriksaan'])->name('k/detail_pemeriksaan');
+    Route::get('k/edit_pemeriksaan/{id}', [PemeriksaanController::class, 'k_edit_pemeriksaan'])->name('k/edit_pemeriksaan');
+    Route::put('k/update_pemeriksaan/{id}', [PemeriksaanController::class, 'k_update_pemeriksaan'])->name('k/update_pemeriksaan');
+    Route::delete('k/delete_pemeriksaan/{id}', [PemeriksaanController::class, 'k_delete_pemeriksaan'])->name('k/delete_pemeriksaan');
 
 });
 
 Route::middleware(['auth', 'role:bidan'])->group(function () {
-    Route::get('/dashboard/bidan', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('b/dashboard', [DashboardController::class, 'b_dashboard'])->name('b/dashboard');
 
-    // route profile
-    Route::get('/profil', [ProfileController::class, 'profil'])->name('profil');
-    Route::put('/updateProfile', [ProfileController::class, 'updateProfile'])->name('updateProfile');
-    Route::put('/uploadImg', [ProfileController::class, 'uploadImg'])->name('uploadImg');
-    Route::put('/updatePassword', [ProfileController::class, 'updatePassword'])->name('updatePassword');
+    // ProfileController
+    Route::get('b/profil', [ProfileController::class, 'b_profil'])->name('b/profil');
+    Route::put('b/updateProfile', [ProfileController::class, 'b_updateProfile'])->name('b/updateProfile');
+    Route::put('b/uploadImg', [ProfileController::class, 'b_uploadImg'])->name('b/uploadImg');
+    Route::put('b/updatePassword', [ProfileController::class, 'b_updatePassword'])->name('b/updatePassword');
 
-    //route ibu
-    Route::get('/ibu', [IbuController::class, 'ibu'])->name('ibu');
-    Route::get('/detail_ibu/{id}', [IbuController::class, 'detail_ibu'])->name('detail_ibu');
-    Route::get('/tambah_ibu', [IbuController::class, 'tambah_ibu'])->name('tambah_ibu');
-    Route::post('/add_ibu', [IbuController::class, 'add_ibu'])->name('add_ibu');
-    Route::get('/edit_ibu/{id}', [IbuController::class, 'edit_ibu'])->name('edit_ibu');
-    Route::put('/update_ibu/{id}', [IbuController::class, 'update_ibu'])->name('update_ibu');
-    Route::delete('/hapus_ibu/{id}', [IbuController::class, 'hapus_ibu'])->name('hapus_ibu');
+    // IbuController
+    Route::get('b/ibu', [IbuController::class, 'b_ibu'])->name('b/ibu');
+    Route::get('b/detail_ibu/{id}', [IbuController::class, 'b_detail_ibu'])->name('b/detail_ibu');
+    Route::get('b/tambah_ibu', [IbuController::class, 'b_tambah_ibu'])->name('b/tambah_ibu');
+    Route::post('b/add_ibu', [IbuController::class, 'b_add_ibu'])->name('b/add_ibu');
+    Route::get('b/edit_ibu/{id}', [IbuController::class, 'b_edit_ibu'])->name('b/edit_ibu');
+    Route::put('b/update_ibu/{id}', [IbuController::class, 'b_update_ibu'])->name('b/update_ibu');
+    Route::delete('b/hapus_ibu/{id}', [IbuController::class, 'b_hapus_ibu'])->name('b/hapus_ibu');
 
-    //route bayi
-    Route::get('/bayi', [BayiController::class, 'bayi'])->name('bayi');
-    Route::get('/detail_bayi/{id}', [BayiController::class, 'detail_bayi'])->name('detail_bayi');
-    Route::get('/tambah_bayi', [BayiController::class, 'tambah_bayi'])->name('tambah_bayi');
-    Route::post('/add_bayi', [BayiController::class, 'add_bayi'])->name('add_bayi');
-    Route::get('/edit_bayi/{id}', [BayiController::class, 'edit_bayi'])->name('edit_bayi');
-    Route::put('/update_bayi/{id}', [BayiController::class, 'update_bayi'])->name('update_bayi');
-    Route::delete('/hapus_bayi/{id}', [BayiController::class, 'hapus_bayi'])->name('hapus_bayi');
+    // BayiController
+    Route::get('b/bayi', [BayiController::class, 'b_bayi'])->name('b/bayi');
+    Route::get('b/detail_bayi/{id}', [BayiController::class, 'b_detail_bayi'])->name('b/detail_bayi');
+    Route::get('b/tambah_bayi', [BayiController::class, 'b_tambah_bayi'])->name('b/tambah_bayi');
+    Route::post('b/add_bayi', [BayiController::class, 'b_add_bayi'])->name('b/add_bayi');
+    Route::get('b/edit_bayi/{id}', [BayiController::class, 'b_edit_bayi'])->name('b/edit_bayi');
+    Route::put('b/update_bayi/{id}', [BayiController::class, 'b_update_bayi'])->name('b/update_bayi');
+    Route::delete('b/hapus_bayi/{id}', [BayiController::class, 'b_hapus_bayi'])->name('b/hapus_bayi');
 
-    //route resep
-    Route::get('/resep', [ResepController::class, 'resep'])->name('resep');
-    Route::get('/detail_resep/{id}', [ResepController::class, 'detail_resep'])->name('detail_resep');
-    Route::get('/tambah_resep', [ResepController::class, 'tambah_resep'])->name('tambah_resep');
-    Route::post('/add_resep', [ResepController::class, 'add_resep'])->name('add_resep');
-    Route::get('/edit_resep/{id}', [ResepController::class, 'edit_resep'])->name('edit_resep');
-    Route::put('/update_resep/{id}', [ResepController::class, 'update_resep'])->name('update_resep');
-    Route::delete('/hapus_resep/{id}', [ResepController::class, 'hapus_resep'])->name('hapus_resep');
+    // ResepController
+    Route::get('b/resep', [ResepController::class, 'b_resep'])->name('b/resep');
+    Route::get('b/detail_resep/{id}', [ResepController::class, 'b_detail_resep'])->name('b/detail_resep');
+    Route::get('b/tambah_resep', [ResepController::class, 'b_tambah_resep'])->name('b/tambah_resep');
+    Route::post('b/add_resep', [ResepController::class, 'b_add_resep'])->name('b/add_resep');
+    Route::get('b/edit_resep/{id}', [ResepController::class, 'b_edit_resep'])->name('b/edit_resep');
+    Route::put('b/update_resep/{id}', [ResepController::class, 'b_update_resep'])->name('b/update_resep');
+    Route::delete('b/hapus_resep/{id}', [ResepController::class, 'b_hapus_resep'])->name('b/hapus_resep');
 
-    //route daftar bahan
-    Route::get('/daftar_bahan', [DaftarBahanController::class, 'daftar_bahan'])->name('daftar_bahan');
-    Route::get('/detail_bahan/{id}', [DaftarBahanController::class, 'detail_bahan'])->name('detail_bahan');
-    Route::get('/tambah_bahan', [DaftarBahanController::class, 'tambah_bahan'])->name('tambah_bahan');
-    Route::post('/add_bahan', [DaftarBahanController::class, 'add_bahan'])->name('add_bahan');
-    Route::get('/edit_bahan/{id}', [DaftarBahanController::class, 'edit_bahan'])->name('edit_bahan');
-    Route::put('/update_bahan/{id}', [DaftarBahanController::class, 'update_bahan'])->name('update_bahan');
-    Route::delete('/hapus_bahan/{id}', [DaftarBahanController::class, 'hapus_bahan'])->name('hapus_bahan');
-    Route::post('/import_bahan', [DaftarBahanController::class, 'import_bahan'])->name('import_bahan');
+    // DaftarBahanController
+    Route::get('b/daftar_bahan', [DaftarBahanController::class, 'b_daftar_bahan'])->name('b/daftar_bahan');
+    Route::get('b/detail_bahan/{id}', [DaftarBahanController::class, 'b_detail_bahan'])->name('b/detail_bahan');
+    Route::get('b/tambah_bahan', [DaftarBahanController::class, 'b_tambah_bahan'])->name('b/tambah_bahan');
+    Route::post('b/add_bahan', [DaftarBahanController::class, 'b_add_bahan'])->name('b/add_bahan');
+    Route::get('b/edit_bahan/{id}', [DaftarBahanController::class, 'b_edit_bahan'])->name('b/edit_bahan');
+    Route::put('b/update_bahan/{id}', [DaftarBahanController::class, 'b_update_bahan'])->name('b/update_bahan');
+    Route::delete('b/hapus_bahan/{id}', [DaftarBahanController::class, 'b_hapus_bahan'])->name('b/hapus_bahan');
+    Route::post('b/import_bahan', [DaftarBahanController::class, 'b_import_bahan'])->name('b/import_bahan');
 
-    //route motorik
-    Route::get('/motorik', [MotorikController::class, 'motorik'])->name('motorik');
-    Route::get('/tambah_motorik', [MotorikController::class, 'tambah_motorik'])->name('tambah_motorik');
-    Route::post('/add_motorik', [MotorikController::class, 'add_motorik'])->name('add_motorik');
-    Route::get('/edit_motorik/{id}', [MotorikController::class, 'edit_motorik'])->name('edit_motorik');
-    Route::put('/update_motorik/{id}', [MotorikController::class, 'update_motorik'])->name('update_motorik');
-    Route::delete('/hapus_motorik/{id}', [MotorikController::class, 'hapus_motorik'])->name('hapus_motorik');
+    // MotorikController
+    Route::get('b/motorik', [MotorikController::class, 'b_motorik'])->name('b/motorik');
+    Route::get('b/tambah_motorik', [MotorikController::class, 'b_tambah_motorik'])->name('b/tambah_motorik');
+    Route::post('b/add_motorik', [MotorikController::class, 'b_add_motorik'])->name('b/add_motorik');
+    Route::get('b/edit_motorik/{id}', [MotorikController::class, 'b_edit_motorik'])->name('b/edit_motorik');
+    Route::put('b/update_motorik/{id}', [MotorikController::class, 'b_update_motorik'])->name('b/update_motorik');
+    Route::delete('b/hapus_motorik/{id}', [MotorikController::class, 'b_hapus_motorik'])->name('b/hapus_motorik');
 
-    //route pemeriksaan
-    Route::get('/pemeriksaan', [PemeriksaanController::class, 'pemeriksaan'])->name('pemeriksaan');
-    Route::get('/tambah_pemeriksaan/{id_bayi}', [PemeriksaanController::class, 'tambah_pemeriksaan'])->name('tambah_pemeriksaan');
-    Route::post('/store_pemeriksaan', [PemeriksaanController::class, 'store_pemeriksaan'])->name('store_pemeriksaan');
-    Route::get('/detail_pemeriksaan/{id}', [PemeriksaanController::class, 'detail_pemeriksaan'])->name('detail_pemeriksaan');
-    Route::get('/edit_pemeriksaan/{id}', [PemeriksaanController::class, 'edit_pemeriksaan'])->name('edit_pemeriksaan');
-    Route::put('/update_pemeriksaan/{id}', [PemeriksaanController::class, 'update_pemeriksaan'])->name('update_pemeriksaan');
-    Route::delete('/delete_pemeriksaan/{id}', [PemeriksaanController::class, 'delete_pemeriksaan'])->name('delete_pemeriksaan');
+    // PemeriksaanController
+    Route::get('b/pemeriksaan', [PemeriksaanController::class, 'b_pemeriksaan'])->name('b/pemeriksaan');
+    Route::get('b/tambah_pemeriksaan/{id_bayi}', [PemeriksaanController::class, 'b_tambah_pemeriksaan'])->name('b/tambah_pemeriksaan');
+    Route::post('b/store_pemeriksaan', [PemeriksaanController::class, 'b_store_pemeriksaan'])->name('b/store_pemeriksaan');
+    Route::get('b/detail_pemeriksaan/{id}', [PemeriksaanController::class, 'b_detail_pemeriksaan'])->name('b/detail_pemeriksaan');
+    Route::get('b/edit_pemeriksaan/{id}', [PemeriksaanController::class, 'b_edit_pemeriksaan'])->name('b/edit_pemeriksaan');
+    Route::put('b/update_pemeriksaan/{id}', [PemeriksaanController::class, 'b_update_pemeriksaan'])->name('b/update_pemeriksaan');
+    Route::delete('b/delete_pemeriksaan/{id}', [PemeriksaanController::class, 'b_delete_pemeriksaan'])->name('b/delete_pemeriksaan');
 
-    //route jadwal
-    Route::get('/jadwal', [JadwalController::class, 'jadwal'])->name('jadwal');
-    Route::get('/tambah_jadwal', [JadwalController::class, 'tambah_jadwal'])->name('tambah_jadwal');
-    Route::post('/add_jadwal', [JadwalController::class, 'add_jadwal'])->name('add_jadwal');
-    Route::get('/edit_jadwal/{id}', [JadwalController::class, 'edit_jadwal'])->name('edit_jadwal');
-    Route::put('/update_jadwal/{id}', [JadwalController::class, 'update_jadwal'])->name('update_jadwal');
-    Route::delete('/hapus_jadwal/{id}', [JadwalController::class, 'hapus_jadwal'])->name('hapus_jadwal');
+    // JadwalController
+    Route::get('b/jadwal', [JadwalController::class, 'b_jadwal'])->name('b/jadwal');
+    Route::get('b/tambah_jadwal', [JadwalController::class, 'b_tambah_jadwal'])->name('b/tambah_jadwal');
+    Route::post('b/add_jadwal', [JadwalController::class, 'b_add_jadwal'])->name('b/add_jadwal');
+    Route::get('b/edit_jadwal/{id}', [JadwalController::class, 'b_edit_jadwal'])->name('b/edit_jadwal');
+    Route::put('b/update_jadwal/{id}', [JadwalController::class, 'b_update_jadwal'])->name('b/update_jadwal');
+    Route::delete('b/hapus_jadwal/{id}', [JadwalController::class, 'b_hapus_jadwal'])->name('b/hapus_jadwal');
 
-    //route kader
-    Route::get('/kader', [KaderController::class, 'kader'])->name('kader');
-    Route::get('/detail_kader/{id}', [KaderController::class, 'detail_kader'])->name('detail_kader');
-    Route::get('/tambah_kader', [KaderController::class, 'tambah_kader'])->name('tambah_kader');
-    Route::post('/add_kader', [KaderController::class, 'add_kader'])->name('add_kader');
-    Route::get('/edit_kader/{id}', [KaderController::class, 'edit_kader'])->name('edit_kader');
-    Route::put('/update_kader/{id}', [KaderController::class, 'update_kader'])->name('update_kader');
-    Route::delete('/hapus_kader/{id}', [KaderController::class, 'hapus_kader'])->name('hapus_kader');
+    // KaderController
+    Route::get('b/kader', [KaderController::class, 'b_kader'])->name('b/kader');
+    Route::get('b/detail_kader/{id}', [KaderController::class, 'b_detail_kader'])->name('b/detail_kader');
+    Route::get('b/tambah_kader', [KaderController::class, 'b_tambah_kader'])->name('b/tambah_kader');
+    Route::post('b/add_kader', [KaderController::class, 'b_add_kader'])->name('b/add_kader');
+    Route::get('b/edit_kader/{id}', [KaderController::class, 'b_edit_kader'])->name('b/edit_kader');
+    Route::put('b/update_kader/{id}', [KaderController::class, 'b_update_kader'])->name('b/update_kader');
+    Route::delete('b/hapus_kader/{id}', [KaderController::class, 'b_hapus_kader'])->name('b/hapus_kader');
 
-    //route artikel
-    Route::get('/artikel', [ArtikelController::class, 'artikel'])->name('artikel');
-    Route::get('/detail_artikel/{id}', [ArtikelController::class, 'detail_artikel'])->name('detail_artikel');
-    Route::get('/tambah_artikel', [ArtikelController::class, 'tambah_artikel'])->name('tambah_artikel');
-    Route::post('/add_artikel', [ArtikelController::class, 'add_artikel'])->name('add_artikel');
-    Route::get('/edit_artikel/{id}', [ArtikelController::class, 'edit_artikel'])->name('edit_artikel');
-    Route::put('/update_artikel/{id}', [ArtikelController::class, 'update_artikel'])->name('update_artikel');
-    Route::delete('/hapus_artikel/{id}', [ArtikelController::class, 'hapus_artikel'])->name('hapus_artikel');
+    // ArtikelController
+    Route::get('b/artikel', [ArtikelController::class, 'b_artikel'])->name('b/artikel');
+    Route::get('b/artikel/{id}', [ArtikelController::class, 'b_detail_artikel'])->name('b/detail-artikel');
+    Route::get('b/detail_artikel/{id}', [ArtikelController::class, 'b_detail_artikel'])->name('b/detail_artikel');
+    Route::get('b/tambah_artikel', [ArtikelController::class, 'b_tambah_artikel'])->name('b/tambah_artikel');
+    Route::post('b/add_artikel', [ArtikelController::class, 'b_add_artikel'])->name('b/add_artikel');
+    Route::get('b/edit_artikel/{id}', [ArtikelController::class, 'b_edit_artikel'])->name('b/edit_artikel');
+    Route::put('b/update_artikel/{id}', [ArtikelController::class, 'b_update_artikel'])->name('b/update_artikel');
+    Route::delete('b/hapus_artikel/{id}', [ArtikelController::class, 'b_hapus_artikel'])->name('b/hapus_artikel');
+
 });
 
 

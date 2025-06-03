@@ -22,7 +22,7 @@
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
                     <ul class="navbar-nav  justify-content-end">
                         <li class="nav-item d-flex align-items-center">
-                            <a href="" class="nav-link text-white font-weight-bold px-0">
+                            <a href="/b/profil" class="nav-link text-white font-weight-bold px-0">
                                 <i class="fa fa-user me-sm-1"></i>
                             </a>
                         </li>
@@ -43,7 +43,7 @@
         <div class="container-fluid py-4">
             <div class="card">
                 <div style="margin-left: 5vh;" class="py-3">
-                    <a href="/ibu">
+                    <a href="/b/ibu">
                         <img src="{{ asset('assets/img/back-button.png') }}" style="width: 5vh; opacity: 50%;">
                     </a>
                 </div>

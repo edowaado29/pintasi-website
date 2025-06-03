@@ -13,6 +13,25 @@
                     </ol>
                     <h6 class="font-weight-bolder text-white mb-0">Data Bayi</h6>
                 </nav>
+                <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                    <div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
+                    <ul class="navbar-nav  justify-content-end">
+                        <li class="nav-item d-flex align-items-center">
+                            <a href="/k/profil" class="nav-link text-white font-weight-bold px-0">
+                                <i class="fa fa-user me-sm-1"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                            <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
+                                <div class="sidenav-toggler-inner">
+                                    <i class="sidenav-toggler-line bg-white"></i>
+                                    <i class="sidenav-toggler-line bg-white"></i>
+                                    <i class="sidenav-toggler-line bg-white"></i>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
         <!-- End Navbar -->
@@ -26,7 +45,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12 px-4">
-                                    {{-- <a href="/tambah_bayi_kader" class="btn btn-sm bg-gradient-primary">Tambah Bayi</a> --}}
+                                    <a href="/k/tambah_bayi" class="btn btn-sm bg-gradient-primary">Tambah Bayi</a>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                     <input class="form-control" id="search" type="text" placeholder="Masukkan kata kunci ...">
@@ -60,18 +79,18 @@
                                                     <p class="text-x font-weight-bold mb-0">{{ $by->nama_bayi }}
                                                 </td>
                                                 <td>
-                                                    <p class="text-x font-weight-bold mb-0">{{ $by->ibu->nama_ibu }}
+                                                    <p class="text-x font-weight-bold mb-0">{{ $by->ibu->nama_ibu ?? '-' }}
                                                 </td>
                                                 <td class="align-middle text-sm">
                                                     <form action="" method="POST" id="delete-form">
-                                                        <a href="{{ route('detail_bayi_kader', $by->id) }}"
+                                                        <a href="{{ route('k/detail_bayi', $by->id) }}"
                                                             class="btn btn-sm bg-gradient-primary">Detail</a>
-                                                        {{-- <a href="{{ route('edit_bayi_kader', $by->id) }}"
-                                                            class="btn btn-sm bg-gradient-success">Edit</a> --}}
-                                                        {{-- @csrf
+                                                        <a href="{{ route('k/edit_bayi', $by->id) }}"
+                                                            class="btn btn-sm bg-gradient-success">Edit</a>
+                                                        @csrf
                                                         @method('DELETE')
                                                         <button type="button" class="btn btn-sm btn-danger"
-                                                            onclick="confirmDelete('{{ $by->id }}')">HAPUS</button> --}}
+                                                            onclick="confirmDelete('{{ $by->id }}')">HAPUS</button>
                                                     </form>
                                                 </td>
                                             </tr>
@@ -92,7 +111,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('assets/js/search.js') }}"></script>
     <script>
-        const baseUrl = "{{ url('/hapus_bayi') }}";
+        const baseUrl = "{{ url('k/hapus_bayi') }}";
 
         function confirmDelete(id) {
             Swal.fire({

@@ -12,24 +12,24 @@ use Illuminate\View\View;
 
 class KaderController extends Controller
 {
-    public function kader()
+    public function b_kader()
     {
-        $kaders = User::where('role', 'kader')->latest()->paginate(10)->withQueryString();
+        $kaders = User::where('role', 'kader')->latest()->paginate(40)->withQueryString();
         return view('puskesmas.kader.main-kader', compact('kaders'));
     }
 
-    public function detail_kader(string $id)
+    public function b_detail_kader(string $id)
     {
         $kaders = User::findOrFail($id);
         return view('puskesmas.kader.detail-kader', compact('kaders'));
     }
 
-    public function tambah_kader()
+    public function b_tambah_kader()
     {
         return view('puskesmas.kader.tambah-kader');
     }
 
-    public function add_kader(Request $request): RedirectResponse
+    public function b_add_kader(Request $request): RedirectResponse
     {
         $request->validate(
             [
@@ -67,16 +67,16 @@ class KaderController extends Controller
             'foto' => $foto,
         ]);
 
-        return redirect()->route('kader')->with(['message' => 'Kader berhasil ditambahkan']);
+        return redirect()->route('b/kader')->with(['message' => 'Kader berhasil ditambahkan']);
     }
 
-    public function edit_kader(string $id)
+    public function b_edit_kader(string $id)
     {
         $kaders = User::findOrFail($id);
         return view('puskesmas.kader.edit-kader', compact('kaders'));
     }
 
-    public function update_kader(Request $request, $id): RedirectResponse
+    public function b_update_kader(Request $request, $id): RedirectResponse
     {
 
         $request->validate(
@@ -129,16 +129,16 @@ class KaderController extends Controller
 
         $kaders->update($data);
 
-        return redirect()->route('kader')->with(['message' => 'Data berhasil diperbarui']);
+        return redirect()->route('b/kader')->with(['message' => 'Data berhasil diperbarui']);
     }
 
-    public function hapus_kader(string $id): RedirectResponse
+    public function b_hapus_kader(string $id): RedirectResponse
     {
         $kaders = User::findOrFail($id);
         if ($kaders->foto && Storage::exists('public/users/' . $kaders->foto)) {
             Storage::delete('public/users/' . $kaders->foto);
         }
         $kaders->delete();
-        return redirect()->route('kader')->with(['message' => 'Data berhasil dihapus']);
+        return redirect()->route('b/kader')->with(['message' => 'Data berhasil dihapus']);
     }
 }

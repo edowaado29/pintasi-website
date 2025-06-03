@@ -22,7 +22,7 @@
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
                     <ul class="navbar-nav  justify-content-end">
                         <li class="nav-item d-flex align-items-center">
-                            <a href="" class="nav-link text-white font-weight-bold px-0">
+                            <a href="/k/profil" class="nav-link text-white font-weight-bold px-0">
                                 <i class="fa fa-user me-sm-1"></i>
                             </a>
                         </li>
@@ -43,7 +43,7 @@
         <div class="container-fluid py-4">
             <div class="card">
                 <div style="margin-left: 5vh;" class="py-3">
-                    <a href="{{ route('bayi') }}">
+                    <a href="{{ route('k/bayi') }}">
                         <img src="{{ asset('assets/img/back-button.png') }}" style="width: 5vh; opacity: 50%;">
                     </a>
                 </div>
@@ -57,7 +57,7 @@
                         <div style="margin-top: 5vh;">
                             <h2 style="font-size: 1.25rem; font-weight: 400; color: grey;">{{ $bayis->nik_bayi }}</h2>
                             <h3 style="font-size: 2.25rem;">{{ $bayis->nama_bayi }}</h3>
-                            <h4 style="color: #73A578; font-weight: 400;">{{ $bayis->ibu->nama_ibu }}</h4>
+                            <h4 style="color: #73A578; font-weight: 400;">{{ $bayis->ibu->nama_ibu ?? '-' }}</h4>
                         </div>
                     </div>
                 </div>

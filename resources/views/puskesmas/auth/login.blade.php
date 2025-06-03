@@ -1,180 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>Login - Laravel</title>
-    <style>
-        /* Reset */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>PINTASI</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" />
 
-        body {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px;
-        }
-
-        .login-container {
-            background: white;
-            width: 100%;
-            max-width: 400px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            padding: 40px 30px;
-        }
-
-        .login-container h1 {
-            font-weight: 700;
-            font-size: 2rem;
-            color: #4a4a4a;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            font-size: 0.9rem;
-            margin-bottom: 6px;
-            color: #555;
-            font-weight: 600;
-        }
-
-        input[type="email"],
-        input[type="password"] {
-            padding: 12px 15px;
-            margin-bottom: 20px;
-            border: 1.8px solid #ccc;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        input[type="email"]:focus,
-        input[type="password"]:focus {
-            border-color: #667eea;
-            outline: none;
-        }
-
-        .remember-me {
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            color: #555;
-            font-size: 0.9rem;
-        }
-
-        .remember-me input[type="checkbox"] {
-            margin-right: 10px;
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-
-        button[type="submit"] {
-            background: #667eea;
-            color: white;
-            font-size: 1.1rem;
-            padding: 14px 0;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        button[type="submit"]:hover {
-            background: #5a6cdc;
-            box-shadow: 0 6px 20px rgba(90, 108, 220, 0.6);
-        }
-
-        .links {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-        }
-
-        .links a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .links a:hover {
-            color: #4a54e1;
-            text-decoration: underline;
-        }
-
-        .error-message {
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-            color: #e74c3c;
-            font-weight: 600;
-            text-align: center;
-        }
-
-        @media (max-width: 400px) {
-            .login-container {
-                padding: 30px 20px;
-                border-radius: 10px;
-            }
-        }
-    </style>
 </head>
+
 <body>
-<div class="login-container">
-    <h1>Login</h1>
-
-    @if ($errors->any())
-        <div class="error-message">
-            <ul style="list-style:none;">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-            </ul>
+    <div class="container">
+        <div class="form-box login">
+            <form action="{{ route('loginUser') }}" method="POST" encrypt="multipart/form-data">
+                @csrf
+                <h1>login</h1>
+                <div class="input-box">
+                    <input type="text"class="form-control form-control-lg @error('email') is-invalid @enderror"
+                        name="email" placeholder="Email" value="{{ old('email') }}">
+                    <i class='bx bxs-user'></i>
+                    @error('email')
+                        <script>
+                            const ErrorEmail = '{{ $message }}';
+                        </script>
+                    @enderror
+                </div>
+                <div class="input-box">
+                    <input type="password" class="form-control form-control-lg @error('password') is-invalid @enderror"
+                        id="password" name="password" placeholder="Password" aria-label="Password"
+                        value="{{ old('password') }}">
+                    <i class="fa fa-eye position-absolute" id="togglePassword"></i>
+                    @error('password')
+                        <script>
+                            const ErrorPassword = '{{ $message }}';
+                        </script>
+                    @enderror
+                </div>
+                <div class="form-options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember" name="remember" />
+                        <label for="remember" style="margin:0; cursor:pointer;">Remember Me</label>
+                    </div>
+                    <div class="forgot-link">
+                        <a href="#" id="forgot-link">Forgot Password?</a>
+                    </div>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
         </div>
-    @endif
-
-    <form method="POST" action="{{ route('loginUser') }}">
-        @csrf
-
-        <label for="email">Email Address</label>
-        <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus placeholder="you@example.com" />
-
-        <label for="password">Password</label>
-        <input id="password" type="password" name="password" required placeholder="********" />
-
-        <div class="remember-me">
-            <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }} />
-            <label for="remember" style="margin:0; cursor:pointer;">Remember Me</label>
+        <div class="form-box forgot">
+            <form action="{{ route('forgot_password_act') }}" method="POST">
+                @csrf
+                <h1>Forgot Password</h1>
+                <div class="input-box">
+                    <input type="email" name="email" class="form-control" placeholder="Email">
+                    <i class='bx bxs-envelope'></i>
+                </div>
+                @error('email')
+                    <script>
+                        const ErrorEmail = '{{ $message }}';
+                    </script>
+                @enderror
+                <button type="submit" class="btn">Send Reset Link</button>
+            </form>
         </div>
-
-        <button type="submit">Sign In</button>
-
-        <div class="links">
-            @if (Route::has('password.request'))
-                <a href="{{ route('password.request') }}">Forgot Password?</a>
-            @endif
-            @if (Route::has('register'))
-                <a href="{{ route('register') }}">Register</a>
-            @endif
+        <div class="toggle-box">
+            <div class="toggle-panel toggle-left">
+                <h1>SELAMAT DATANG DI</h1>
+                <h2>APLIKASI PINTASI</h2>
+                <p>Mitra Bidan untuk MPASI dan Pemantauan Bayi!</p>
+            </div>
+            <div class="toggle-panel toggle-right">
+                <h1>SELAMAT DATANG DI</h1>
+                <h2>APLIKASI PINTASI</h2>
+                <p>Mitra Bidan untuk MPASI dan Pemantauan Bayi!</p>
+                <button class="btn login-btn">Login</button>
+            </div>
         </div>
-    </form>
-</div>
+    </div>
+    <script src="{{ asset('assets/js/script.js') }}"></script>
 </body>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#password');
 
+    togglePassword.addEventListener('click', function(e) {
+        // Toggle the type attribute
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+
+        // Toggle the eye icon
+        this.classList.toggle('fa-eye-slash');
+    });
+</script>
+
+<script>
+    if (typeof ErrorEmail !== 'undefined' || typeof ErrorPassword !== 'undefined' || typeof AuthError !== 'undefined') {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-right',
+            iconColor: 'red',
+            customClass: {
+                popup: 'colored-toast swal2-icon-error',
+            },
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+        })
+        if (typeof ErrorEmail !== 'undefined') {
+            Toast.fire({
+                icon: 'warning',
+                title: ErrorEmail
+            });
+        } else if (typeof ErrorPassword !== 'undefined') {
+            Toast.fire({
+                icon: 'warning',
+                title: ErrorPassword
+            });
+        } else if (typeof AuthError !== 'undefined') {
+            Toast.fire({
+                icon: 'warning',
+                title: AuthError
+            });
+        }
+    }
+</script>
+
+@if ($message = Session::get('message'))
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            title: "{{ $message }}",
+            toast: true,
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+        });
+    </script>
+@endif
+
+@if ($message = Session::get('failed'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: "{{ $message }}",
+            toast: true,
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+        });
+    </script>
+@endif
+
+@if ($message = Session::get('success'))
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-right',
+            iconColor: 'green',
+            customClass: {
+                popup: 'colored-toast',
+            },
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+        })
+        Toast.fire({
+            icon: 'success',
+            title: "{{ $message }}"
+        });
+    </script>
+@endif
+
+<script>
+    if (typeof ErrorEmail !== 'undefined') {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-right',
+            iconColor: 'white',
+            customClass: {
+                popup: 'colored-toast swal2-icon-error',
+            },
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+        })
+        if (typeof ErrorEmail !== 'undefined') {
+            Toast.fire({
+                icon: 'warning',
+                title: ErrorEmail,
+            });
+        }
+    }
+</script>
