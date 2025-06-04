@@ -9,7 +9,6 @@ class Resep extends Model
     protected $fillable = [
         'nama_resep',
         'langkah',
-        'jumlah_porsi',
         'min_usia',
         'max_usia',
         'total_kalori',

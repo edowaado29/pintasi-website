@@ -84,6 +84,20 @@
                         <h5 style="font-weight: 500; font-size: 1.15rem;">{{ $bayis->ibu->nama_ibu ?? '-' }}</h5>
                     </div>
                 </div>
+                @if ($bayis->perkembangan_motorik->count())
+                    <div class="row mt-3 pb-3">
+                        <div class="col-12" style="padding-left: 60px;">
+                            <h5 style="font-weight: 500; font-size: 1.15rem;">Perkembangan Motorik yang Dicapai:</h5>
+                            <ul>
+                                @foreach ($bayis->perkembangan_motorik as $pm)
+                                    <li>
+                                        {{ $pm->motorik->capaian_motorik ?? '-' }}
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                @endif
                 @if ($bayis->pemeriksaan)
                     <div class="row mt-3 pb-3">
                         <div class="col-4" style="padding-left: 100px;">
@@ -114,36 +128,39 @@
     </main>
 
     <style>
-.btn-group-custom {
-    display: flex;
-    background: #e0e0e0;
-    border-radius: 16px;
-    box-shadow: 2px 2px 8px #eee;
-    overflow: hidden;
-    min-width: 320px;
-    align-items: stretch;
-}
-.btn-kategori {
-    flex: 1;
-    border: none;
-    background: transparent;
-    font-weight: bold;
-    font-size: 1.2rem;
-    color: #222;
-    padding: 10px 0;
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s;
-    outline: none;
-}
-.btn-kategori:not(:last-child) {
-    border-right: 2px solid #222;
-}
-.btn-kategori.active {
-    background: #fff;
-    color: #222;
-    box-shadow: 0 2px 8px #ccc;
-}
-</style>
+        .btn-group-custom {
+            display: flex;
+            background: #e0e0e0;
+            border-radius: 16px;
+            box-shadow: 2px 2px 8px #eee;
+            overflow: hidden;
+            min-width: 320px;
+            align-items: stretch;
+        }
+
+        .btn-kategori {
+            flex: 1;
+            border: none;
+            background: transparent;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #222;
+            padding: 10px 0;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            outline: none;
+        }
+
+        .btn-kategori:not(:last-child) {
+            border-right: 2px solid #222;
+        }
+
+        .btn-kategori.active {
+            background: #fff;
+            color: #222;
+            box-shadow: 0 2px 8px #ccc;
+        }
+    </style>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -305,7 +322,7 @@
             if (kategori === 'tb') return jenisKelamin === 'Laki-laki' ? datatb_lk : datatb_pr;
             if (kategori === 'imt') return jenisKelamin === 'Laki-laki' ? dataimt_lk : dataimt_pr;
         }
-        
+
         let kategori = 'bb';
         let chart;
 

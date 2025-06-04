@@ -81,17 +81,14 @@
                     <div class="col-3" style="padding-left: 60px;">
                         <h5 style="font-weight: 500; font-size: 1.15rem;">Total Karbohidrat</h5>
                         <h5 style="font-weight: 500; font-size: 1.15rem;">Total Serat</h5>
-                        <h5 style="font-weight: 500; font-size: 1.15rem;">Jumlah Porsi Makan</h5>
                     </div>
                     <div class="col-1">
-                        <h5 style="font-weight: 500; font-size: 1.15rem;">:</h5>
                         <h5 style="font-weight: 500; font-size: 1.15rem;">:</h5>
                         <h5 style="font-weight: 500; font-size: 1.15rem;">:</h5>
                     </div>
                     <div class="col-3">
                         <h5 style="font-weight: 500; font-size: 1.15rem;">{{ $reseps->total_karbohidrat }} g</h5>
                         <h5 style="font-weight: 500; font-size: 1.15rem;">{{ $reseps->total_serat }} g</h5>
-                        <h5 style="font-weight: 500; font-size: 1.15rem;">{{ $reseps->jumlah_porsi }} Kali</h5>
                     </div>
                 </div>
                 <div class="row mt-3 pb-3">

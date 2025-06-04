@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('nama_resep');
             $table->text('langkah');
-            $table->integer('jumlah_porsi');
             $table->integer('min_usia');
             $table->integer('max_usia');
             $table->double('total_kalori');

@@ -82,10 +82,10 @@
                                                     <p class="text-x font-weight-bold mb-0">{{ $ibu->nama_ibu ?? '-' }}
                                                 </td>
                                                 <td>
-                                                    <p class="text-x font-weight-bold mb-0">{{ $ibu->telepon }}
+                                                    <p class="text-x font-weight-bold mb-0">{{ $ibu->telepon ?? '-' }}
                                                 </td>
                                                 <td>
-                                                    <p class="text-x font-weight-bold mb-0">{{ $ibu->alamat }}
+                                                    <p class="text-x font-weight-bold mb-0">{{ $ibu->alamat ?? '-' }}
                                                 </td>
                                                 <td class="align-middle text-sm">
                                                     <form action="" method="POST" id="delete-form">
@@ -96,7 +96,7 @@
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="button" class="btn btn-sm btn-danger"
-                                                            onclick="confirmDelete('{{ $ibu->id }}')">HAPUS</button>
+                                                            onclick="confirmDelete('{{ $ibu->id }}')">HAPUS</kutton>
                                                     </form>
                                                 </td>
                                             </tr>
@@ -117,7 +117,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('assets/js/search.js') }}"></script>
     <script>
-        const baseUrl = "{{ url('k/hapus_ibu') }}";
+        const baseUrl = "{{ url('b/hapus_ibu') }}";
 
         function confirmDelete(id) {
             Swal.fire({

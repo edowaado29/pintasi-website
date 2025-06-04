@@ -34,7 +34,6 @@ class ResepController extends Controller
         $request->validate([
             'nama_resep' => 'required|string|max:255',
             'langkah' => 'required|string',
-            'jumlah_porsi' => 'required|integer',
             'min_usia' => 'required|integer',
             'max_usia' => 'required|integer',
             'gambar_resep' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
@@ -45,7 +44,6 @@ class ResepController extends Controller
         ], [
             'nama_resep.required' => 'Nama Resep tidak boleh kosong.',
             'langkah.required' => 'Langkah tidak boleh kosong.',
-            'jumlah_porsi.required' => 'Jumlah Porsi tidak boleh kosong.',
             'min_usia.required' => 'Usia minimum tidak boleh kosong.',
             'max_usia.required' => 'Usia maksimum tidak boleh kosong.',
             'gambar_resep.image' => 'File yang diunggah harus berupa gambar.',
@@ -80,7 +78,6 @@ class ResepController extends Controller
         $reseps = Resep::create([
             'nama_resep' => $request->nama_resep,
             'langkah' => $request->langkah,
-            'jumlah_porsi' => $request->jumlah_porsi,
             'min_usia' => $request->min_usia,
             'max_usia' => $request->max_usia,
             'total_kalori' => $total_kalori,
@@ -117,7 +114,6 @@ class ResepController extends Controller
         $request->validate([
             'nama_resep' => 'required|string|max:255',
             'langkah' => 'required|string',
-            'jumlah_porsi' => 'required|integer',
             'min_usia' => 'required|integer',
             'max_usia' => 'required|integer',
             'gambar_resep' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
@@ -159,7 +155,6 @@ class ResepController extends Controller
         $reseps->update([
             'nama_resep' => $request->nama_resep,
             'langkah' => $request->langkah,
-            'jumlah_porsi' => $request->jumlah_porsi,
             'min_usia' => $request->min_usia,
             'max_usia' => $request->max_usia,
             'total_kalori' => $total_kalori,

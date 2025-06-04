@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bayi;
 use App\Models\Ibu;
+use App\Models\PerkembanganMotorik;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -25,7 +26,7 @@ class BayiController extends Controller
     {
         $bayis = Bayi::with(['ibu', 'pemeriksaans' => function ($q) {
             $q->orderBy('tgl_periksa');
-        }])->findOrFail($id);
+        }, 'perkembangan_motorik.motorik'])->findOrFail($id);
 
         $tglLahir = Carbon::parse($bayis->tanggal_lahir);
 
@@ -169,7 +170,7 @@ class BayiController extends Controller
     //kader
     public function k_bayi(): View
     {
-        $bayis = Bayi::latest();
+        $bayis = Bayi::all();
         return view('kader.bayi.main-bayi', compact('bayis'));
     }
 
@@ -177,7 +178,7 @@ class BayiController extends Controller
     {
         $bayis = Bayi::with(['ibu', 'pemeriksaans' => function ($q) {
             $q->orderBy('tgl_periksa');
-        }])->findOrFail($id);
+        }, 'perkembangan_motorik.motorik'])->findOrFail($id);
 
         $tglLahir = Carbon::parse($bayis->tanggal_lahir);
 

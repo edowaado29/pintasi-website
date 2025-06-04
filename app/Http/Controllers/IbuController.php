@@ -146,7 +146,7 @@ class IbuController extends Controller
     //kader
     public function k_ibu()
     {
-        $ibus = Ibu::Latest();
+        $ibus = Ibu::all();
         return view('kader.ibu.main-ibu', compact('ibus'));
     }
 

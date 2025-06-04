@@ -151,7 +151,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     Swal.fire({
-        icon: 'success',
+        icon: 'green',
         title: "{{ $message }}",
         toast: true,
         position: 'top-right',

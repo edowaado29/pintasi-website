@@ -107,25 +107,6 @@
                                                     </script>
                                                 @enderror
                                             </div>
-                                            {{-- <div class="mb-3">
-                                                <label for="jumlah_porsi" class="form-label text-secondary fs-6">Porsi
-                                                    Makan<span class="text-danger">*</span></label>
-                                                <select class="form-control @error('jumlah_porsi') is-invalid @enderror"
-                                                    id="jumah_porsi" name="jumlah_porsi">
-                                                    <option value="">Jumlah Porsi</option>
-                                                    <option value="3"
-                                                        {{ old('jumlah_porsi') == '3' ? 'selected' : '' }}>3</option>
-                                                    <option value="2"
-                                                        {{ old('jumlah_porsi') == '2' ? 'selected' : '' }}>2</option>
-                                                    <option value="1"
-                                                        {{ old('jumlah_porsi') == '1' ? 'selected' : '' }}>1</option>
-                                                </select>
-                                                @error('jumlah_porsi')
-                                                    <script>
-                                                        const ErrorJumlah = '{{ $message }}';
-                                                    </script>
-                                                @enderror
-                                            </div> --}}
                                             <div class="mb-3">
                                                 <label for="min_usia" class="form-label text-secondary fs-6">Minimal
                                                     Usia (bulan)<span class="text-danger">*</span></label>
@@ -334,7 +315,7 @@
     </script>
 
     <script>
-        if (typeof ErrorNama !== 'undefined' || typeof ErrorLangkah !== 'undefined' || typeof ErrorJumlah !== 'undefined' ||
+        if (typeof ErrorNama !== 'undefined' || typeof ErrorLangkah !== 'undefined' || 
             typeof ErrorPorsi !== 'undefined' ||
             typeof ErrorMin !== 'undefined' || typeof ErrorMax !== 'undefined' || typeof ErrorBahan !== 'undefined' ||
             typeof ErrorBerat !== 'undefined' || typeof ErrorGambar !== 'undefined'
@@ -363,11 +344,6 @@
                 Toast.fire({
                     icon: 'warning',
                     title: ErrorLangkah,
-                });
-            } else if (typeof ErrorJumlah !== 'undefined') {
-                Toast.fire({
-                    icon: 'warning',
-                    title: ErrorJumlah,
                 });
             } else if (typeof ErrorMin !== 'undefined') {
                 Toast.fire({

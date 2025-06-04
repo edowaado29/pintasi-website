@@ -51,14 +51,14 @@
                                     <input class="form-control" id="search" type="text"
                                         placeholder="Masukkan kata kunci ...">
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12 px-4">
+                                {{-- <div class="col-lg-6 col-md-6 col-sm-12 px-4">
                                     <form action="{{ route('b/import_bahan') }}" method="POST"
                                         enctype="multipart/form-data" class="d-flex align-items-center">
                                         @csrf
                                         <input type="file" name="file" class="form-control form-control-sm me-2">
                                         <button type="submit" class="btn btn-sm bg-gradient-primary">Import Bahan</button>
                                     </form>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="card-body px-0 pt-0 pb-2 mt-3">

@@ -28,10 +28,17 @@ class Bayi extends Model
         return $this->belongsTo(Ibu::class, 'id_ibu');
     }
 
-    public function pemeriksaan() {
+    public function pemeriksaan()
+    {
         return $this->hasOne(Pemeriksaan::class, 'id_bayi')->latestOfMany('tgl_periksa');
     }
-    public function pemeriksaans() {
+    public function pemeriksaans()
+    {
         return $this->hasMany(Pemeriksaan::class, 'id_bayi');
+    }
+
+    public function perkembangan_motorik()
+    {
+        return $this->hasMany(PerkembanganMotorik::class, 'id_bayi');
     }
 }
